@@ -13,3 +13,4 @@
 ## Development Method
 
 ## Project Tracking
+We are using Github's built-in Automated Kanban Project tracking features.

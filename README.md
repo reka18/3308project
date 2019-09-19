@@ -13,15 +13,15 @@ We wanted a project that uses modern languages and frameworks to accomplish a ty
 
 ## Risks to Project Completion
 
--Tool issues
+  - Tool issues
 
--Framework confusion
+  - Framework confusion
 
--Competing Priorities
+  - Competing Priorities
 
--Cascading complexity
+  - Cascading complexity
 
--Poor management
+  - Poor management
 
 ## Mitigation Strategy
 Keep is simple stupid. Limit our feature implementations to what is easily achieved and do not add features until existing ones are fully functional.  Use agile methodologies such as sprints, stories, 15 min meetings, etc to achieve productive iterations and add features.

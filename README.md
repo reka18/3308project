@@ -12,10 +12,15 @@ Social Media for polite people. We are building this from the ground up to addre
 We wanted a project that uses modern languages and frameworks to accomplish a type of product that we could reasonably see ourselves working on in the real world.
 
 ## Risks to Project Completion
+
 -Tool issues
+
 -Framework confusion
+
 -Competing Priorities
+
 -Cascading complexity
+
 -Poor management
 
 ## Mitigation Strategy

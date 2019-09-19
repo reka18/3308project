@@ -8,7 +8,7 @@
 ## Vision Statement
 Social Media for polite people. We are building this from the ground up to address the problems that Youtube, Facebook, and Twitter are plagued with. Donald Trump is not invited.
 
-##Motivation
+## Motivation
 We wanted a project that uses modern languages and frameworks to accomplish a type of product that we could reasonably see ourselves working on in the real world.
 
 ## Risks to Project Completion

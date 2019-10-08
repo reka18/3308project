@@ -3,13 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<!--jquery 3.2.1 needs to be first on the import list the 1.12.1 -->
-<script src="bower_components/jquery/dist/jquery.js"></script>
-<script src="bower_components/jquery-ui/jquery-ui.js"></script>
-<link rel="stylesheet" type="text/css" href="bower_components/jquery-ui/themes/base/jquery-ui.css">
-
-<script src="bower_components/bootstrap/dist/js/bootstrap.bundle.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="source/vendors/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<link rel="stylesheet" type="text/css" href="source/vendors/node_modules/bootstrap/dist/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="source/css/index.css">
 
 
@@ -24,17 +19,18 @@
     <div class="login-picture">
       <img src="/images/roboto.png" class="login-image">
     </div>
-    <form class="modal-content animate" action="/home.html">
+
+    <form class="modal-content animate" action="/home.html" method="post">
 
       <div class="container" style="background-color:green;">
-        <label for="uname"><b>Username</b></label><br>
-        <input type="text" placeholder="Enter Username" name="uname" required><br>
-        <label for="psw"><b>Password</b></label><br>
-        <input type="password" placeholder="Enter Password" name="psw" required><br>
+        <label class = "form-labels" for="username"><b>Username</b></label><br>
+        <input class = "form-fields" type="text" placeholder="Enter Username" name="username" required><br>
+        <label class = "form-labels" for="password"><b>Password</b></label><br>
+        <input class = "form-fields" ype="password" placeholder="Enter Password" name="password" required><br>
       </div>
          
       <div class="container">
-        <button type="submit">Login</button>
+        <button type="submit">Login</button><br>
         <br>
         <input type="checkbox" checked="checked" name="remember"> Remember me
         <br>

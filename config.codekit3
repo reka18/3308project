@@ -101,12 +101,52 @@
 		"oF": 0,
 		"oS": 3
 		},
+	"/source/images/images.txt": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/build/images/images.txt",
+		"oF": 0
+		},
 	"/source/index.html": {
 		"cB": 0,
 		"ft": 8192,
 		"hM": 0,
 		"oA": 0,
 		"oAP": "/build/index.html",
+		"oF": 0
+		},
+	"/source/javascript/javascript.txt": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/build/javascript/javascript.txt",
+		"oF": 0
+		},
+	"/source/kit/kit.txt": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/build/kit/kit.txt",
+		"oF": 0
+		},
+	"/source/scss/scss.txt": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/build/scss/scss.txt",
+		"oF": 0
+		},
+	"/source/vendors/vendors.txt": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/build/vendors/vendors.txt",
 		"oF": 0
 		},
 	"/static/index.html": {

@@ -109,6 +109,17 @@
 		"oAP": "/build/images/images.txt",
 		"oF": 0
 		},
+	"/source/images/roboto.png": {
+		"ft": 32768,
+		"iS": 270739,
+		"oA": 0,
+		"oAP": "/build/images/roboto.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
 	"/source/index.html": {
 		"cB": 0,
 		"ft": 8192,

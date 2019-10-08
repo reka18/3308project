@@ -19,37 +19,32 @@
 <body>
 
 <div id="page-wrapper" class = "page-wrapper">
-    
-    <div id ="login-container" class ="login-container">
-      <form class="modal-content animate" action="/home.html">
+  <div id ="login-container" class ="login-container">
 
-
-        <div class="container">
-          <label for="uname"><b>Username</b></label><br>
-          <input type="text" placeholder="Enter Username" name="uname" required><br>
-          <label for="psw"><b>Password</b></label><br>
-          <input type="password" placeholder="Enter Password" name="psw" required><br>
-        </div>
-
-         <div class="container">
-          <button type="submit">Login</button>
-          <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-          </label>
-        </div>
-        <br>
-       
-
-        <div class="container">
-          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-          <span class="psw">Forgot <a href="#">password?</a></span>
-        </div>
-      </form>
-</div>
-
+    <div class="login-picture">
+      <img src="/images/roboto.png" class="login-image">
     </div>
-</div>
+    <form class="modal-content animate" action="/home.html">
 
+      <div class="container" style="background-color:green;">
+        <label for="uname"><b>Username</b></label><br>
+        <input type="text" placeholder="Enter Username" name="uname" required><br>
+        <label for="psw"><b>Password</b></label><br>
+        <input type="password" placeholder="Enter Password" name="psw" required><br>
+      </div>
+         
+      <div class="container">
+        <button type="submit">Login</button>
+        <br>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+        <br>
+        <br>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+      </div>
+    </form>
+    
+</div>
+</div>
 
 </body>
 </html>

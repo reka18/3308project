@@ -1,0 +1,53 @@
+
+    html
+    {
+        background-color: #666;
+        margin:0;
+        padding: 10px;
+
+    }
+
+    body
+    {
+        background-color: #666;
+        margin: 0;
+        height: 100%;
+        padding: 10px;
+    }
+
+
+    .page-wrapper
+    {
+        background-color: yellow;
+        padding: 10px;
+        margin: 0 0 auto;
+        height: 100%;
+        width: 50%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 20%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+    
+
+
+    }
+
+    .login-container
+    {
+        background-color: orange;
+        display:flex;   
+        width: 50%;
+        height: 100%;
+        align-items: stretch;
+       
+    }
+
+    .container
+    {
+        padding: 10px;
+    }

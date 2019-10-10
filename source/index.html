@@ -3,7 +3,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<script src="source/vendors/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" href="vendors/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
 <link rel="stylesheet" type="text/css" href="source/vendors/node_modules/bootstrap/dist/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="source/css/index.css">
 
@@ -20,17 +26,17 @@
       <img src="/images/roboto.png" class="login-image">
     </div>
 
-    <form class="modal-content animate" action="/home.html" method="post">
+    <form id="login-form" class="modal-content animate" action="/home.html" method="post">
 
       <div class="container" style="background-color:green;">
         <label class = "form-labels" for="username"><b>Username</b></label><br>
-        <input class = "form-fields" type="text" placeholder="Enter Username" name="username" required><br>
+        <input id = "user-field" class = "form-fields" type="text" placeholder="Enter Username" name="username" required><br>
         <label class = "form-labels" for="password"><b>Password</b></label><br>
-        <input class = "form-fields" ype="password" placeholder="Enter Password" name="password" required><br>
+        <input id = "password-field" class = "form-fields" type="password" placeholder="Enter Password" name="password" required><br>
       </div>
          
-      <div class="container">
-        <button type="submit">Login</button><br>
+      <div id="login-controllers" class="container">
+        <button id="login-button" v-on:click="greet" type="submit">Login</button><br>
         <br>
         <input type="checkbox" checked="checked" name="remember"> Remember me
         <br>
@@ -38,9 +44,13 @@
         <span class="psw">Forgot <a href="#">password?</a></span>
       </div>
     </form>
+
     
 </div>
 </div>
 
+
 </body>
 </html>
+
+<script src="source/javascript/index.js"></script>

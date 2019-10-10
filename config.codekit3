@@ -150,6 +150,17 @@
 		"oAP": "/build/index.html",
 		"oF": 0
 		},
+	"/source/javascript/index.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/build/javascript/index-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
 	"/source/javascript/javascript.txt": {
 		"cB": 0,
 		"ft": 8192,
@@ -202,6 +213,14 @@
 		"hM": 0,
 		"oA": 0,
 		"oAP": "/build/vendors/vendors.txt",
+		"oF": 0
+		},
+	"/source/views/user.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/build/views/user.html",
 		"oF": 0
 		},
 	"/static/index.html": {
@@ -681,7 +700,7 @@
 		},
 	"esLintConfigFileHandlingType": 0,
 	"esLintECMAVersion": 7,
-	"esLintEnvironmentsMask": 1,
+	"esLintEnvironmentsMask": 8209,
 	"esLintRules": {
 		"accessor-pairs": {
 			"active": 0,
@@ -1000,7 +1019,7 @@
 			"optionString": "{'allowParens': true}"
 			},
 		"no-console": {
-			"active": 1,
+			"active": 0,
 			"optionString": "{'allow': ['warn', 'error']}"
 			},
 		"no-const-assign": {

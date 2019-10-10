@@ -123,6 +123,16 @@
 		"oF": 0,
 		"oS": 3
 		},
+	"/source/css/user-account.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "/build/css/user-account-min.css",
+		"oF": 0,
+		"oS": 3
+		},
 	"/source/images/images.txt": {
 		"cB": 0,
 		"ft": 8192,
@@ -168,6 +178,17 @@
 		"oA": 0,
 		"oAP": "/build/javascript/javascript.txt",
 		"oF": 0
+		},
+	"/source/javascript/user-account.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/build/javascript/user-account-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
 		},
 	"/source/kit/kit.txt": {
 		"cB": 0,
@@ -215,12 +236,12 @@
 		"oAP": "/build/vendors/vendors.txt",
 		"oF": 0
 		},
-	"/source/views/user.html": {
+	"/source/views/user-account.html": {
 		"cB": 0,
 		"ft": 8192,
 		"hM": 0,
 		"oA": 0,
-		"oAP": "/build/views/user.html",
+		"oAP": "/build/views/user-account.html",
 		"oF": 0
 		},
 	"/static/index.html": {

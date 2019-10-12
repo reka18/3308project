@@ -8,7 +8,7 @@ $( "#login-form" ).submit(function(event)
   console.log("redirecting...");
    
   //window.location.replace("https://peanuts.com");
-  window.location.replace('/views/user-account.html');
+  window.location.replace('/views/user_account.html');
 });
 
 

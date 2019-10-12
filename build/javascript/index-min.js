@@ -1,0 +1,1 @@
+console.log("index.js loaded"),$("#login-form").submit(function(o){o.preventDefault(),console.log("redirecting..."),window.location.replace("/views/user_account.html")});

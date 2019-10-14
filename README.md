@@ -1,33 +1,74 @@
-# Social Media Website
+## SETUP DATABASE
+Install postgres v9.6 locally. Make sure you also
+have 9.6 version of PSQL.
 
-## Bitwise Buffs
-  - Graham Dominick
-  - Rodrigo Garcia
-  - Reagan Karnes
-  
-## Vision Statement
-Social Media for polite people. We are building this from the ground up to address the problems that Youtube, Facebook, and Twitter are plagued with. Donald Trump is not invited.
+### Mac
+##### install
+```
+brew install postgresql@9.6 libpq
+echo 'export PATH="/user/local/opt/postgresql@9.6/bin:$PATH"' >> <your rc file>
+```
+##### start service
+```
+brew services start postgresql@9.6
+```
+##### enter PSQL
+```
+psql postgres
+    CREATE USER <your user name> CREATEDB;
+    \q
+```
+Note this may say your username already exists. That's fine.
+##### stop service
+```
+brew service stop postgresql@9.6
+```
+##### edit pg_hba.conf
+```
+vim /usr/local/var/postgresql@9.6/pg_hba.conf
+```
+Delete the following
+```
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
 
-## Motivation
-We wanted a project that uses modern languages and frameworks to accomplish a type of product that we could reasonably see ourselves working on in the real world.
+ # "local" is for Unix domain socket connections only
+  local all            all                                     trust
+ # IPv4 local connections:
+  host  all            all            127.0.0.1/32            trust
+ # IPv6 local connections:
+  host  all            all            ::1/128                 trust
+```
+And add this
+```
+# TYPE  DATABASE        USER            ADDRESS 
+  host  all             <username>      127.0.0.1/32            trust
+  host  all             <username>      ::1/128                 trust
+  local all             <username>                                ident
+```
+##### start service
+```
+brew services start postgresql@9.6
+```
 
-## Risks to Project Completion
+## CREATE TABLES
+Create a local postgres database and execute the following SQL code
+```create type gender as enum ('M', 'F', 'O');
+   
+   create extension if not exists pgcrypto;
+   
+   create table user_account (
+       id SERIAL PRIMARY KEY,
+       age INT,
+       firstName TEXT,
+       lastName TEXT,
+       email TEXT UNIQUE NOT NULL,
+       gender gender NOT NULL,
+       public BOOLEAN,
+       joinDate DATE,
+       active BOOLEAN,
+       password TEXT
+   );
+```
 
-  - Tool issues
-
-  - Framework confusion
-
-  - Competing Priorities
-
-  - Cascading complexity
-
-  - Poor management
-
-## Mitigation Strategy
-Keep is simple stupid. Limit our feature implementations to what is easily achieved and do not add features until existing ones are fully functional.  Use agile methodologies such as sprints, stories, 15 min meetings, etc to achieve productive iterations and add features.
-
-## Development Method
-Kanban & Scrum
-
-## Project Tracking
-We are using Github's built-in Automated Kanban Project tracking features.
+## USAGE
+From root directory, type `go run *.go`

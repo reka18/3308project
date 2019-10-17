@@ -52,7 +52,8 @@ brew services start postgresql@9.6
 
 ## CREATE TABLES
 Create a local postgres database and execute the following SQL code
-```create type gender as enum ('M', 'F', 'O');
+```
+   create type gender as enum ('M', 'F', 'O');
    
    create extension if not exists pgcrypto;
    

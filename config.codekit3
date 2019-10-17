@@ -9,6 +9,14 @@
 	],
 "creatorBuild": "31491",
 "files": {
+	"/.gitignore": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/build/.gitignore",
+		"oF": 0
+		},
 	"/.idea": {
 		"ft": 65536,
 		"oA": 1,
@@ -19,14 +27,6 @@
 		"ft": 65536,
 		"oA": 1,
 		"oAP": "/build/build",
-		"oF": 0
-		},
-	"/documentation/'Website Scheme.pdf'": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/build/documentation/'Website Scheme.pdf'",
 		"oF": 0
 		},
 	"/documentation/database.mm": {
@@ -43,7 +43,7 @@
 		"oA": 0,
 		"oAP": "/build/documentation/social_networking_model.gif",
 		"oF": 0,
-		"opt": 1
+		"opt": 0
 		},
 	"/documentation/UfoS9.png": {
 		"ft": 32768,
@@ -52,7 +52,7 @@
 		"oAP": "/build/documentation/UfoS9.png",
 		"oF": 0,
 		"oIPL": 0,
-		"opt": 1,
+		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
@@ -64,10 +64,12 @@
 		"oAP": "/build/documentation/Website Features.mm",
 		"oF": 0
 		},
-	"/node_modules": {
-		"ft": 65536,
-		"oA": 2,
-		"oAP": "/build/node_modules",
+	"/documentation/Website Scheme.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/build/documentation/Website Scheme.pdf",
 		"oF": 0
 		},
 	"/package-lock.json": {
@@ -148,7 +150,18 @@
 		"oAP": "/build/images/roboto.png",
 		"oF": 0,
 		"oIPL": 0,
-		"opt": 1,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"/source/images/socmedoverload.png": {
+		"ft": 32768,
+		"iS": 227431,
+		"oA": 0,
+		"oAP": "/build/images/socmedoverload.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
@@ -206,12 +219,6 @@
 		"oAP": "/build/scss/scss.txt",
 		"oF": 0
 		},
-	"/source/vendors/node_modules": {
-		"ft": 65536,
-		"oA": 2,
-		"oAP": "/build/vendors/node_modules",
-		"oF": 0
-		},
 	"/source/vendors/package-lock.json": {
 		"ft": 524288,
 		"oA": 1,
@@ -236,42 +243,29 @@
 		"oAP": "/build/vendors/vendors.txt",
 		"oF": 0
 		},
-	"/source/views/user-account.html": {
+	"/source/views/login.html": {
 		"cB": 0,
 		"ft": 8192,
 		"hM": 0,
 		"oA": 0,
-		"oAP": "/build/views/user-account.html",
+		"oAP": "/build/views/login.html",
 		"oF": 0
 		},
-	"/static/index.html": {
+	"/source/views/user_account.html": {
 		"cB": 0,
 		"ft": 8192,
 		"hM": 0,
 		"oA": 0,
-		"oAP": "/build/static/index.html",
+		"oAP": "/build/views/user_account.html",
 		"oF": 0
 		},
-	"/static/resources/socmedoverload.png": {
-		"ft": 32768,
-		"iS": 227431,
+	"/templates/user_landing.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
 		"oA": 0,
-		"oAP": "/build/static/resources/socmedoverload.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 1,
-		"oT": 1,
-		"q": 100
-		},
-	"/static/stylesheets/main.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "/build/static/stylesheets/main-min.css",
-		"oF": 0,
-		"oS": 3
+		"oAP": "/build/templates/user_landing.html",
+		"oF": 0
 		}
 	},
 "hooks": [

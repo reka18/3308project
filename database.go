@@ -27,8 +27,8 @@ func Database(usage string) *sql.DB {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println(fmt.Sprintf("Database connection established. "+
-		"Attempting to %s.", usage))
+	log.Printf("Database connection established. "+
+		"Attempting to %s.", usage)
 	return db
 }
 
@@ -55,9 +55,47 @@ func AddNewUserAccount(age int, firstname string, lastname string,
 	if err != nil {
 		DatabaseErrorHandler(err)
 	}
-	log.Println(fmt.Sprintf("Successfully added user <%s> to Database.", email))
+	log.Printf("Successfully added user <%s> to Database.", email)
 
 	// EVERY DATABASE USAGE MUST FINISH WITH THE DATABASE BEING CLOSED
+	defer db.Close()
+}
+
+func InitializeDatabase() {
+	db := Database("initialize database")
+	query1 := fmt.Sprintf("CREATE TYPE gender AS ENUM ('M', 'F', 'O');")
+	query2 := fmt.Sprintf("CREATE EXTENSION IF NOT EXISTS pgcrypto;")
+	query3 := fmt.Sprintf("CREATE TABLE user_account (" +
+		"id SERIAL PRIMARY KEY," +
+		"age INT," +
+		"firstName TEXT," +
+		"lastName TEXT," +
+		"email TEXT UNIQUE NOT NULL," +
+		"gender gender NOT NULL," +
+		"public BOOLEAN," +
+		"joinDate DATE," +
+		"active BOOLEAN," +
+		"password TEXT" +
+		");")
+	_, err1 := db.Query(query1)
+	if err1 != nil {
+		DatabaseErrorHandler(err1)
+	}
+	log.Printf("'gender' enum created successfully.")
+	_, err2 := db.Query(query2)
+	defer db.Close()
+
+	if err2 != nil {
+		DatabaseErrorHandler(err2)
+	}
+	log.Printf("'pgcrupto' extension created successfully.")
+	defer db.Close()
+
+	_, err3 := db.Query(query3)
+	if err3 != nil {
+		DatabaseErrorHandler(err3)
+	}
+	log.Printf("'user_account table' created successfully.")
 	defer db.Close()
 }
 

@@ -8,6 +8,8 @@ import (
 
 func main() {
 
+	InitializeDatabase()
+
 	// EXAMPLE USAGE
 	//AddNewUserAccount(40, "Rodrigo", "Garcia", "rigo.garcia@colorado.edu",
 	//	"M", true, "iamtheverymodelofthemodernmajorgeneral")
@@ -15,8 +17,8 @@ func main() {
 	//	"M", true, "abcdefghijklmnopqrstuvwxyz1234567890")
 
 	// EXAMPLE USAGE
-	result := LoginUserAccount("reagan.karnes@colorado.edu", "abcdefghijklmnopqrstuvwxyz1234567890")
-	PrintUser(result)
+	//result := LoginUserAccount("reagan.karnes@colorado.edu", "abcdefghijklmnopqrstuvwxyz1234567890")
+	//PrintUser(result)
 
 	fs := http.FileServer(http.Dir("source"))
 	http.Handle("/", fs)

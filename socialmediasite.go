@@ -1,7 +1,7 @@
 package main
 
 import (
-	//_ "github.com/lib/pq"
+	_ "github.com/lib/pq"
 	"log"
 	"net/http"
 	"os"

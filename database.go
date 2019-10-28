@@ -9,6 +9,21 @@ import (
 	"log"
 )
 
+func ResetDatabase() {
+	db := Database("reset database")
+	query := fmt.Sprintf("DROP DATABASE [IF EXISTS] socialmediasite;")
+	_, err := db.Query(query)
+	if err != nil {
+		DatabaseErrorHandler(err)
+	}
+	log.Printf("Successfully reset database.")
+	err = db.Close()
+	if err != nil {
+		DatabaseErrorHandler(err)
+	}
+	InitializeDatabase()
+}
+
 func Database(usage string) *sql.DB {
 	/*
 		THIS OPENS THE DATABASE CONNECTION. NOTE THAT
@@ -58,7 +73,10 @@ func AddNewUserAccount(age int, firstname string, lastname string,
 	log.Printf("Successfully added user <%s> to Database.", email)
 
 	// EVERY DATABASE USAGE MUST FINISH WITH THE DATABASE BEING CLOSED
-	defer db.Close()
+	err = db.Close()
+	if err != nil {
+		DatabaseErrorHandler(err)
+	}
 }
 
 func InitializeDatabase() {
@@ -77,26 +95,24 @@ func InitializeDatabase() {
 		"active BOOLEAN," +
 		"password TEXT" +
 		");")
-	_, err1 := db.Query(query1)
-	if err1 != nil {
-		DatabaseErrorHandler(err1)
+	_, err := db.Query(query1)
+	if err != nil {
+		DatabaseErrorHandler(err)
 	}
 	log.Printf("'gender' enum created successfully.")
-	_, err2 := db.Query(query2)
-	defer db.Close()
-
-	if err2 != nil {
-		DatabaseErrorHandler(err2)
+	_, err = db.Query(query2)
+	if err != nil {
+		DatabaseErrorHandler(err)
 	}
-	log.Printf("'pgcrupto' extension created successfully.")
-	defer db.Close()
-
-	_, err3 := db.Query(query3)
-	if err3 != nil {
-		DatabaseErrorHandler(err3)
+	_, err = db.Query(query3)
+	if err != nil {
+		DatabaseErrorHandler(err)
 	}
 	log.Printf("'user_account table' created successfully.")
-	defer db.Close()
+	err = db.Close()
+	if err != nil {
+		DatabaseErrorHandler(err)
+	}
 }
 
 type user struct {
@@ -134,7 +150,10 @@ func LoginUserAccount(inputEmail string, inputPassword string) user {
 	query := fmt.Sprintf("SELECT * FROM user_account WHERE email='%s' AND password='%v';",
 		inputEmail, Encrypt(inputPassword))
 	r := db.QueryRow(query)
-	defer db.Close()
+	err := db.Close()
+	if err != nil {
+		DatabaseErrorHandler(err)
+	}
 
 	var (
 		id        int
@@ -149,7 +168,7 @@ func LoginUserAccount(inputEmail string, inputPassword string) user {
 		password  string
 	)
 
-	err := r.Scan(&id, &age, &firstname, &lastname, &email, &gender, &public, &joindate, &active, &password)
+	err = r.Scan(&id, &age, &firstname, &lastname, &email, &gender, &public, &joindate, &active, &password)
 	if err != nil {
 		log.Fatal("Incorrect username or password.")
 	}

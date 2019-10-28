@@ -4,11 +4,18 @@ import (
 	_ "github.com/lib/pq"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
 
-	InitializeDatabase()
+	// RESETS THE DATABASE TO AN EMPTY STATE
+	if len(os.Args) > 1 {
+		if os.Args[1] == "--reset" {
+			ResetDatabase()
+		}
+	}
+
 
 	// EXAMPLE USAGE
 	//AddNewUserAccount(40, "Rodrigo", "Garcia", "rigo.garcia@colorado.edu",

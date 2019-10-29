@@ -32,13 +32,12 @@ func main() {
 			}
 		}
 	}
-	
+
 	fs := http.FileServer(http.Dir("source"))
 	http.Handle("/", fs)
 
 	log.Println("Listening...")
 	e := http.ListenAndServe(":3000", nil)
-
 	if e != nil {
 		log.Fatal(e)
 	}

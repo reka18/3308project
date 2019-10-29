@@ -60,6 +60,8 @@ psql postgres
 CREATE DATABASE socialmediasite;
 \q
 ```
+#### TWO WAYS TO BUILD DATABASE
+
 ##### go into the new database
 ```
 psql socialmediasite
@@ -84,6 +86,14 @@ create table user_account (
 );
 \q
 ```
+#### OR
+##### in the root directory
+```
+go build
+./SocialMediaSite --create
+```
 
 ## USAGE
-From root directory, type `go run *.go`
+From root directory, type `go run *.go` or `go build && ./SocialMediaSite`
+
+To run unit test suite, build the executable and then run `go test -v`

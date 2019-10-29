@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"testing"
 )
 
@@ -12,6 +11,7 @@ func TestDatabase(t *testing.T) {
 		t.Log("Unable to open connection.")
 		t.Fail()
 	}
+	t.Log("TestDatabase pass!")
 }
 
 func TestCreateDatabase(t *testing.T) {
@@ -25,6 +25,7 @@ func TestCreateDatabase(t *testing.T) {
 			t.Fail()
 		}
 	}
+	t.Log("TestCreateDatabase pass!")
 }
 
 func TestInitializeDatabase(t *testing.T) {
@@ -36,6 +37,7 @@ func TestInitializeDatabase(t *testing.T) {
 		t.Log("Database initialization test failed: ", e)
 		t.Fail()
 	}
+	t.Log("TestInitializeDatabase pass!")
 }
 
 func TestEncrypt(t *testing.T) {
@@ -49,8 +51,9 @@ func TestEncrypt(t *testing.T) {
 		"020302030203020302030203020305d203520352066616c73657d"
 	c := Encrypt("12345")
 	if c != v {
-		t.Error()
+		t.Fail()
 	}
+	t.Log("TestEncrypt pass!")
 }
 
 func TestAddNewUserAccount(t *testing.T) {
@@ -59,14 +62,18 @@ func TestAddNewUserAccount(t *testing.T) {
 	e := AddNewUserAccount(40, "Rodrigo", "Garcia", "rigo.garcia@colorado.edu",
 		"M", true, "iamtheverymodelofthemodernmajorgeneral", db)
 	if e != nil {
-		log.Println("Unable to add user:", e)
+		t.Log("Unable to add user:", e)
+		t.Fail()
 	}
 
 	e = AddNewUserAccount(36, "Reagan", "Karnes", "reagan.karnes@colorado.edu",
 		"M", true, "abcdefghijklmnopqrstuvwxyz1234567890", db)
 	if e != nil {
-		log.Println("Unable to add user:", e)
+		t.Log("Unable to add user:", e)
+		t.Fail()
 	}
+
+	t.Log("TestAddNewUserAccount pass!")
 }
 
 func TestLoginUserAccount(t *testing.T) {
@@ -90,4 +97,6 @@ func TestLoginUserAccount(t *testing.T) {
 		t.Log("Login data mismatch.")
 		t.Fail()
 	}
+
+	t.Log("TestLoginUserAccount pass!")
 }

@@ -11,30 +11,36 @@ func main() {
 
 	// RESETS THE DATABASE TO AN EMPTY STATE
 	if len(os.Args) > 1 {
+		db, _ := Database(PGNAME)
+
 		if os.Args[1] == "--reset" {
-			ResetDatabase()
+			log.Println("Manually dropping tables.")
+			e := DropTables(db)
+			if e != nil {
+				log.Fatal("Unable to drop tables:", e)
+			}
+		}
+
+		if os.Args[1] == "--create" {
+			e := CreateDatabase(db)
+			if e != nil {
+				log.Fatal("Unable to create database:", e)
+			}
+			e = InitializeDatabase(db)
+			if e != nil {
+				log.Fatal("Unable to initialize database:", e)
+			}
 		}
 	}
-
-
-	// EXAMPLE USAGE
-	//AddNewUserAccount(40, "Rodrigo", "Garcia", "rigo.garcia@colorado.edu",
-	//	"M", true, "iamtheverymodelofthemodernmajorgeneral")
-	//AddNewUserAccount(36, "Reagan", "Karnes", "reagan.karnes@colorado.edu",
-	//	"M", true, "abcdefghijklmnopqrstuvwxyz1234567890")
-
-	// EXAMPLE USAGE
-	//result := LoginUserAccount("reagan.karnes@colorado.edu", "abcdefghijklmnopqrstuvwxyz1234567890")
-	//PrintUser(result)
-
+	
 	fs := http.FileServer(http.Dir("source"))
 	http.Handle("/", fs)
 
 	log.Println("Listening...")
-	err := http.ListenAndServe(":3000", nil)
+	e := http.ListenAndServe(":3000", nil)
 
-	if err != nil {
-		log.Fatal(err)
+	if e != nil {
+		log.Fatal(e)
 	}
 }
 

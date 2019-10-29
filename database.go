@@ -9,111 +9,13 @@ import (
 	"log"
 )
 
-func ResetDatabase() {
-	db := Database("reset database")
-	query := fmt.Sprintf("DROP DATABASE [IF EXISTS] socialmediasite;")
-	_, err := db.Query(query)
-	if err != nil {
-		DatabaseErrorHandler(err)
-	}
-	log.Printf("Successfully reset database.")
-	err = db.Close()
-	if err != nil {
-		DatabaseErrorHandler(err)
-	}
-	InitializeDatabase()
-}
+const DBNAME = "socialmediasite"
+const PGNAME = "postgres"
 
-func Database(usage string) *sql.DB {
-	/*
-		THIS OPENS THE DATABASE CONNECTION. NOTE THAT
-		THE DATABASE IS BASICALLY IN WAIT MODE, THE
-		CONNECTION ONLY ACTUALLY OPENS WHEN A QUERY IS
-		MADE.
-	*/
-	dbInfo := "dbname=socialmediasite sslmode=disable"
-	db, err := sql.Open("postgres", dbInfo)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// THIS CONFIRMS DATABASE IS OPEN-ABLE
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Printf("Database connection established. "+
-		"Attempting to %s.", usage)
-	return db
-}
-
-func Encrypt(password string) string {
-	h := sha256.New()
-	_, err := io.WriteString(h, password)
-	if err != nil {
-		log.Fatal(err, "Unknown hashing error.")
-	}
-	return hex.EncodeToString([]byte(fmt.Sprint(h)))
-}
-
-func AddNewUserAccount(age int, firstname string, lastname string,
-	email string, gender string, public bool, password string) {
-	/*
-		THIS CONNECTS TO THE DATABASE AND ADDS A USER
-	*/
-	db := Database("add user")
-	query := fmt.Sprintf("INSERT INTO user_account(age, firstname, lastname, email, "+
-		"gender, public, joindate, active, password)"+
-		"VALUES (%d, '%s', '%s', '%s', '%s', '%t', now(), true, '%s');",
-		age, firstname, lastname, email, gender, public, Encrypt(password))
-	_, err := db.Query(query)
-	if err != nil {
-		DatabaseErrorHandler(err)
-	}
-	log.Printf("Successfully added user <%s> to Database.", email)
-
-	// EVERY DATABASE USAGE MUST FINISH WITH THE DATABASE BEING CLOSED
-	err = db.Close()
-	if err != nil {
-		DatabaseErrorHandler(err)
-	}
-}
-
-func InitializeDatabase() {
-	db := Database("initialize database")
-	query1 := fmt.Sprintf("CREATE TYPE gender AS ENUM ('M', 'F', 'O');")
-	query2 := fmt.Sprintf("CREATE EXTENSION IF NOT EXISTS pgcrypto;")
-	query3 := fmt.Sprintf("CREATE TABLE user_account (" +
-		"id SERIAL PRIMARY KEY," +
-		"age INT," +
-		"firstName TEXT," +
-		"lastName TEXT," +
-		"email TEXT UNIQUE NOT NULL," +
-		"gender gender NOT NULL," +
-		"public BOOLEAN," +
-		"joinDate DATE," +
-		"active BOOLEAN," +
-		"password TEXT" +
-		");")
-	_, err := db.Query(query1)
-	if err != nil {
-		DatabaseErrorHandler(err)
-	}
-	log.Printf("'gender' enum created successfully.")
-	_, err = db.Query(query2)
-	if err != nil {
-		DatabaseErrorHandler(err)
-	}
-	_, err = db.Query(query3)
-	if err != nil {
-		DatabaseErrorHandler(err)
-	}
-	log.Printf("'user_account table' created successfully.")
-	err = db.Close()
-	if err != nil {
-		DatabaseErrorHandler(err)
-	}
-}
+// THESE ARE THE TABLES
+var (
+	userAccount = "user_account"
+)
 
 type user struct {
 	id        int
@@ -126,34 +28,99 @@ type user struct {
 	active    bool
 }
 
-func PrintUser(u user) {
+func Database(dbname string) (*sql.DB, error) {
 	/*
-	THIS IS A DEBUGGING TOOL
-	 */
-	log.Printf("\n\n\tUSER {\n" +
-			"\tId: %v\n" +
-			"\tFirst Name: %v\n" +
-			"\tLast Name: %v\n" +
-			"\tEmail: %v\n" +
-			"\tGender: %v\n" +
-			"\tPublic: %v\n" +
-			"\tJoin Date: %v\n" +
-			"\tActive: %v\n" +
-			"\t}\n\n",
-			u.id, u.firstname, u.lastname,
-			u.email, u.gender, u.public,
-			u.joindate, u.active)
+	THIS OPENS THE DATABASE CONNECTION. NOTE THAT
+	THE DATABASE IS BASICALLY IN WAIT MODE, THE
+	CONNECTION ONLY ACTUALLY OPENS WHEN A QUERY IS
+	MADE.
+	*/
+	dbInfo := fmt.Sprintf("dbname=%v sslmode=disable", DBNAME)
+	db, e := sql.Open("postgres", dbInfo)
+	log.Println("Database connection established.")
+	return db, e
 }
 
-func LoginUserAccount(inputEmail string, inputPassword string) user {
-	db := Database("login")
+func CreateDatabase(db *sql.DB) error {
+	q := fmt.Sprintf("CREATE DATABASE %v;", DBNAME)
+	_, e := db.Query(q)
+	_ = db.Close()
+	log.Printf("Successfully created database.")
+	return e
+}
+
+func InitializeDatabase(db *sql.DB) error {
+	q := fmt.Sprintf("CREATE TYPE gender AS ENUM ('M', 'F', 'O');")
+	_, e := db.Query(q)
+	if e != nil {
+		log.Println("Unable to create enum:", e)
+	} else {
+		log.Println("'gender' enum created successfully.")
+	}
+
+	q = fmt.Sprintf("CREATE TABLE user_account (" +
+		"id SERIAL PRIMARY KEY," +
+		"age INT," +
+		"firstName TEXT," +
+		"lastName TEXT," +
+		"email TEXT UNIQUE NOT NULL," +
+		"gender gender NOT NULL," +
+		"public BOOLEAN," +
+		"joinDate DATE," +
+		"active BOOLEAN," +
+		"password TEXT" +
+		");")
+	_, e = db.Query(q)
+	if e != nil {
+		log.Println("Unable to create tables.")
+		return e
+	}
+	log.Printf("'user_account table' created successfully.")
+	return e
+}
+
+func DropTables(db *sql.DB) error {
+	q := fmt.Sprintf("DROP TABLE IF EXISTS %v;", userAccount)
+	_, e := db.Query(q)
+	if e != nil {
+		log.Println("Unable to drop table: ", userAccount)
+		return e
+	}
+	log.Println("Successfully dropped tables:", userAccount)
+	return nil
+}
+
+func Encrypt(password string) string {
+	h := sha256.New()
+	_, err := io.WriteString(h, password)
+	if err != nil {
+		log.Fatal(err, "Unknown hashing error.")
+	}
+	return hex.EncodeToString([]byte(fmt.Sprint(h)))
+}
+
+func AddNewUserAccount(age int, firstname string, lastname string,
+	email string, gender string, public bool, password string, db *sql.DB) error {
+	/*
+	THIS CONNECTS TO THE DATABASE AND ADDS A USER
+	*/
+	q := fmt.Sprintf("INSERT INTO user_account(age, firstname, lastname, email, "+
+		"gender, public, joindate, active, password)"+
+		"VALUES (%d, '%s', '%s', '%s', '%s', '%t', now(), true, '%s');",
+		age, firstname, lastname, email, gender, public, Encrypt(password))
+	_, e := db.Query(q)
+	if e != nil {
+		log.Println("Unable to execute query:", e)
+		return e
+	}
+	log.Printf("Successfully added user <%s> to Database.", email)
+	return nil
+}
+
+func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) user {
 	query := fmt.Sprintf("SELECT * FROM user_account WHERE email='%s' AND password='%v';",
 		inputEmail, Encrypt(inputPassword))
 	r := db.QueryRow(query)
-	err := db.Close()
-	if err != nil {
-		DatabaseErrorHandler(err)
-	}
 
 	var (
 		id        int
@@ -168,8 +135,8 @@ func LoginUserAccount(inputEmail string, inputPassword string) user {
 		password  string
 	)
 
-	err = r.Scan(&id, &age, &firstname, &lastname, &email, &gender, &public, &joindate, &active, &password)
-	if err != nil {
+	e := r.Scan(&id, &age, &firstname, &lastname, &email, &gender, &public, &joindate, &active, &password)
+	if e != nil {
 		log.Fatal("Incorrect username or password.")
 	}
 
@@ -185,10 +152,21 @@ func LoginUserAccount(inputEmail string, inputPassword string) user {
 	}
 }
 
-func DatabaseErrorHandler(err error) {
-	e := fmt.Sprintf("%v", err)
-	switch e {
-	case "pq: duplicate key value violates unique constraint \"user_account_email_key\"":
-		log.Fatal("User already exists.")
-	}
+func PrintUser(u user) {
+	/*
+		THIS IS A DEBUGGING TOOL
+	*/
+	log.Printf("\n\n\tUSER {\n" +
+		"\tId: %v\n" +
+		"\tFirst Name: %v\n" +
+		"\tLast Name: %v\n" +
+		"\tEmail: %v\n" +
+		"\tGender: %v\n" +
+		"\tPublic: %v\n" +
+		"\tJoin Date: %v\n" +
+		"\tActive: %v\n" +
+		"\t}\n\n",
+		u.id, u.firstname, u.lastname,
+		u.email, u.gender, u.public,
+		u.joindate, u.active)
 }

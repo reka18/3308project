@@ -1,13 +1,10 @@
 package main
 
 import (
-	_ "github.com/lib/pq"
+	"SocialMediaSite/handlers"
 	"log"
 	"net/http"
 	"os"
-	"html/template"
-	"fmt"
-	"SocialMediaSite/handlers"
 )
 
 func main() {

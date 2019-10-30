@@ -41,7 +41,7 @@ func Database(dbname string) (*sql.DB, error) {
 	if e == nil {
 		log.Println("Database connection established.")
 	} else {
-		log.Println("Database connection failed.")
+		log.Println("Database connection failed:", e)
 	}
 	return db, e
 }
@@ -52,7 +52,7 @@ func CreateDatabase(db *sql.DB) error {
 	if e == nil {
 		log.Printf("Successfully created database.")
 	} else {
-		log.Println("Failed creating database.")
+		log.Println("Failed creating database:", e)
 	}
 	return e
 }
@@ -60,10 +60,10 @@ func CreateDatabase(db *sql.DB) error {
 func InitializeDatabase(db *sql.DB) error {
 	q := fmt.Sprintf("CREATE TYPE gender AS ENUM ('M', 'F', 'O');")
 	_, e := db.Query(q)
-	if e != nil {
-		log.Println("Unable to create enum:", e)
-	} else {
+	if e == nil {
 		log.Println("'gender' enum created successfully.")
+	} else {
+		log.Println("Unable to create enum:", e)
 	}
 
 	q = fmt.Sprintf("CREATE TABLE user_account (" +
@@ -78,31 +78,34 @@ func InitializeDatabase(db *sql.DB) error {
 		"active BOOLEAN," +
 		"password TEXT" +
 		");")
+
 	_, e = db.Query(q)
-	if e != nil {
-		log.Println("Unable to create tables.")
-		return e
+	if e == nil {
+		log.Printf("'user_account table' created successfully.")
+	} else {
+		log.Println("Unable to create tables:", e)
 	}
-	log.Printf("'user_account table' created successfully.")
 	return e
 }
 
 func DropTables(db *sql.DB) error {
 	q := fmt.Sprintf("DROP TABLE IF EXISTS %v;", userAccount)
 	_, e := db.Query(q)
-	if e != nil {
-		log.Println("Unable to drop table: ", userAccount)
-		return e
+	if e == nil {
+		log.Println("Successfully dropped tables:", userAccount)
+	} else {
+		log.Println("Unable to drop table: ", userAccount, e)
 	}
-	log.Println("Successfully dropped tables:", userAccount)
-	return nil
+	return e
 }
 
 func Encrypt(password string) string {
 	h := sha256.New()
-	_, err := io.WriteString(h, password)
-	if err != nil {
-		log.Fatal(err, "Unknown hashing error.")
+	_, e := io.WriteString(h, password)
+	if e == nil {
+		log.Println("Hashing successful.")
+	} else {
+		log.Fatal("Unknown hashing error:", e)
 	}
 	return hex.EncodeToString([]byte(fmt.Sprint(h)))
 }
@@ -117,12 +120,13 @@ func AddNewUserAccount(age int, firstname string, lastname string,
 		"VALUES (%d, '%s', '%s', '%s', '%s', '%t', now(), true, '%s');",
 		age, firstname, lastname, email, gender, public, Encrypt(password))
 	_, e := db.Query(q)
-	if e != nil {
+	if e == nil {
+		log.Printf("Successfully added user <%s> to Database.", email)
+	} else {
 		log.Println("Unable to execute query:", e)
-		return e
 	}
-	log.Printf("Successfully added user <%s> to Database.", email)
-	return nil
+
+	return e
 }
 
 func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) user {
@@ -144,8 +148,10 @@ func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) user 
 	)
 
 	e := r.Scan(&id, &age, &firstname, &lastname, &email, &gender, &public, &joindate, &active, &password)
-	if e != nil {
-		log.Fatal("Incorrect username or password.")
+	if e == nil {
+		log.Println("Login successful.")
+	} else {
+		log.Println("Incorrect username or password:", e)
 	}
 
 	return user{
@@ -162,7 +168,7 @@ func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) user 
 
 func PrintUser(u user) {
 	/*
-		THIS IS A DEBUGGING TOOL
+	THIS IS A DEBUGGING TOOL
 	*/
 	log.Printf("\n\n\tUSER {\n" +
 		"\tId: %v\n" +

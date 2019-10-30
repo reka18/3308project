@@ -61,6 +61,7 @@ func TestAddNewUserAccount(t *testing.T) {
 
 	e := AddNewUserAccount(40, "Rodrigo", "Garcia", "rigo.garcia@colorado.edu",
 		"M", true, "iamtheverymodelofthemodernmajorgeneral", db)
+	defer db.Close()
 	if e != nil {
 		t.Log("Unable to add user:", e)
 		t.Fail()
@@ -74,7 +75,7 @@ func TestAddNewUserAccount(t *testing.T) {
 	}
 
 	t.Log("TestAddNewUserAccount pass!")
-	defer db.Close()
+
 }
 
 func TestLoginUserAccount(t *testing.T) {

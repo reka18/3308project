@@ -15,22 +15,15 @@ func main() {
 
 		if os.Args[1] == "--reset" {
 			log.Println("Manually dropping tables.")
-			e := DropTables(db)
-			if e != nil {
-				log.Fatal("Unable to drop tables:", e)
-			}
+			_ = DropTables(db)
 		}
 
 		if os.Args[1] == "--create" {
-			e := CreateDatabase(db)
-			if e != nil {
-				log.Fatal("Unable to create database:", e)
-			}
-			e = InitializeDatabase(db)
-			if e != nil {
-				log.Fatal("Unable to initialize database:", e)
-			}
+			log.Println("Manually creating database and initializing tables.")
+			_ = CreateDatabase(db)
+			_ = InitializeDatabase(db)
 		}
+
 		defer db.Close()
 	}
 

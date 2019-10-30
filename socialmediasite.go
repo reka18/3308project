@@ -1,7 +1,7 @@
 package main
 
 import (
-	"SocialMediaSite/handlers"
+	_ "SocialMediaSite/handlers"
 	"log"
 	"net/http"
 	"os"
@@ -31,12 +31,13 @@ func main() {
 				log.Fatal("Unable to initialize database:", e)
 			}
 		}
+		defer db.Close()
 	}
 
 	fs := http.FileServer(http.Dir("source"))
 	http.Handle("/", fs)
 
-	http.HandleFunc("/user_landing/", user_landing.UserLandingHandler)
+	//http.HandleFunc("/user_landing/", user_landing.UserLandingHandler)
 
 	log.Println("Listening...")
 	e := http.ListenAndServe(":3000", nil)

@@ -89,8 +89,18 @@ On succesful connection you should recieve<br/>
 
 <br/><br/>
 
-If the schema has not already been built, then you the unit test will notify you but create  a failed connection attempt the test will show<br/>
-```Unable to open connection.```
+If the schema has not already been built, then you the unit test will notify you but create the schema and the test will pass<br/>
+```Warning: Problem creating database: pq: database "socialmediasite2" does not exist```<br/>
+```package_test.go:23: Continuing...```<br/>
+```package_test.go:28: TestCreateDatabase pass!```<br/>
+<br/><br/>
+
+
+
+
+
+
+
 
 
 

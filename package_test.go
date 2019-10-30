@@ -74,6 +74,7 @@ func TestAddNewUserAccount(t *testing.T) {
 	}
 
 	t.Log("TestAddNewUserAccount pass!")
+	defer db.Close()
 }
 
 func TestLoginUserAccount(t *testing.T) {

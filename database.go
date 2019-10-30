@@ -36,7 +36,7 @@ func Database(dbname string) (*sql.DB, error) {
 	CONNECTION ONLY ACTUALLY OPENS WHEN A QUERY IS
 	MADE.
 	*/
-	dbInfo := fmt.Sprintf("dbname=%v sslmode=disable", DBNAME)
+	dbInfo := fmt.Sprintf("dbname='%v' sslmode=disable", dbname)
 	db, e := sql.Open("postgres", dbInfo)
 	if e == nil {
 		log.Println("Database connection established.")
@@ -49,7 +49,6 @@ func Database(dbname string) (*sql.DB, error) {
 func CreateDatabase(db *sql.DB) error {
 	q := fmt.Sprintf("CREATE DATABASE %v;", DBNAME)
 	_, e := db.Query(q)
-	_ = db.Close()
 	if e == nil {
 		log.Printf("Successfully created database.")
 	} else {

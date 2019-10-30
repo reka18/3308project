@@ -45,7 +45,11 @@ func CreateDatabase(db *sql.DB) error {
 	q := fmt.Sprintf("CREATE DATABASE %v;", DBNAME)
 	_, e := db.Query(q)
 	_ = db.Close()
-	log.Printf("Successfully created database.")
+	if e == nil {
+		log.Printf("Successfully created database.")
+	} else {
+		log.Println("Failed creating database.")
+	}
 	return e
 }
 

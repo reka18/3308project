@@ -1,0 +1,96 @@
+### Project Title: Social Media Site
+### Team Members: Regan Karnes, Rodrigo Garcia, Dominick Graham
+
+<br/><br/>
+
+# Automated Test Cases and Details
+
+Once the steps in the <b>readme.md</b> have been completed, the automated tests can then be run.  This document will guide the user in running
+the tests, describe what the tests mean, and how they work.
+
+<br/><br/>
+
+## Getting started
+
+Again, this document assumes that you have successfully completed the steps outlined in the <b>readme.md</b>.  If you have not already done so,
+please refer back to this document before proceeding.
+
+To run the unit tests, make sure the site is built
+```bash
+go build && ./SocialMediaSite
+```
+
+then run
+```bash
+go test -v
+```
+
+Your output should appear similar to this
+```
+=== RUN   TestDatabase
+2019/10/29 18:57:31 Database connection established.
+--- PASS: TestDatabase (0.00s)
+    package_test.go:14: TestDatabase pass!
+=== RUN   TestCreateDatabase
+2019/10/29 18:57:31 Database connection established.
+2019/10/29 18:57:31 Successfully created database.
+--- PASS: TestCreateDatabase (0.05s)
+    package_test.go:22: Warning: Problem creating database: pq: database "socialmediasite" already exists
+    package_test.go:23: Continuing...
+    package_test.go:28: TestCreateDatabase pass!
+=== RUN   TestInitializeDatabase
+2019/10/29 18:57:31 Database connection established.
+2019/10/29 18:57:31 Successfully dropped tables: user_account
+2019/10/29 18:57:31 Unable to create enum: pq: type "gender" already exists
+2019/10/29 18:57:31 'user_account table' created successfully.
+--- PASS: TestInitializeDatabase (0.02s)
+    package_test.go:40: TestInitializeDatabase pass!
+=== RUN   TestEncrypt
+--- PASS: TestEncrypt (0.00s)
+    package_test.go:56: TestEncrypt pass!
+=== RUN   TestAddNewUserAccount
+2019/10/29 18:57:31 Database connection established.
+2019/10/29 18:57:31 Successfully added user <rigo.garcia@colorado.edu> to Database.
+2019/10/29 18:57:31 Successfully added user <reagan.karnes@colorado.edu> to Database.
+--- PASS: TestAddNewUserAccount (0.01s)
+    package_test.go:76: TestAddNewUserAccount pass!
+=== RUN   TestLoginUserAccount
+2019/10/29 18:57:31 Database connection established.
+--- PASS: TestLoginUserAccount (0.01s)
+    package_test.go:101: TestLoginUserAccount pass!
+PASS
+ok      SocialMediaSite 0.106s
+```
+
+<br/><br/>
+
+## Line by Line Explaination
+
+<br/><br/>
+
+### === RUN   TestDatabase
+As its name implies this function tests the postgresql database connectivity.<br/><br/>
+
+On succesful connection you should recieve<br/>
+```TestDatabase pass!```
+<br/><br/>
+On a failed connection attempt the test will show<br/>
+```Unable to open connection.```
+
+
+### === RUN   TestCreateDataBase
+The create database ensures that the socialmediasite schema has been created in postgresql.  Since the database should already exist if the site is properly built, the response is a bit misleadig<br/><br/>
+
+On succesful connection you should recieve<br/>
+```Warning: Problem creating database:```<br/>
+```pq: database "socialmediasite" already exists```<br/>
+```package_test.go:23: Continuing...```<br/>
+```package_test.go:28: TestCreateDatabase pass!```<br/>
+
+<br/><br/>
+
+If the schema has not already been built, then you the unit test will notify you but create  a failed connection attempt the test will show<br/>
+```Unable to open connection.```
+
+
+

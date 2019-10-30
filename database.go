@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"encoding/hex"
 	"fmt"
+	_ "github.com/lib/pq"
 	"io"
 	"log"
 )

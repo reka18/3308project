@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "github.com/lib/pq"
+	"SocialMediaSite/handlers"
 	"log"
 	"net/http"
 	"os"
@@ -35,6 +35,8 @@ func main() {
 
 	fs := http.FileServer(http.Dir("source"))
 	http.Handle("/", fs)
+
+	http.HandleFunc("/user_landing/", user_landing.UserLandingHandler)
 
 	log.Println("Listening...")
 	e := http.ListenAndServe(":3000", nil)

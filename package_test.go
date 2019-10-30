@@ -83,6 +83,7 @@ func TestLoginUserAccount(t *testing.T) {
 
 	u := LoginUserAccount("rigo.garcia@colorado.edu", "iamtheverymodelofthemodernmajorgeneral", db)
 	u.joindate = "" // we do this because it is difficult to assert
+	defer db.Close()
 
 	v := user {
 		id:			1,

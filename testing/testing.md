@@ -184,7 +184,39 @@ On failure:<br/>
 <br/>
 
 
+The final message should indicate that all the tests have passed<br/>
+```PASS ```<br/>
+```ok      SocialMediaSite 0.600s ```<br/>
 
+<br/><br/>
+# User Acceptance Testing 
+<br/><br/>
+## Login Use Case
+
+<ol>
+   <li>User navigates to login site</li>
+   <li>User supplies email address for login</li>
+   <li>User supplies password associated with login account</li>
+   <li>On incorrect Username</li>
+    <ol>
+        <li>text or popup will appear on the login screen notifying the user of erroneous login credentials</li>
+    </ol>
+    <li>On incorrect Password</li>
+    <ol>
+        <li>text or popup will appear on the login screen notifying the user of erroneous password credentials</li>
+    </ol>
+    <li>If user forgets password</li>
+    <ol>
+        <li>There will be a password recovery link on the login page</li>
+        <li>clicking the link will send a password recovery email to the user's email address</li>
+        <li>User must supply a valid email login for password recovery to work</li>
+    </ol>
+    <li>On successful Login</li>
+    <ol>
+        <li>User it taken to their main account page</li>
+        <li>User session information is activated and logged in the database</li>
+    </ol>
+</ol>
 
 
 

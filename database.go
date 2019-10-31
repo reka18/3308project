@@ -10,7 +10,7 @@ import (
 	"log"
 )
 
-const DBNAME = "socialmediasite"
+const DBNAME = "socialmediasite5"
 const PGNAME = "postgres"
 
 // THESE ARE THE TABLES

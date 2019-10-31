@@ -71,10 +71,10 @@ ok      SocialMediaSite 0.106s
 ### === RUN   TestDatabase
 As its name implies this function tests the postgresql database connectivity.<br/><br/>
 
-On succesful connection you should recieve<br/>
+On succesful connection you should recieve:<br/>
 ```TestDatabase pass!```
 <br/><br/>
-On a failed connection attempt the test will show<br/>
+On a failed connection attempt the test will show:<br/>
 ```Unable to open connection.```
 
 <br/>
@@ -83,7 +83,7 @@ On a failed connection attempt the test will show<br/>
 ### === RUN   TestCreateDataBase
 The create database ensures that the socialmediasite schema has been created in postgresql.  Since the database should already exist if the site is properly built, the response is a bit misleadig<br/><br/>
 
-On succesful connection you should recieve<br/>
+On succesful connection you should recieve:<br/>
 ```Warning: Problem creating database:```<br/>
 ```pq: database "socialmediasite" already exists```<br/>
 ```package_test.go:23: Continuing...```<br/>
@@ -91,7 +91,7 @@ On succesful connection you should recieve<br/>
 
 <br/>
 
-If the schema has not already been built, then you the unit test will notify you but create the schema and the test will pass<br/>
+If the schema has not already been built, then you the unit test will notify you but create the schema and the test will pass:<br/>
 ```Warning: Problem creating database: pq: database "socialmediasite2" does not exist```<br/>
 ```package_test.go:23: Continuing...```<br/>
 ```package_test.go:28: TestCreateDatabase pass!```<br/>
@@ -103,22 +103,22 @@ If the schema has not already been built, then you the unit test will notify you
 
 This test creates a gender typ as ENUM, as well as creating a user_account table.  If a user_account table already exits it will drop it an recreate it.  If the ENUM gender type already exists, the test will notify the user but no further action will be taken.<br/><br/>
 
-If none of the types or tables currently exist in the DB they are created<br/>
-```17:57:29 Database connection established.```<br/>
-```17:57:29 Successfully dropped tables: user_account```<br/>
-```17:57:29 'gender' enum created successfully.```<br/>
-```17:57:29 'user_account table' created successfully.```<br/>
+If none of the types or tables currently exist in the DB they are created:<br/>
+```Database connection established.```<br/>
+```Successfully dropped tables: user_account```<br/>
+```'gender' enum created successfully.```<br/>
+```'user_account table' created successfully.```<br/>
 ```TestInitializeDatabase pass!```<br/>
 
 
 <br/>
 <br/>
 
-If the tables and/or the ENUM type exists, the test notices and passes<br/>
-```17:57:29 Database connection established.```<br/>
-```17:57:29 Successfully dropped tables: user_account```<br/>
-```17:57:29 Unable to create enum: pq: type "gender" already exists```<br/>
-```17:57:29 'user_account table' created successfully.```<br/>
+If the tables and/or the ENUM type exists, the test notices and passes:<br/>
+```Database connection established.```<br/>
+```Successfully dropped tables: user_account```<br/>
+```Unable to create enum: pq: type "gender" already exists```<br/>
+```'user_account table' created successfully.```<br/>
 ```TestInitializeDatabase pass!```<br/>
 
 
@@ -129,19 +129,64 @@ If the tables and/or the ENUM type exists, the test notices and passes<br/>
 
 TestEncrypt tests the hashing function used to encrypt user passwords.  The system uses sha256 to hash passwords.    If the hashed intenal password matches the previously stored value of the hash, then the test passes.<br/><br/>
 
-On successfully hashing<br/>
+On successfully hashing:<br/>
 ```Hashing successful.```<br/>
 ```TestEncrypt pass!```<br/>
 
 <br/>
 
-On failure.<br/>
-```Unknown hashing eror:...```<br/>
+On failure:<br/>
+```Unknown hashing error:...```<br/>
 
 
 
 <br/>
 <br/>
+
+
+### === RUN   TestAddNewUserAccount
+
+TestAddNewUserAccount will ensure that the user_account table is formatted, and functioning properly, two users are added to the user_account table complete with hashed passwords, and email adresses.<br/><br/>
+
+On successfully adding the users:<br/>
+ ```Database connection established.```<br/>
+ ```Hashing successful.```<br/>
+ ```Successfully added user <rigo.garcia@colorado.edu> to Database.```<br/>
+ ```Hashing successful.```<br/>
+ ```Successfully added user <reagan.karnes@colorado.edu> to Database.```<br/>
+ ```--- PASS: TestAddNewUserAccount (0.01s)```<br/>
+
+
+<br/>
+
+On failure:<br/>
+```"Unable to add user:"...```<br/>
+<br/>
+<br/>
+
+
+### === RUN   TestLoginUserAccount
+
+The final test ensures that previously created test user accounts are functioning by using the generated credentials to simulate a user login event.<br/>
+
+
+On successful user login:<br/>
+ ```Database connection established.```<br/>
+ ```Hashing successful.```<br/>
+ ```Login successful ```<br/>
+ ```TestLoginUserAccount pass!```<br/>
+ 
+ <br/>
+
+On failure:<br/>
+```"Login data mismatch."...```<br/>
+<br/>
+<br/>
+
+
+
+
+
 
 
 

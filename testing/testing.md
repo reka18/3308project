@@ -71,14 +71,6 @@ ok      SocialMediaSite 0.106s
 ### === RUN   TestDatabase
 As its name implies this function tests the postgresql database connectivity.<br/><br/>
 
-<<<<<<< HEAD
-On succesful connection you should recieve<br/>
-```TestDatabase pass!```
-<br/><br/>
-On a failed connection attempt the test will show<br/>
-```Unable to open connection.```
-
-=======
 On succesful connection you should recieve:<br/>
 ```TestDatabase pass!```
 <br/><br/>
@@ -87,27 +79,16 @@ On a failed connection attempt the test will show:<br/>
 
 <br/>
 <br/>
->>>>>>> a1905859da79cc68a6ff93b5a73298866071b1a0
 
 ### === RUN   TestCreateDataBase
 The create database ensures that the socialmediasite schema has been created in postgresql.  Since the database should already exist if the site is properly built, the response is a bit misleadig<br/><br/>
 
-<<<<<<< HEAD
-On succesful connection you should recieve<br/>
-=======
 On succesful connection you should recieve:<br/>
->>>>>>> a1905859da79cc68a6ff93b5a73298866071b1a0
 ```Warning: Problem creating database:```<br/>
 ```pq: database "socialmediasite" already exists```<br/>
 ```package_test.go:23: Continuing...```<br/>
 ```package_test.go:28: TestCreateDatabase pass!```<br/>
 
-<<<<<<< HEAD
-<br/><br/>
-
-If the schema has not already been built, then you the unit test will notify you but create  a failed connection attempt the test will show<br/>
-```Unable to open connection.```
-=======
 <br/>
 
 If the schema has not already been built, then you the unit test will notify you but create the schema and the test will pass:<br/>
@@ -236,17 +217,3 @@ The final message should indicate that all the tests have passed<br/>
         <li>User session information is activated and logged in the database</li>
     </ol>
 </ol>
-
-
-
-
-
-
-
-
-
-
->>>>>>> a1905859da79cc68a6ff93b5a73298866071b1a0
-
-
-

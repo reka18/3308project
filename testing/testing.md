@@ -77,6 +77,8 @@ On succesful connection you should recieve<br/>
 On a failed connection attempt the test will show<br/>
 ```Unable to open connection.```
 
+<br/>
+<br/>
 
 ### === RUN   TestCreateDataBase
 The create database ensures that the socialmediasite schema has been created in postgresql.  Since the database should already exist if the site is properly built, the response is a bit misleadig<br/><br/>
@@ -87,13 +89,60 @@ On succesful connection you should recieve<br/>
 ```package_test.go:23: Continuing...```<br/>
 ```package_test.go:28: TestCreateDatabase pass!```<br/>
 
-<br/><br/>
+<br/>
 
 If the schema has not already been built, then you the unit test will notify you but create the schema and the test will pass<br/>
 ```Warning: Problem creating database: pq: database "socialmediasite2" does not exist```<br/>
 ```package_test.go:23: Continuing...```<br/>
 ```package_test.go:28: TestCreateDatabase pass!```<br/>
-<br/><br/>
+
+<br/>
+<br/>
+
+### === RUN   TestInitializeDatabase
+
+This test creates a gender typ as ENUM, as well as creating a user_account table.  If a user_account table already exits it will drop it an recreate it.  If the ENUM gender type already exists, the test will notify the user but no further action will be taken.<br/><br/>
+
+If none of the types or tables currently exist in the DB they are created<br/>
+```17:57:29 Database connection established.```<br/>
+```17:57:29 Successfully dropped tables: user_account```<br/>
+```17:57:29 'gender' enum created successfully.```<br/>
+```17:57:29 'user_account table' created successfully.```<br/>
+```TestInitializeDatabase pass!```<br/>
+
+
+<br/>
+<br/>
+
+If the tables and/or the ENUM type exists, the test notices and passes<br/>
+```17:57:29 Database connection established.```<br/>
+```17:57:29 Successfully dropped tables: user_account```<br/>
+```17:57:29 Unable to create enum: pq: type "gender" already exists```<br/>
+```17:57:29 'user_account table' created successfully.```<br/>
+```TestInitializeDatabase pass!```<br/>
+
+
+<br/>
+<br/>
+
+### === RUN   TestEncrypt
+
+TestEncrypt tests the hashing function used to encrypt user passwords.  The system uses sha256 to hash passwords.    If the hashed intenal password matches the previously stored value of the hash, then the test passes.<br/><br/>
+
+On successfully hashing<br/>
+```Hashing successful.```<br/>
+```TestEncrypt pass!```<br/>
+
+<br/>
+
+On failure.<br/>
+```Unknown hashing eror:...```<br/>
+
+
+
+<br/>
+<br/>
+
 
 
 

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 )
 
@@ -17,8 +17,8 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm()
 
-	fmt.Println("username:", r.Form["username"])
-	fmt.Println("password:", r.Form["pass"])
+	log.Println("username:", r.Form["username"])
+	log.Println("password:", r.Form["pass"])
 
 	t := template.Must(template.ParseFiles("web/login.html"))
 	t.Execute(w, "")

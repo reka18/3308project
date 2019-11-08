@@ -8,9 +8,10 @@ import (
 	_ "github.com/lib/pq"
 	"io"
 	"log"
+	"os"
 )
 
-const DBNAME = "socialmediasite5"
+const DBNAME = "socialmediasite"
 const PGNAME = "postgres"
 
 // THESE ARE THE TABLES
@@ -18,7 +19,40 @@ var (
 	userAccount = "user_account"
 )
 
+func DatabaseArgHandler() {
+
+	if len(os.Args) > 1 {
+		db, _ := Database(PGNAME)
+
+		arg := os.Args[1]
+
+		if arg == "--reset" {
+			log.Println("Manually dropping tables.")
+			_ = dropTables(db)
+			_ = createTables(db)
+		}
+
+		if arg == "--create" {
+			log.Println("Manually creating database and initializing tables.")
+			_ = createDatabase(db)
+			db, _ = Database(DBNAME)
+			_ = createEnums(db)
+			_ = createTables(db)
+		}
+
+		if arg == "--drop" {
+			log.Println("Manually dropping database.")
+			_ = dropDatabase(db)
+		}
+
+		defer FailError(db.Close(), "Failed to close database.")
+		os.Exit(0)
+	}
+
+}
+
 func Database(dbname string) (*sql.DB, error) {
+
 	/*
 	THIS OPENS THE DATABASE CONNECTION. NOTE THAT
 	THE DATABASE IS BASICALLY IN WAIT MODE, THE
@@ -33,9 +67,11 @@ func Database(dbname string) (*sql.DB, error) {
 		log.Println("Database connection failed:", e)
 	}
 	return db, e
+
 }
 
-func CreateDatabase(db *sql.DB) error {
+func createDatabase(db *sql.DB) error {
+
 	q := fmt.Sprintf("CREATE DATABASE %v;", DBNAME)
 	_, e := db.Query(q)
 	if e == nil {
@@ -44,9 +80,24 @@ func CreateDatabase(db *sql.DB) error {
 		log.Println("Failed creating database:", e)
 	}
 	return e
+
 }
 
-func InitializeDatabase(db *sql.DB) error {
+func dropDatabase(db *sql.DB) error {
+
+	q := fmt.Sprintf("DROP DATABASE %v;", DBNAME)
+	_, e := db.Query(q)
+	if e == nil {
+		log.Printf("Successfully dropped database.")
+	} else {
+		log.Println("Failed dropping database:", e)
+	}
+	return e
+
+}
+
+func createEnums(db *sql.DB) error {
+
 	q := fmt.Sprintf("CREATE TYPE gender AS ENUM ('M', 'F', 'O');")
 	_, e := db.Query(q)
 	if e == nil {
@@ -54,8 +105,13 @@ func InitializeDatabase(db *sql.DB) error {
 	} else {
 		log.Println("Unable to create enum:", e)
 	}
+	return e
 
-	q = fmt.Sprintf("CREATE TABLE user_account (" +
+}
+
+func createTables(db *sql.DB) error {
+
+	q := fmt.Sprintf("CREATE TABLE user_account (" +
 		"id SERIAL PRIMARY KEY," +
 		"age INT," +
 		"firstName TEXT," +
@@ -68,16 +124,18 @@ func InitializeDatabase(db *sql.DB) error {
 		"password TEXT" +
 		");")
 
-	_, e = db.Query(q)
+	_, e := db.Query(q)
 	if e == nil {
 		log.Printf("'user_account table' created successfully.")
 	} else {
 		log.Println("Unable to create tables:", e)
 	}
 	return e
+
 }
 
-func DropTables(db *sql.DB) error {
+func dropTables(db *sql.DB) error {
+
 	q := fmt.Sprintf("DROP TABLE IF EXISTS %v;", userAccount)
 	_, e := db.Query(q)
 	if e == nil {
@@ -86,9 +144,11 @@ func DropTables(db *sql.DB) error {
 		log.Println("Unable to drop table: ", userAccount, e)
 	}
 	return e
+
 }
 
 func Encrypt(password string) string {
+
 	h := sha256.New()
 	_, e := io.WriteString(h, password)
 	if e == nil {
@@ -97,10 +157,12 @@ func Encrypt(password string) string {
 		log.Fatal("Unknown hashing error:", e)
 	}
 	return hex.EncodeToString([]byte(fmt.Sprint(h)))
+
 }
 
 func AddNewUserAccount(age int, firstname string, lastname string,
 	email string, gender string, public bool, password string, db *sql.DB) error {
+
 	/*
 	THIS CONNECTS TO THE DATABASE AND ADDS A USER
 	*/
@@ -116,9 +178,11 @@ func AddNewUserAccount(age int, firstname string, lastname string,
 	}
 
 	return e
+
 }
 
 func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) User {
+
 	query := fmt.Sprintf("SELECT * FROM user_account WHERE email='%s' AND password='%v';",
 		inputEmail, Encrypt(inputPassword))
 	r := db.QueryRow(query)
@@ -144,9 +208,11 @@ func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) User 
 	}
 
 	return UserBuilder(id, firstname, lastname, email, gender, public, joindate, active)
+
 }
 
 func PrintUser(u User) {
+
 	/*
 	THIS IS A DEBUGGING TOOL
 	*/
@@ -163,4 +229,5 @@ func PrintUser(u User) {
 		u.Id, u.Firstname, u.Lastname,
 		u.Email, u.Gender, u.Public,
 		u.Joindate, u.Active)
+
 }

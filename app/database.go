@@ -19,57 +19,9 @@ var (
 	userAccount = "user_account"
 )
 
-func DatabaseArgHandler() {
-
-	if len(os.Args) > 1 {
-		db, _ := Database(PGNAME)
-
-		arg := os.Args[1]
-
-		if arg == "--reset" {
-			log.Println("Manually dropping tables.")
-			_ = dropTables(db)
-			_ = createTables(db)
-		}
-
-		if arg == "--create" {
-			log.Println("Manually creating database and initializing tables.")
-			_ = createDatabase(db)
-			db, _ = Database(DBNAME)
-			_ = createEnums(db)
-			_ = createTables(db)
-		}
-
-		if arg == "--drop" {
-			log.Println("Manually dropping database.")
-			_ = dropDatabase(db)
-		}
-
-		defer FailError(db.Close(), "Failed to close database.")
-		os.Exit(0)
-	}
-
-}
-
-func Database(dbname string) (*sql.DB, error) {
-
-	/*
-	THIS OPENS THE DATABASE CONNECTION. NOTE THAT
-	THE DATABASE IS BASICALLY IN WAIT MODE, THE
-	CONNECTION ONLY ACTUALLY OPENS WHEN A QUERY IS
-	MADE.
-	*/
-	dbInfo := fmt.Sprintf("dbname='%v' sslmode=disable", dbname)
-	db, e := sql.Open("postgres", dbInfo)
-	if e == nil {
-		log.Println("Database connection established.")
-	} else {
-		log.Println("Database connection failed:", e)
-	}
-	return db, e
-
-}
-
+/*
+PRIVATE METHODS
+ */
 func createDatabase(db *sql.DB) error {
 
 	q := fmt.Sprintf("CREATE DATABASE %v;", DBNAME)
@@ -147,6 +99,60 @@ func dropTables(db *sql.DB) error {
 
 }
 
+/*
+PUBLIC METHODS
+ */
+
+func DatabaseArgHandler() {
+
+	if len(os.Args) > 1 {
+		db, _ := Database(PGNAME)
+
+		arg := os.Args[1]
+
+		if arg == "--reset" {
+			log.Println("Manually dropping tables.")
+			_ = dropTables(db)
+			_ = createTables(db)
+		}
+
+		if arg == "--create" {
+			log.Println("Manually creating database and initializing tables.")
+			_ = createDatabase(db)
+			db, _ = Database(DBNAME)
+			_ = createEnums(db)
+			_ = createTables(db)
+		}
+
+		if arg == "--drop" {
+			log.Println("Manually dropping database.")
+			_ = dropDatabase(db)
+		}
+
+		defer FailError(db.Close(), "Failed to close database.")
+		os.Exit(0)
+	}
+
+}
+
+func Database(dbname string) (*sql.DB, error) {
+	/*
+	THIS OPENS THE DATABASE CONNECTION. NOTE THAT
+	THE DATABASE IS BASICALLY IN WAIT MODE, THE
+	CONNECTION ONLY ACTUALLY OPENS WHEN A QUERY IS
+	MADE.
+	*/
+	dbInfo := fmt.Sprintf("dbname='%v' sslmode=disable", dbname)
+	db, e := sql.Open("postgres", dbInfo)
+	if e == nil {
+		log.Println("Database connection established.")
+	} else {
+		log.Println("Database connection failed:", e)
+	}
+	return db, e
+
+}
+
 func Encrypt(password string) string {
 
 	h := sha256.New()
@@ -162,7 +168,6 @@ func Encrypt(password string) string {
 
 func AddNewUserAccount(age int, firstname string, lastname string,
 	email string, gender string, public bool, password string, db *sql.DB) error {
-
 	/*
 	THIS CONNECTS TO THE DATABASE AND ADDS A USER
 	*/
@@ -212,7 +217,6 @@ func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) User 
 }
 
 func PrintUser(u User) {
-
 	/*
 	THIS IS A DEBUGGING TOOL
 	*/

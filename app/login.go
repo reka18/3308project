@@ -17,7 +17,7 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm()
 
-	log.Println("username:", r.Form["username"])
+	log.Println("email:", r.Form["email"])
 	log.Println("password:", r.Form["pass"])
 
 	t := template.Must(template.ParseFiles("web/login.html"))

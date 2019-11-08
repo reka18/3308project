@@ -18,17 +18,6 @@ var (
 	userAccount = "user_account"
 )
 
-type user struct {
-	id        int
-	firstname string
-	lastname  string
-	email     string
-	gender    string
-	public    bool
-	joindate  string
-	active    bool
-}
-
 func Database(dbname string) (*sql.DB, error) {
 	/*
 	THIS OPENS THE DATABASE CONNECTION. NOTE THAT
@@ -121,7 +110,7 @@ func AddNewUserAccount(age int, firstname string, lastname string,
 		age, firstname, lastname, email, gender, public, Encrypt(password))
 	_, e := db.Query(q)
 	if e == nil {
-		log.Printf("Successfully added user <%s> to Database.", email)
+		log.Printf("Successfully added User <%s> to Database.", email)
 	} else {
 		log.Println("Unable to execute query:", e)
 	}
@@ -129,7 +118,7 @@ func AddNewUserAccount(age int, firstname string, lastname string,
 	return e
 }
 
-func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) user {
+func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) User {
 	query := fmt.Sprintf("SELECT * FROM user_account WHERE email='%s' AND password='%v';",
 		inputEmail, Encrypt(inputPassword))
 	r := db.QueryRow(query)
@@ -154,19 +143,10 @@ func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) user 
 		log.Println("Incorrect username or password:", e)
 	}
 
-	return user{
-		id:        id,
-		firstname: firstname,
-		lastname:  lastname,
-		email:     email,
-		gender:    gender,
-		public:    public,
-		joindate:  joindate,
-		active:    active,
-	}
+	return UserBuilder(id, firstname, lastname, email, gender, public, joindate, active)
 }
 
-func PrintUser(u user) {
+func PrintUser(u User) {
 	/*
 	THIS IS A DEBUGGING TOOL
 	*/
@@ -180,7 +160,7 @@ func PrintUser(u user) {
 		"\tJoin Date: %v\n" +
 		"\tActive: %v\n" +
 		"\t}\n\n",
-		u.id, u.firstname, u.lastname,
-		u.email, u.gender, u.public,
-		u.joindate, u.active)
+		u.Id, u.Firstname, u.Lastname,
+		u.Email, u.Gender, u.Public,
+		u.Joindate, u.Active)
 }

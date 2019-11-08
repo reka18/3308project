@@ -63,14 +63,14 @@ func TestAddNewUserAccount(t *testing.T) {
 		"M", true, "iamtheverymodelofthemodernmajorgeneral", db)
 	defer db.Close()
 	if e != nil {
-		t.Log("Unable to add user:", e)
+		t.Log("Unable to add User:", e)
 		t.Fail()
 	}
 
 	e = AddNewUserAccount(36, "Reagan", "Karnes", "reagan.karnes@colorado.edu",
 		"M", true, "abcdefghijklmnopqrstuvwxyz1234567890", db)
 	if e != nil {
-		t.Log("Unable to add user:", e)
+		t.Log("Unable to add User:", e)
 		t.Fail()
 	}
 
@@ -85,7 +85,7 @@ func TestLoginUserAccount(t *testing.T) {
 	u.joindate = "" // we do this because it is difficult to assert
 	defer db.Close()
 
-	v := user {
+	v := User{
 		id:			1,
 		firstname:	"Rodrigo",
 		lastname:	"Garcia",

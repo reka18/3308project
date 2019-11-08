@@ -7,17 +7,13 @@ import(
 	"fmt"
 )
 
-
-type User struct {
-	Name string
-}
-
 func usrLandingGET(w http.ResponseWriter, r *http.Request){
-	tmpl := template.Must(template.ParseFiles("templates/user_landing.html"))
+	tmpl := template.Must(template.ParseFiles("web/user_landing.html"))
 	user := User{
-		Name: "Tom Anderson",
+		Firstname: "John",
+		Lastname: "Smith",
 	}
-	tmpl.Execute(w, user)
+	PassError(tmpl.Execute(w, user), "Error executing.")
 }
 
 func usrLandingPOST(w http.ResponseWriter, r *http.Request){

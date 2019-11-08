@@ -23,7 +23,7 @@ func main() {
 			_ = InitializeDatabase(db)
 		}
 
-		defer db.Close()
+		defer FailError(db.Close(), "Failed to close database.")
 	}
 
 	fs := http.FileServer(http.Dir("source"))
@@ -32,9 +32,6 @@ func main() {
 	http.HandleFunc("/user_landing/", UserLandingHandler)
 
 	log.Println("Listening...")
-	e := http.ListenAndServe(":3000", nil)
-	if e != nil {
-		log.Fatal(e)
-	}
+	FailError(http.ListenAndServe(":3000", nil), "Connection failed.")
 }
 

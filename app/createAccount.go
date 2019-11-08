@@ -4,6 +4,8 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
+	"strings"
 )
 
 func createUserAccountGET(w http.ResponseWriter, r *http.Request) {
@@ -14,15 +16,34 @@ func createUserAccountGET(w http.ResponseWriter, r *http.Request) {
 }
 
 func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
-
+	/*
+	THIS CREATES A NEW USER IN THE DATABASE
+	TODO: Certain fields need to have constraints added. Age cannot be negative,
+	TODO: names cannot be blank or too long, email must be a valid email, gender
+	TODO: should be restricted to M, F, or O (it already is in the database but
+	TODO: lets catch it earlier, and password should have certain constraints.
+	 */
 	r.ParseForm()
 
-	log.Println("firstname:", r.Form["firstname"])
-	log.Println("lastname:", r.Form["lastname"])
-	log.Println("email:", r.Form["email"])
-	log.Println("password:", r.Form["pass"])
+	var (
+		age, _ = strconv.Atoi(strings.Join(r.Form["age"], ""))
+		firstname = strings.Join(r.Form["firstname"], "")
+		lastname = strings.Join(r.Form["lastname"], "")
+		email = strings.Join(r.Form["email"], "")
+		gender = strings.Join(r.Form["gender"], "")
+		password = strings.Join(r.Form["pass"], "")
+	)
+	//
+	//user := UserBuilder(-1, firstname, lastname, email, gender, true, time.Now().String(), true)
+	//
+	//PrintUser(user)
+	db, _ := Database(DBNAME)
+	e := AddNewUserAccount(age, firstname, lastname, email, gender, true, password, db)
+	if e != nil {
+		log.Printf("User creation failed with error: %s", e)
+	}
 
-	t := template.Must(template.ParseFiles("web/new_account.html"))
+	t := template.Must(template.ParseFiles("web/account_creation_success.html"))
 	_ = t.Execute(w, "")
 
 }

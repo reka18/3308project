@@ -232,7 +232,7 @@ iframe {
 }
 
 .label-input100 {
-  font-family: OpenSans-Bold;
+  font-family: OpenSans-Bold, serif;
   font-size: 15px;
   color: #555555;
   line-height: 1.2;
@@ -295,7 +295,7 @@ input.input100 {
 
 
 /*------------------------------------------------------------------
-[ Button ]*/
+[ Form Button ]*/
 .container-login100-form-btn {
   width: 100%;
   display: -webkit-box;
@@ -308,7 +308,7 @@ input.input100 {
 }
 
 .login100-form-btn {
-  font-family: OpenSans-Bold;
+  font-family: OpenSans-Bold, serif;
   font-size: 15px;
   color: #fff;
   line-height: 1.2;
@@ -364,7 +364,82 @@ input.input100 {
 .login100-form-btn:hover:before {
   opacity: 1;
 }
+.login100-form-btn-solo:hover {
+  background-color: transparent;
+}
+.login100-form-btn-solo:hover:before {
+  opacity: 1;
+}
 
+/*------------------------------------------------------------------
+[ Free Button ]*/
+.container-login100-form-btn-solo {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.login100-form-btn-solo {
+  font-family: OpenSans-Bold, serif;
+  font-size: 15px;
+  color: #fff;
+  line-height: 1.2;
+  text-transform: uppercase;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  width: 100%;
+  height: 70px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #111111;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  position: relative;
+  z-index: 1;
+}
+
+.login100-form-btn-solo::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+
+  background: #2575fc;
+  background: -webkit-linear-gradient(right, #6a11cb, #2575fc);
+  background: -o-linear-gradient(right, #6a11cb, #2575fc);
+  background: -moz-linear-gradient(right, #6a11cb, #2575fc);
+  background: linear-gradient(right, #6a11cb, #2575fc);
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.login100-form-btn-solo:hover {
+  background-color: transparent;
+}
+.login100-form-btn-solo:hover:before {
+  opacity: 1;
+}
 
 
 /*------------------------------------------------------------------
@@ -456,5 +531,10 @@ input.input100 {
 
   .wrap-input100.rs2 {
     border-top-right-radius: 0px;
+  }
+
+  .wrap-input100.solo {
+    border-radius: 12px;
+    border-right: 1px solid #e0e0e0;
   }
 }

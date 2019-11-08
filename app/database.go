@@ -86,19 +86,6 @@ func createTables(db *sql.DB) error {
 
 }
 
-func dropTables(db *sql.DB) error {
-
-	q := fmt.Sprintf("DROP TABLE IF EXISTS %v;", userAccount)
-	_, e := db.Query(q)
-	if e == nil {
-		log.Println("Successfully dropped tables:", userAccount)
-	} else {
-		log.Println("Unable to drop table: ", userAccount, e)
-	}
-	return e
-
-}
-
 /*
 PUBLIC METHODS
  */
@@ -112,7 +99,13 @@ func DatabaseArgHandler() {
 
 		if arg == "--reset" {
 			log.Println("Manually dropping tables.")
-			_ = dropTables(db)
+			e := dropDatabase(db)
+			if e != nil {
+				log.Fatalf("Unable to drop database. Aborting.")
+			}
+			_ = createDatabase(db)
+			db, _ = Database(DBNAME)
+			_ = createEnums(db)
 			_ = createTables(db)
 		}
 
@@ -213,25 +206,5 @@ func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) User 
 	}
 
 	return UserBuilder(id, firstname, lastname, email, gender, public, joindate, active)
-
-}
-
-func PrintUser(u User) {
-	/*
-	THIS IS A DEBUGGING TOOL
-	*/
-	log.Printf("\n\n\tUSER {\n" +
-		"\tId: %v\n" +
-		"\tFirst Name: %v\n" +
-		"\tLast Name: %v\n" +
-		"\tEmail: %v\n" +
-		"\tGender: %v\n" +
-		"\tPublic: %v\n" +
-		"\tJoin Date: %v\n" +
-		"\tActive: %v\n" +
-		"\t}\n\n",
-		u.Id, u.Firstname, u.Lastname,
-		u.Email, u.Gender, u.Public,
-		u.Joindate, u.Active)
 
 }

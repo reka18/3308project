@@ -1,4 +1,4 @@
-package user_landing
+package main
 
 import(
 	"log"

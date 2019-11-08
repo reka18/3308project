@@ -1,7 +1,6 @@
 package main
 
 import (
-	_ "SocialMediaSite/handlers"
 	"log"
 	"net/http"
 	"os"
@@ -30,7 +29,7 @@ func main() {
 	fs := http.FileServer(http.Dir("source"))
 	http.Handle("/", fs)
 
-	//http.HandleFunc("/user_landing/", user_landing.UserLandingHandler)
+	http.HandleFunc("/user_landing/", UserLandingHandler)
 
 	log.Println("Listening...")
 	e := http.ListenAndServe(":3000", nil)

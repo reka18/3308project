@@ -26,9 +26,9 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 	db, _ := Database(DBNAME)
 	defer db.Close()
 
-	_, e := LoginUserAccount(email, password, db)
-	if e != nil {
-		log.Printf("User login failed: %s", e)
+	verified, e := LoginUserAccount(email, password, db)
+	if e != nil || !verified {
+		log.Println("User login failed.")
 		t := template.Must(template.ParseFiles("web/login.html"))
 		_ = t.Execute(w, "Incorrect email/password combination")
 	} else {

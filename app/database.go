@@ -1,12 +1,10 @@
 package main
 
 import (
-	"crypto/sha256"
 	"database/sql"
-	"encoding/hex"
 	"fmt"
 	_ "github.com/lib/pq"
-	"io"
+	"golang.org/x/crypto/bcrypt"
 	"log"
 	"os"
 )
@@ -148,15 +146,11 @@ func Database(dbname string) (*sql.DB, error) {
 
 func Encrypt(password string) string {
 
-	h := sha256.New()
-	_, e := io.WriteString(h, password)
-	if e == nil {
-		log.Println("Hashing successful.")
-	} else {
-		log.Fatal("Unknown hashing error:", e)
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.MinCost)
+	if err != nil {
+		log.Printf("Unable to hash: %s", err)
 	}
-	return hex.EncodeToString([]byte(fmt.Sprint(h)))
-
+	return string(hash)
 }
 
 func AddNewUserAccount(age int, firstname string, lastname string,
@@ -179,7 +173,7 @@ func AddNewUserAccount(age int, firstname string, lastname string,
 
 }
 
-func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) User {
+func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) (User, error) {
 
 	query := fmt.Sprintf("SELECT * FROM user_account WHERE email='%s' AND password='%v';",
 		inputEmail, Encrypt(inputPassword))
@@ -205,6 +199,6 @@ func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) User 
 		log.Println("Incorrect username or password:", e)
 	}
 
-	return UserBuilder(id, firstname, lastname, email, gender, public, joindate, active)
+	return UserBuilder(id, firstname, lastname, email, gender, public, joindate, active), e
 
 }

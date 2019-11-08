@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strings"
 )
 
 func userLoginGET(w http.ResponseWriter, r *http.Request) {
@@ -17,12 +18,30 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm()
 
-	log.Println("email:", r.Form["email"])
-	log.Println("password:", r.Form["pass"])
+	var (
+		email = strings.Join(r.Form["email"], "")
+		password = strings.Join(r.Form["pass"], "")
+	)
 
-	t := template.Must(template.ParseFiles("web/login.html"))
-	t.Execute(w, "")
+	db, _ := Database(DBNAME)
+	defer db.Close()
 
+	_, e := LoginUserAccount(email, password, db)
+	if e != nil {
+		log.Printf("User login failed: %s", e)
+		t := template.Must(template.ParseFiles("web/login.html"))
+		_ = t.Execute(w, "Incorrect email/password combination")
+	} else {
+		c := http.Cookie {
+			Name:       Encrypt(email + "thisisasaltstring"),
+			Value:      Encrypt(password + "thisisasaltstring"),
+		}
+		log.Printf("Cookie: %v", &c)
+		http.SetCookie(w, &c)
+
+		t := template.Must(template.ParseFiles("web/landing.html"))
+		t.Execute(w, "")
+	}
 }
 
 func UserLoginHandler(w http.ResponseWriter, r *http.Request) {

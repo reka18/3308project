@@ -33,18 +33,19 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 		gender = strings.Join(r.Form["gender"], "")
 		password = strings.Join(r.Form["pass"], "")
 	)
-	//
-	//user := UserBuilder(-1, firstname, lastname, email, gender, true, time.Now().String(), true)
-	//
-	//PrintUser(user)
+
 	db, _ := Database(DBNAME)
+	defer db.Close()
+
 	e := AddNewUserAccount(age, firstname, lastname, email, gender, true, password, db)
 	if e != nil {
 		log.Printf("User creation failed with error: %s", e)
+		t := template.Must(template.ParseFiles("web/new_account.html"))
+		_ = t.Execute(w, "Please fill out all fields")
+	} else {
+		t := template.Must(template.ParseFiles("web/account_creation_success.html"))
+		_ = t.Execute(w, "")
 	}
-
-	t := template.Must(template.ParseFiles("web/account_creation_success.html"))
-	_ = t.Execute(w, "")
 
 }
 

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="750967cf-46f9-48f4-9b74-667ceac611d4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" path="$USER_HOME$/Tools/golang/go1.13.4" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1TL4otUnCDxCbRxxXWRjnlR9M9A" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Module.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="go.sdk.automatically.set" value="true" />
+    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
+    <property name="go.vendoring.notification.had.been.shown" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/app" />
+      <recent name="$PROJECT_DIR$/web" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/documentation" />
+    </key>
+    <key name="GoMoveDeclarationDialog.RECENT_KEY">
+      <recent name="$PROJECT_DIR$/app" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/models" />
+      <recent name="$PROJECT_DIR$/database" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Go Build.RESET &amp; RUN">
+    <configuration name="CREATE DATABASE" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="SocialMediaSite" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="--create" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/" />
+      <package value="socialimediasite/app/app" />
+      <directory value="$PROJECT_DIR$/" />
+      <output_directory value="socialimediasite" />
+      <method v="2" />
+    </configuration>
+    <configuration name="DROP DATABASE" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="SocialMediaSite" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="--drop" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/" />
+      <package value="socialimediasite/app/app" />
+      <directory value="$PROJECT_DIR$/" />
+      <output_directory value="socialimediasite" />
+      <method v="2" />
+    </configuration>
+    <configuration name="RESET DATABASE" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="SocialMediaSite" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="--reset" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/" />
+      <package value="socialimediasite/app/app" />
+      <directory value="$PROJECT_DIR$/" />
+      <output_directory value="socialimediasite" />
+      <method v="2" />
+    </configuration>
+    <configuration name="RESET &amp; RUN" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="SocialMediaSite" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/" />
+      <package value="socialimediasite/app/app" />
+      <directory value="$PROJECT_DIR$/" />
+      <output_directory value="socialimediasite" />
+      <method v="2">
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="RESET DATABASE" run_configuration_type="GoApplicationRunConfiguration" />
+      </method>
+    </configuration>
+    <configuration name="RUN SERVER" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
+      <module name="SocialMediaSite" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/app/socialmediasite.go" />
+      <package value="socialimediasite/app/app" />
+      <directory value="$PROJECT_DIR$/" />
+      <output_directory value="socialimediasite" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.CREATE DATABASE" />
+      <item itemvalue="Go Build.RESET DATABASE" />
+      <item itemvalue="Go Build.RESET &amp; RUN" />
+      <item itemvalue="Go Build.DROP DATABASE" />
+      <item itemvalue="Go Build.RUN SERVER" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.RUN SERVER" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+    <proxy>direct</proxy>
+  </component>
+</project>

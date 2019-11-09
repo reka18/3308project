@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Landing</title>
+</head>
+<body>
+    <h1>{{.Firstname}} {{.Lastname}}</h1>
+    <p>What do you want to share?</p>
+    <textarea name="newpost" form="postform"></textarea>
+    <form method="POST" action="/user_landing/" id="postform">
+    	<input type="submit">
+    </form>	
+    
+</body>
+</html>

@@ -3,6 +3,6 @@ node_modules
 
 SocialMediaSite
 
-.idea/
-
 *.sum
+
+app

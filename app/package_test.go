@@ -16,7 +16,7 @@ func TestDatabase(t *testing.T) {
 
 func TestCreateDatabase(t *testing.T) {
 	db, _ := Database(PGNAME)
-	e := CreateDatabase(db)
+	e := createDatabase(db)
 	defer db.Close()
 	if e != nil {
 		t.Log("Warning: Problem creating database:", e)
@@ -26,34 +26,6 @@ func TestCreateDatabase(t *testing.T) {
 		}
 	}
 	t.Log("TestCreateDatabase pass!")
-}
-
-func TestInitializeDatabase(t *testing.T) {
-	db, _ := Database(DBNAME)
-	_ = DropTables(db)
-	e := InitializeDatabase(db)
-	defer db.Close()
-	if e != nil {
-		t.Log("Database initialization test failed: ", e)
-		t.Fail()
-	}
-	t.Log("TestInitializeDatabase pass!")
-}
-
-func TestEncrypt(t *testing.T) {
-	v := "267b5b31373739303333373033203331343431333432373720313031333" +
-		"930343234322032373733343830373632203133353938393331313920323" +
-		"630303832323932342035323837333436333520313534313435393232355" +
-		"d205b3439203530203531203532203533203020302030203020302030203" +
-		"020302030203020302030203020302030203020302030203020302030203" +
-		"020302030203020302030203020302030203020302030203020302030203" +
-		"020302030203020302030203020302030203020302030203020302030203" +
-		"020302030203020302030203020305d203520352066616c73657d"
-	c := Encrypt("12345")
-	if c != v {
-		t.Fail()
-	}
-	t.Log("TestEncrypt pass!")
 }
 
 func TestAddNewUserAccount(t *testing.T) {
@@ -79,21 +51,24 @@ func TestAddNewUserAccount(t *testing.T) {
 }
 
 func TestLoginUserAccount(t *testing.T) {
+
 	db, _ := Database(DBNAME)
 
-	u := LoginUserAccount("rigo.garcia@colorado.edu", "iamtheverymodelofthemodernmajorgeneral", db)
-	u.joindate = "" // we do this because it is difficult to assert
+	u, _, _ := LoginUserAccount("rigo.garcia@colorado.edu", "iamtheverymodelofthemodernmajorgeneral", db)
+
+
+
 	defer db.Close()
 
 	v := User{
-		id:			1,
-		firstname:	"Rodrigo",
-		lastname:	"Garcia",
-		email:		"rigo.garcia@colorado.edu",
-		gender:		"M",
-		public:		true,
-		joindate:	"",
-		active:		true,
+		Id:			1,
+		Firstname:	"Rodrigo",
+		Lastname:	"Garcia",
+		Email:		"rigo.garcia@colorado.edu",
+		Gender:		"M",
+		Public:		true,
+		Joindate:	"",
+		Active:		true,
 	}
 
 	if u != v {

@@ -120,7 +120,7 @@ func DatabaseArgHandler() {
 			_ = dropDatabase(db)
 		}
 
-		defer FailError(db.Close(), "Failed to close database.")
+		defer db.Close()
 		os.Exit(0)
 	}
 
@@ -147,7 +147,6 @@ func Database(dbname string) (*sql.DB, error) {
 func Encrypt(password string) string {
 
 	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.MinCost)
-	log.Printf("%s", hash)
 	if err != nil {
 		log.Printf("Unable to hash: %s", err)
 	}
@@ -155,70 +154,12 @@ func Encrypt(password string) string {
 }
 
 func VerifyPW(dbPasswordHash string, password string) bool {
-	// Since we'll be getting the hashed password from the DB it
-	// will be a string so we'll need to convert it to a byte slice
-	hash := []byte(dbPasswordHash)
-	log.Printf("%s", hash)
-	err := bcrypt.CompareHashAndPassword(hash, []byte(password))
+
+	err := bcrypt.CompareHashAndPassword([]byte(dbPasswordHash), []byte(password))
 	if err != nil {
 		log.Println(err)
 		return false
 	}
 	return true
-}
-
-func AddNewUserAccount(age int, firstname string, lastname string,
-	email string, gender string, public bool, password string, db *sql.DB) error {
-	/*
-	THIS CONNECTS TO THE DATABASE AND ADDS A USER
-	*/
-	q := fmt.Sprintf("INSERT INTO user_account(age, firstname, lastname, email, "+
-		"gender, public, joindate, active, password)"+
-		"VALUES (%d, '%s', '%s', '%s', '%s', '%t', now(), true, '%s');",
-		age, firstname, lastname, email, gender, public, Encrypt(password))
-	_, e := db.Query(q)
-	if e != nil {
-		log.Println("Unable to execute query:", e)
-	} else {
-		log.Printf("Successfully added User <%s> to Database.", email)
-	}
-	return e
-
-}
-
-func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) (bool, error) {
-
-	/*
-	FAST FAIL IF EMAIL OR PASSWORD ARE BLANK
-	 */
-	if len(inputEmail) == 0 || len(inputPassword) == 0 {
-		log.Println("Email and/or password blank.")
-		return false, &EmptyStringError{}
-	}
-
-	/*
-	DEBUGGING
-	 */
-	hashpw := Encrypt(inputPassword)
-	log.Println(hashpw)
-
-	query := fmt.Sprintf("SELECT * FROM user_account WHERE email='%s';", inputEmail)
-
-	r := db.QueryRow(query)
-
-	var (
-		password string
-	)
-
-	e := r.Scan(&password)
-	if e != nil {
-		log.Println("Email not found:")
-		return false, e
-	}
-	if VerifyPW(password, inputPassword) {
-		log.Println("Password verified.")
-		return true, e
-	}
-	return false, e
 
 }

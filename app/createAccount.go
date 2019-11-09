@@ -1,6 +1,8 @@
 package main
 
 import (
+	"database/sql"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -23,7 +25,7 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 	TODO: should be restricted to M, F, or O (it already is in the database but
 	TODO: lets catch it earlier, and password should have certain constraints.
 	 */
-	r.ParseForm()
+	_ = r.ParseForm()
 
 	var (
 		age, _ = strconv.Atoi(strings.Join(r.Form["age"], ""))
@@ -61,5 +63,24 @@ func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 	case "POST":
 		createUserAccountPOST(w, r)
 	}
+
+}
+
+func AddNewUserAccount(age int, firstname string, lastname string,
+	email string, gender string, public bool, password string, db *sql.DB) error {
+	/*
+		THIS CONNECTS TO THE DATABASE AND ADDS A USER
+	*/
+	q := fmt.Sprintf("INSERT INTO user_account(age, firstname, lastname, email, "+
+		"gender, public, joindate, active, password)"+
+		"VALUES (%d, '%s', '%s', '%s', '%s', '%t', now(), true, '%s');",
+		age, firstname, lastname, email, gender, public, Encrypt(password))
+	_, e := db.Query(q)
+	if e != nil {
+		log.Println("Unable to execute query:", e)
+	} else {
+		log.Printf("Successfully added User <%s> to Database.", email)
+	}
+	return e
 
 }

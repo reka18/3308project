@@ -18,6 +18,14 @@ func Start(config Config) *HTMLServer {
 		http.StripPrefix("/css",
 			http.FileServer(
 				http.Dir("web/css/"))))
+	router.PathPrefix("/js/").Handler(
+		http.StripPrefix("/js",
+			http.FileServer(
+				http.Dir("web/js/"))))
+	router.PathPrefix("/vendor/").Handler(
+		http.StripPrefix("/vendor",
+			http.FileServer(
+				http.Dir("web/vendor/"))))
 	router.HandleFunc("/login", UserLoginHandler)
 	router.HandleFunc("/create", CreateAccountHandler)
 	router.HandleFunc("/", UserLandingHandler)

@@ -40,7 +40,7 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Cookie: %v", &c)
 		http.SetCookie(w, &c)
 
-		t := template.Must(template.ParseFiles("web/landing.html"))
+		t := template.Must(template.ParseFiles("web/auth_landing.html"))
 		_ = t.Execute(w, "")
 	}
 }

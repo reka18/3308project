@@ -2,9 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="750967cf-46f9-48f4-9b74-667ceac611d4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/authentication.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tables.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/landing.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/landing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/create_account.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/create_account.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/database.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/landing.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/landing.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/login.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/login.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/account_creation_success.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/account_created.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/landing.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/auth_landing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/new_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/create_account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/user_landing.html" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -88,7 +96,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.landing.html">
+  <component name="RunManager" selected="Go Build.RUN SERVER">
     <configuration name="CREATE DATABASE" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
       <module name="SocialMediaSite" />
       <working_directory value="$PROJECT_DIR$" />
@@ -165,7 +173,7 @@
       <filePath value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <configuration name="landing.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/SocialMediaSite/web/landing.html" useBuiltInWebServerPort="true">
+    <configuration name="auth_landing.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/SocialMediaSite/web/auth_landing.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
     <configuration name="build" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
@@ -180,13 +188,13 @@
       <item itemvalue="Go Build.DROP DATABASE" />
       <item itemvalue="Go Build.CREATE DATABASE" />
       <item itemvalue="Go Build.RUN SERVER" />
-      <item itemvalue="JavaScript Debug.landing.html" />
+      <item itemvalue="JavaScript Debug.auth_landing.html" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JavaScript Debug.landing.html" />
-        <item itemvalue="Go Build.CREATE DATABASE" />
         <item itemvalue="Go Build.RUN SERVER" />
+        <item itemvalue="Go Build.CREATE DATABASE" />
+        <item itemvalue="JavaScript Debug.auth_landing.html" />
       </list>
     </recent_temporary>
   </component>

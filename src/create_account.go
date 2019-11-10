@@ -12,7 +12,7 @@ import (
 
 func createUserAccountGET(w http.ResponseWriter, r *http.Request) {
 
-	t := template.Must(template.ParseFiles("web/new_account.html"))
+	t := template.Must(template.ParseFiles("web/create_account.html"))
 	_ = t.Execute(w, "")
 
 }
@@ -20,10 +20,6 @@ func createUserAccountGET(w http.ResponseWriter, r *http.Request) {
 func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 	/*
 	THIS CREATES A NEW USER IN THE DATABASE
-	TODO: Certain fields need to have constraints added. Age cannot be negative,
-	TODO: names cannot be blank or too long, email must be a valid email, gender
-	TODO: should be restricted to M, F, or O (it already is in the database but
-	TODO: lets catch it earlier, and password should have certain constraints.
 	 */
 	_ = r.ParseForm()
 
@@ -42,10 +38,10 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 	e := AddNewUserAccount(age, firstname, lastname, email, gender, true, password, db)
 	if e != nil {
 		log.Printf("User creation failed with error: %s", e)
-		t := template.Must(template.ParseFiles("web/new_account.html"))
+		t := template.Must(template.ParseFiles("web/create_account.html"))
 		_ = t.Execute(w, "Please fill out all fields")
 	} else {
-		t := template.Must(template.ParseFiles("web/account_creation_success.html"))
+		t := template.Must(template.ParseFiles("web/account_created.html"))
 		_ = t.Execute(w, "")
 	}
 
@@ -70,7 +66,7 @@ func AddNewUserAccount(age int, firstname string, lastname string,
 	/*
 		THIS CONNECTS TO THE DATABASE AND ADDS A USER
 	*/
-	q := fmt.Sprintf("INSERT INTO user_account(age, firstname, lastname, email, "+
+	q := fmt.Sprintf("INSERT INTO users(age, firstname, lastname, email, "+
 		"gender, public, joindate, active, password)"+
 		"VALUES (%d, '%s', '%s', '%s', '%s', '%t', now(), true, '%s');",
 		age, firstname, lastname, email, gender, public, Encrypt(password))

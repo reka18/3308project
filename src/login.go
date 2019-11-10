@@ -72,7 +72,7 @@ func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) (User
 		return user, false, &EmptyStringError{}
 	}
 
-	query := fmt.Sprintf("SELECT * FROM user_account WHERE email='%s';", inputEmail)
+	query := fmt.Sprintf("SELECT * FROM users WHERE email='%s';", inputEmail)
 
 	r := db.QueryRow(query)
 

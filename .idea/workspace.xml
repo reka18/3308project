@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="750967cf-46f9-48f4-9b74-667ceac611d4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/SocialMediaSite.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SocialMediaSite.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/createAccount.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/create_account.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/database.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/errors.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/errors.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/landing.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/landing.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/login.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/login.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/models.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/package_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/package_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/src/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/service.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +33,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" path="$USER_HOME$/Tools/go/go1.13.4" />
+  <component name="GOROOT" path="$USER_HOME$/Tools/golang/go1.13.4" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -64,25 +54,25 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="last_opened_file_path" value="$APPLICATION_HOME_DIR$/bin/socialimediasite" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/app" />
-      <recent name="$PROJECT_DIR$/web" />
-      <recent name="$PROJECT_DIR$/documentation" />
-    </key>
     <key name="GoMoveDeclarationDialog.RECENT_KEY">
       <recent name="$PROJECT_DIR$/app" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/models" />
       <recent name="$PROJECT_DIR$/database" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/app" />
+      <recent name="$PROJECT_DIR$/web" />
+      <recent name="$PROJECT_DIR$/documentation" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -97,15 +87,15 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Makefile.build">
+  <component name="RunManager" selected="Go Build.RESET &amp; RUN">
     <configuration name="CREATE DATABASE" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
       <module name="SocialMediaSite" />
       <working_directory value="$PROJECT_DIR$" />
       <parameters value="--create" />
-      <kind value="PACKAGE" />
+      <kind value="DIRECTORY" />
       <filePath value="$PROJECT_DIR$/" />
-      <package value="socialimediasite/app/app" />
-      <directory value="$PROJECT_DIR$/" />
+      <package value="socialimediasite/src/" />
+      <directory value="$PROJECT_DIR$/src" />
       <output_directory value="socialimediasite" />
       <method v="2" />
     </configuration>
@@ -113,10 +103,10 @@
       <module name="SocialMediaSite" />
       <working_directory value="$PROJECT_DIR$" />
       <parameters value="--drop" />
-      <kind value="PACKAGE" />
+      <kind value="DIRECTORY" />
       <filePath value="$PROJECT_DIR$/" />
       <package value="socialimediasite/app/app" />
-      <directory value="$PROJECT_DIR$/" />
+      <directory value="$PROJECT_DIR$/src" />
       <output_directory value="socialimediasite" />
       <method v="2" />
     </configuration>
@@ -124,20 +114,20 @@
       <module name="SocialMediaSite" />
       <working_directory value="$PROJECT_DIR$" />
       <parameters value="--reset" />
-      <kind value="PACKAGE" />
+      <kind value="DIRECTORY" />
       <filePath value="$PROJECT_DIR$/" />
       <package value="socialimediasite/app/app" />
-      <directory value="$PROJECT_DIR$/" />
+      <directory value="$PROJECT_DIR$/src" />
       <output_directory value="socialimediasite" />
       <method v="2" />
     </configuration>
     <configuration name="RESET &amp; RUN" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="SocialMediaSite" />
       <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
+      <kind value="DIRECTORY" />
       <filePath value="$PROJECT_DIR$/" />
       <package value="socialimediasite/app/app" />
-      <directory value="$PROJECT_DIR$/" />
+      <directory value="$PROJECT_DIR$/src" />
       <output_directory value="socialimediasite" />
       <method v="2">
         <option name="RunConfigurationTask" enabled="true" run_configuration_name="RESET DATABASE" run_configuration_type="GoApplicationRunConfiguration" />
@@ -146,10 +136,10 @@
     <configuration name="RUN SERVER" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
       <module name="SocialMediaSite" />
       <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
+      <kind value="DIRECTORY" />
       <filePath value="$PROJECT_DIR$/app/socialmediasite.go" />
       <package value="socialimediasite/app/app" />
-      <directory value="$PROJECT_DIR$/" />
+      <directory value="$PROJECT_DIR$/src" />
       <output_directory value="socialimediasite" />
       <method v="2" />
     </configuration>
@@ -186,13 +176,11 @@
       <item itemvalue="Go Build.DROP DATABASE" />
       <item itemvalue="Go Build.CREATE DATABASE" />
       <item itemvalue="Go Build.RUN SERVER" />
-      <item itemvalue="Makefile.build" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Makefile.build" />
-        <item itemvalue="Go Build.RUN SERVER" />
         <item itemvalue="Go Build.CREATE DATABASE" />
+        <item itemvalue="Go Build.RUN SERVER" />
       </list>
     </recent_temporary>
   </component>

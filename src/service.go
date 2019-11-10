@@ -14,6 +14,7 @@ func Start(config Config) *HTMLServer {
 	context.WithCancel(context.Background())
 
 	router := mux.NewRouter()
+
 	router.PathPrefix("/css/").Handler(
 		http.StripPrefix("/css",
 			http.FileServer(
@@ -26,6 +27,7 @@ func Start(config Config) *HTMLServer {
 		http.StripPrefix("/vendor",
 			http.FileServer(
 				http.Dir("web/vendor/"))))
+
 	router.HandleFunc("/login", UserLoginHandler)
 	router.HandleFunc("/create", CreateAccountHandler)
 	router.HandleFunc("/", UserLandingHandler)
@@ -91,4 +93,33 @@ func push(w http.ResponseWriter, resource string) {
 			return
 		}
 	}
+}
+
+func pushAllResources(w http.ResponseWriter) {
+	/*
+	THIS FUNCTION APPLIES THE "PUSH" FUNC TO ALL NEEDED RESOURCE
+	 */
+	push(w, "css/main.css")
+	push(w, "css/util.css")
+	push(w,"js/main.js")
+	push(w, "vendor/animate/animate.js")
+	push(w, "vendor/animsition/css/animsition.css")
+	push(w, "vendor/animsition/js/animsition.js")
+	push(w, "vendor/bootstrap/css/bootstrap.css")
+	push(w, "vendor/bootstrap/css/bootstrap-grid.css")
+	push(w, "vendor/bootstrap/css/bootstrap-reboot.css")
+	push(w, "vendor/bootstrap/js/bootstrap.js")
+	push(w, "vendor/bootstrap/js/popper.js")
+	push(w, "vendor/bootstrap/js/tooltip.js")
+	push(w, "vendor/countdowntime/countdowntime.js")
+	push(w, "vendor/css-hamburgers/hamburgers.css")
+	push(w, "vendor/daterangepicker/daterangepicker.css")
+	push(w, "vendor/daterangepicker/daterangepicker.js")
+	push(w, "vendor/daterangepicker/moment.js")
+	push(w, "vendor/jquery/jquery-3.2.1.min.js")
+	push(w, "vendor/perfect-scrollbar/perfect-scrollbar.css")
+	push(w, "vendor/perfect-scrollbar/perfect-scrollbar.min.js")
+	push(w, "vendor/select2/select2.css")
+	push(w, "vendor/select2/select2.js")
+
 }

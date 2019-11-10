@@ -47,8 +47,7 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 
 func UserLoginHandler(w http.ResponseWriter, r *http.Request) {
 
-	push(w, "css/main.css")
-	push(w, "css/util.css")
+	pushAllResources(w)
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
 	switch r.Method {

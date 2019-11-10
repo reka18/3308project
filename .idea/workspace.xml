@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="750967cf-46f9-48f4-9b74-667ceac611d4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/landing.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/landing.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +58,7 @@
     <property name="last_opened_file_path" value="$APPLICATION_HOME_DIR$/bin/socialimediasite" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.HTML" />
   </component>
   <component name="RecentsManager">
     <key name="GoMoveDeclarationDialog.RECENT_KEY">
@@ -87,7 +88,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.RESET &amp; RUN">
+  <component name="RunManager" selected="JavaScript Debug.landing.html">
     <configuration name="CREATE DATABASE" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
       <module name="SocialMediaSite" />
       <working_directory value="$PROJECT_DIR$" />
@@ -164,6 +165,9 @@
       <filePath value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
+    <configuration name="landing.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/SocialMediaSite/web/landing.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="build" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
       <makefile filename="$PROJECT_DIR$/MakeFIle" target="build" workingDirectory="" arguments="">
         <envs />
@@ -176,9 +180,11 @@
       <item itemvalue="Go Build.DROP DATABASE" />
       <item itemvalue="Go Build.CREATE DATABASE" />
       <item itemvalue="Go Build.RUN SERVER" />
+      <item itemvalue="JavaScript Debug.landing.html" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.landing.html" />
         <item itemvalue="Go Build.CREATE DATABASE" />
         <item itemvalue="Go Build.RUN SERVER" />
       </list>

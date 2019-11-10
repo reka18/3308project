@@ -7,7 +7,7 @@ import (
 
 func usrLandingGET(w http.ResponseWriter, r *http.Request) {
 
-	t := template.Must(template.ParseFiles("web/landing.html"))
+	t := template.Must(template.ParseFiles("web/auth_landing.html"))
 	_ = t.Execute(w, "")
 
 }

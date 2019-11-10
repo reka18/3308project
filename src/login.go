@@ -40,7 +40,7 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Cookie: %v", &c)
 		http.SetCookie(w, &c)
 
-		t := template.Must(template.ParseFiles("web/landing.html"))
+		t := template.Must(template.ParseFiles("web/auth_landing.html"))
 		_ = t.Execute(w, "")
 	}
 }
@@ -72,7 +72,7 @@ func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) (User
 		return user, false, &EmptyStringError{}
 	}
 
-	query := fmt.Sprintf("SELECT * FROM user_account WHERE email='%s';", inputEmail)
+	query := fmt.Sprintf("SELECT * FROM users WHERE email='%s';", inputEmail)
 
 	r := db.QueryRow(query)
 

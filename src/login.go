@@ -62,7 +62,7 @@ func UserLoginHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) (User, bool, error) {
+func LoginUserAccount(inputUsername string, inputPassword string, db *sql.DB) (User, bool, error) {
 
 	var (
 		user User
@@ -70,31 +70,22 @@ func LoginUserAccount(inputEmail string, inputPassword string, db *sql.DB) (User
 	/*
 		FAST FAIL IF EMAIL OR PASSWORD ARE BLANK
 	*/
-	if len(inputEmail) == 0 || len(inputPassword) == 0 {
+	if len(inputUsername) == 0 || len(inputPassword) == 0 {
 		log.Println("Email and/or password blank.")
 		return user, false, &EmptyStringError{}
 	}
 
-	query := fmt.Sprintf("SELECT * FROM users WHERE email='%s';", inputEmail)
+	query := fmt.Sprintf("SELECT * FROM users WHERE username='%s';", inputUsername)
 
 	r := db.QueryRow(query)
 
 	var (
-		id        int
-		age       int
-		firstname string
-		lastname  string
-		email     string
-		gender    string
-		public    bool
-		joindate  string
-		active    bool
-		password  string
+		password	string
 	)
 
-	e := r.Scan(&id, &age, &firstname, &lastname, &email, &gender, &public, &joindate, &active, &password)
+	e := r.Scan(&password)
 
-	user = UserBuilder(id, firstname, lastname, email, gender, public, joindate, active)
+	// user = UserBuilder(id, firstname, lastname, email, gender, public, joindate, active)
 
 	if e != nil {
 		log.Println("Email not found: ", e)

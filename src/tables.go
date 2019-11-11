@@ -6,25 +6,26 @@ import (
 	"log"
 )
 
-var genderEnum = "CREATE TYPE gender " +
+var genderEnum = "CREATE TYPE GENDER " +
 	"AS ENUM ('M', 'F', 'O');"
 
 var usersTable = "CREATE TABLE users (" +
 	"id SERIAL PRIMARY KEY," +
 	"age INT NOT NULL," +
-	"firstName TEXT NOT NULL," +
-	"lastName TEXT NOT NULL," +
+	"firstname TEXT NOT NULL," +
+	"lastname TEXT NOT NULL," +
 	"email TEXT UNIQUE NOT NULL," +
-	"gender gender NOT NULL," +
+	"username TEXT UNIQUE NOT NULL," +
+	"gender GENDER NOT NULL," +
 	"public BOOLEAN NOT NULL," +
-	"joinDate DATE NOT NULL," +
+	"joindate DATE," +
 	"active BOOLEAN NOT NULL," +
 	"password TEXT NOT NULL" +
 	");"
 
 var postTable = "CREATE TABLE posts (" +
 	"id SERIAL PRIMARY KEY," +
-	"user_id INT REFERENCES users(id)," +
+	"userid INT REFERENCES users(id)," +
 	"content VARCHAR(240)," +
 	"upvotes INT," +
 	"downvotes INT," +

@@ -29,14 +29,18 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 		firstname = strings.Join(r.Form["firstname"], "")
 		lastname = strings.Join(r.Form["lastname"], "")
 		email = strings.Join(r.Form["email"], "")
+		username = strings.Join(r.Form["username"], "")
 		gender = strings.Join(r.Form["gender"], "")
 		password = strings.Join(r.Form["pass"], "")
 	)
 
+	log.Println(gender)
+	log.Println(username)
+
 	db, _ := Database(DBNAME)
 	defer db.Close()
 
-	e := AddNewUserAccount(age, firstname, lastname, email, gender, true, password, db)
+	e := AddNewUserAccount(age, firstname, lastname, email, username, gender, true, password, db)
 	if e != nil {
 		log.Printf("User creation failed with error: %s", e)
 		t := template.Must(template.ParseFiles("web/create_account.html"))
@@ -64,21 +68,23 @@ func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func AddNewUserAccount(age int, firstname string, lastname string,
-	email string, gender string, public bool, password string, db *sql.DB) error {
+func AddNewUserAccount(age int, firstname string, lastname string, email string, username string, gender string,
+	public bool, password string, db *sql.DB) error {
 	/*
 		THIS CONNECTS TO THE DATABASE AND ADDS A USER
 	*/
-	q := fmt.Sprintf("INSERT INTO users(age, firstname, lastname, email, "+
-		"gender, public, joindate, active, password)"+
-		"VALUES (%d, '%s', '%s', '%s', '%s', '%t', now(), true, '%s');",
-		age, firstname, lastname, email, gender, public, Encrypt(password))
-	_, e := db.Query(q)
+
+	query := fmt.Sprintf("INSERT INTO users (" +
+		"age, firstname, lastname, email, username, gender, public, active, password)"+
+		"VALUES (%d, '%s', '%s', '%s', '%s' ,'%s', '%t', '%t', '%s');",
+		age, firstname, lastname, email, username, gender, public, true, password)
+	_, e := db.Query(query)
 	if e != nil {
 		log.Println("Unable to execute query:", e)
+		return e
 	} else {
 		log.Printf("Successfully added User <%s> to Database.", email)
 	}
-	return e
 
+	return e
 }

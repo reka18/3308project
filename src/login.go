@@ -23,26 +23,23 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 	_ = r.ParseForm()
 
 	var (
-		email = strings.Join(r.Form["email"], "")
+		login = strings.Join(r.Form["login"], "")
 		password = strings.Join(r.Form["pass"], "")
 	)
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
 
-	_, v, e := LoginUserAccount(email, password, db)
+	username, v, e := LoginUserAccount(login, password, db)
 	if e != nil || !v {
 		log.Println("User login failed.")
 		t := template.Must(template.ParseFiles("web/login.html"))
 		_ = t.Execute(w, "Incorrect email/password combination")
 	} else {
-		c := http.Cookie {
-			Name:	"login_cookie",
-		}
-		log.Printf("Cookie: %v", &c)
-		http.SetCookie(w, &c)
+		SecureCookieController(w, username)
 
-		http.Redirect(w, r, "/", 303)
+		userPage := fmt.Sprintf("/%s", username)
+		http.Redirect(w, r, userPage, 303) // TODO
 
 		log.Println("Create account page arrival cookies: ", r.Cookies())
 	}
@@ -62,39 +59,40 @@ func UserLoginHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func LoginUserAccount(inputUsername string, inputPassword string, db *sql.DB) (User, bool, error) {
+func LoginUserAccount(inputUsernameOrEmail string, inputPassword string, db *sql.DB) (string, bool, error) {
 
-	var (
-		user User
-	)
 	/*
-		FAST FAIL IF EMAIL OR PASSWORD ARE BLANK
+	FAST FAIL IF USERNAME/EMAIL OR PASSWORD ARE BLANK
 	*/
-	if len(inputUsername) == 0 || len(inputPassword) == 0 {
-		log.Println("Email and/or password blank.")
-		return user, false, &EmptyStringError{}
+	if len(inputUsernameOrEmail) == 0 || len(inputPassword) == 0 {
+		log.Println("Username and/or password blank.")
+		return "", false, &EmptyStringError{}
 	}
 
-	query := fmt.Sprintf("SELECT * FROM users WHERE username='%s';", inputUsername)
+	/* Login with either username OR email. */
+	query := fmt.Sprintf("SELECT * FROM users WHERE email = '%s' OR username = '%s';",
+		inputUsernameOrEmail, inputUsernameOrEmail)
 
 	r := db.QueryRow(query)
 
 	var (
 		password	string
+		username	string
+		email		string
 	)
 
-	e := r.Scan(&password)
-
-	// user = UserBuilder(id, firstname, lastname, email, gender, public, joindate, active)
+	e := r.Scan(&password, &username, &email)
 
 	if e != nil {
-		log.Println("Email not found: ", e)
-		return user, false, e
+		log.Println("Account not found: ", e)
+		return "", false, e
 	}
 	if VerifyPW(password, inputPassword) {
 		log.Println("Password verified.")
-		return user, true, e
+		/* Here we actually want the username. */
+		return usersTable, true, e
 	}
-	return user, false, e
+	/* Here we just want to return whatever the user passed for error logging */
+	return inputUsernameOrEmail, false, e
 
 }

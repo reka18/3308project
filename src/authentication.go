@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
+	"github.com/gorilla/securecookie"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -27,13 +29,12 @@ func VerifyPW(dbPasswordHash string, password string) bool {
 
 }
 
-func CookieReader(c *http.Cookie, e error) {
-	if e != nil {
-		log.Printf("Unable to read cookie. Aborting login. %v", e)
-		return
+func SecureCookieController(w http.ResponseWriter, username string) {
+	key := securecookie.GenerateRandomKey(64)
+	c := http.Cookie {
+		Name:	fmt.Sprintf("socialmediasite:login-cookie:[%s]", username),
+		Value:	string(key),
 	}
-	log.Println(c.Name)
-	log.Println(c.Value)
-	log.Println(c.Raw)
-	log.Println(c.RawExpires)
+	log.Printf("Cookie: %v", &c)
+	http.SetCookie(w, &c)
 }

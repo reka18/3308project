@@ -46,6 +46,7 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 		t := template.Must(template.ParseFiles("web/create_account.html"))
 		_ = t.Execute(w, "Please fill out all fields")
 	} else {
+		SecureCookieController(w, email)
 		t := template.Must(template.ParseFiles("web/account_created.html"))
 		_ = t.Execute(w, "")
 

@@ -44,6 +44,8 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 	} else {
 		t := template.Must(template.ParseFiles("web/account_created.html"))
 		_ = t.Execute(w, "")
+
+		log.Println("Account created page arrival cookies: ", r.Cookies())
 	}
 
 }

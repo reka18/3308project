@@ -14,6 +14,8 @@ func userLoginGET(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(template.ParseFiles("web/login.html"))
 	_ = t.Execute(w, "")
 
+	log.Println("Authenticated login page arrival cookies: ", r.Cookies())
+
 }
 
 func userLoginPOST(w http.ResponseWriter, r *http.Request) {
@@ -40,8 +42,9 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Cookie: %v", &c)
 		http.SetCookie(w, &c)
 
-		t := template.Must(template.ParseFiles("web/auth_landing.html"))
-		_ = t.Execute(w, "")
+		http.Redirect(w, r, "/", 303)
+
+		log.Println("Create account page arrival cookies: ", r.Cookies())
 	}
 }
 

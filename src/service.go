@@ -29,9 +29,10 @@ func Start(config Config) *HTMLServer {
 			http.FileServer(
 				http.Dir("web/vendor/"))))
 
+	router.HandleFunc("/", BaseUrlHandler)
 	router.HandleFunc("/login", UserLoginHandler)
 	router.HandleFunc("/create", CreateAccountHandler)
-	router.HandleFunc("/", UserLandingHandler)
+	router.HandleFunc("/{user}", UserLandingHandler)
 
 	htmlServer := HTMLServer{
 		server: &http.Server{

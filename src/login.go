@@ -35,7 +35,7 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 		_ = t.Execute(w, "Incorrect email/password combination")
 	} else {
 		c := http.Cookie {
-			Name:	email,
+			Name:	"login_cookie",
 		}
 		log.Printf("Cookie: %v", &c)
 		http.SetCookie(w, &c)

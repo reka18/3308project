@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/http"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -24,4 +25,15 @@ func VerifyPW(dbPasswordHash string, password string) bool {
 	}
 	return true
 
+}
+
+func CookieReader(c *http.Cookie, e error) {
+	if e != nil {
+		log.Printf("Unable to read cookie. Aborting login. %v", e)
+		return
+	}
+	log.Println(c.Name)
+	log.Println(c.Value)
+	log.Println(c.Raw)
+	log.Println(c.RawExpires)
 }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"html/template"
+	"log"
 	"net/http"
 )
 
@@ -10,6 +11,7 @@ func usrLandingGET(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(template.ParseFiles("web/auth_landing.html"))
 	_ = t.Execute(w, "")
 
+	log.Println("Authenticated landing page arrival cookies: ", r.Cookies())
 }
 
 func UserLandingHandler(w http.ResponseWriter, r *http.Request) {

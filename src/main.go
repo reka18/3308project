@@ -1,21 +1,10 @@
 package main
 
 import (
-	"html/template"
 	"os"
 	"os/signal"
 	"time"
 )
-
-var (
-	loginHTML string
-	loginTMPL *template.Template
-)
-
-func init() {
-	loginHTML = "web/login.html"
-	loginTMPL = template.Must(template.New("login").Parse(loginHTML))
-}
 
 func main() {
 

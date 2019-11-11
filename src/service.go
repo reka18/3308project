@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/gorilla/mux"
 	"html/template"
 	"net/http"
 	"time"
+
+	"github.com/gorilla/mux"
 )
 
 func Start(config Config) *HTMLServer {

@@ -11,15 +11,15 @@ var genderEnum = "CREATE TYPE gender " +
 
 var usersTable = "CREATE TABLE users (" +
 	"id SERIAL PRIMARY KEY," +
-	"age INT," +
-	"firstName TEXT," +
-	"lastName TEXT," +
+	"age INT NOT NULL," +
+	"firstName TEXT NOT NULL," +
+	"lastName TEXT NOT NULL," +
 	"email TEXT UNIQUE NOT NULL," +
 	"gender gender NOT NULL," +
-	"public BOOLEAN," +
-	"joinDate DATE," +
-	"active BOOLEAN," +
-	"password TEXT" +
+	"public BOOLEAN NOT NULL," +
+	"joinDate DATE NOT NULL," +
+	"active BOOLEAN NOT NULL," +
+	"password TEXT NOT NULL" +
 	");"
 
 var postTable = "CREATE TABLE posts (" +

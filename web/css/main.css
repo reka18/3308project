@@ -471,7 +471,7 @@ input.input100 {
   right: 12px;
   pointer-events: none;
 
-  font-family: OpenSans-Bold;
+  font-family: OpenSans-Bold, serif;
   color: #c80000;
   font-size: 13px;
   line-height: 1.4;
@@ -488,7 +488,7 @@ input.input100 {
 
 .alert-validate::after {
   content: "\f12a";
-  font-family: FontAwesome;
+  font-family: FontAwesome, serif;
   display: block;
   position: absolute;
   z-index: 110;

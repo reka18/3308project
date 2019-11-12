@@ -15,6 +15,7 @@ func createUserAccountGET(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(template.ParseFiles("web/create_account.html"))
 	_ = t.Execute(w, "")
 
+	log.Println("Create account page arrival cookies: ", r.Cookies())
 }
 
 func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
@@ -28,14 +29,14 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 		firstname = strings.Join(r.Form["firstname"], "")
 		lastname = strings.Join(r.Form["lastname"], "")
 		email = strings.Join(r.Form["email"], "")
-		gender = strings.Join(r.Form["gender"], "")
-		password = strings.Join(r.Form["pass"], "")
+		username = strings.Join(r.Form["username"], "")
+		password = GenerateKey(strings.Join(r.Form["pass"], "")) /* Encryption happens here */
 	)
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
 
-	e := AddNewUserAccount(age, firstname, lastname, email, gender, true, password, db)
+	e := AddNewUserAccount(age, firstname, lastname, email, username, true, password, db)
 	if e != nil {
 		log.Printf("User creation failed with error: %s", e)
 		t := template.Must(template.ParseFiles("web/create_account.html"))
@@ -49,7 +50,6 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 
 func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 
-	pushAllResources(w)
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
 	switch r.Method {
@@ -61,21 +61,23 @@ func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func AddNewUserAccount(age int, firstname string, lastname string,
-	email string, gender string, public bool, password string, db *sql.DB) error {
+func AddNewUserAccount(age int, firstname string, lastname string, email string, username string,
+	public bool, password string, db *sql.DB) error {
 	/*
 		THIS CONNECTS TO THE DATABASE AND ADDS A USER
 	*/
-	q := fmt.Sprintf("INSERT INTO users(age, firstname, lastname, email, "+
-		"gender, public, joindate, active, password)"+
-		"VALUES (%d, '%s', '%s', '%s', '%s', '%t', now(), true, '%s');",
-		age, firstname, lastname, email, gender, public, Encrypt(password))
-	_, e := db.Query(q)
+
+	query := fmt.Sprintf("INSERT INTO users (" +
+		"age, firstname, lastname, email, username, public, active, password)"+
+		"VALUES (%d, '%s', '%s', '%s', '%s', '%t', '%t', '%s');",
+		age, firstname, lastname, email, username, public, true, password)
+	_, e := db.Query(query)
 	if e != nil {
 		log.Println("Unable to execute query:", e)
+		return e
 	} else {
 		log.Printf("Successfully added User <%s> to Database.", email)
 	}
-	return e
 
+	return e
 }

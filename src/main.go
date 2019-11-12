@@ -1,21 +1,10 @@
 package main
 
 import (
-	"html/template"
 	"os"
 	"os/signal"
 	"time"
 )
-
-var (
-	loginHTML string
-	loginTMPL *template.Template
-)
-
-func init() {
-	loginHTML = "web/login.html"
-	loginTMPL = template.Must(template.New("login").Parse(loginHTML))
-}
 
 func main() {
 
@@ -28,8 +17,10 @@ func main() {
 		WriteTimeout:	5 * time.Second,
 	}
 
+	OpenRedisConnection()
 	server := Start(serverConfig)
 	defer server.Stop()
+	defer CloseRedisConnection()
 
 	channel := make(chan os.Signal, 1)
 	signal.Notify(channel, os.Interrupt)

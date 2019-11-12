@@ -6,3 +6,5 @@ SocialMediaSite
 *.sum
 
 app
+
+.idea/workspace.xml

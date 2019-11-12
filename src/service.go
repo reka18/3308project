@@ -36,8 +36,6 @@ func Start(config Config) *HTMLServer {
 	router.HandleFunc("/logout", UserLogoutHandler)
 	router.HandleFunc("/{user}", UserLandingHandler)
 
-
-
 	htmlServer := HTMLServer{
 		server: &http.Server{
 			Addr:           config.Host,

@@ -94,11 +94,10 @@ func Database(dbname string) (*sql.DB, error) {
 	*/
 	dbInfo := fmt.Sprintf("dbname='%v' sslmode=disable", dbname)
 	db, e := sql.Open("postgres", dbInfo)
-	if e == nil {
-		log.Println("Database connection established.")
-	} else {
-		log.Println("Database connection failed:", e)
+	if e != nil {
+		log.Fatal("Database connection failed:", e)
 	}
+	log.Println("Database connection established.")
 	return db, e
 
 }

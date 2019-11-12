@@ -41,6 +41,7 @@ func generateTables(db *sql.DB) {
 	/*
 	THIS PROCEDURALLY GENERATES ALL THE NECESSARY TABLES
 	 */
+	createTable(db, genderEnum, "gender enum")
 	createTable(db, usersTable, "users table")
 	createTable(db, postTable, "posts table")
 

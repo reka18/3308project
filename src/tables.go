@@ -6,9 +6,6 @@ import (
 	"log"
 )
 
-var genderEnum = "CREATE TYPE GENDER " +
-	"AS ENUM ('M', 'F', 'O');"
-
 var usersTable = "CREATE TABLE users (" +
 	"id SERIAL PRIMARY KEY," +
 	"age INT NOT NULL," +
@@ -16,7 +13,6 @@ var usersTable = "CREATE TABLE users (" +
 	"lastname TEXT NOT NULL," +
 	"email TEXT UNIQUE NOT NULL," +
 	"username TEXT UNIQUE NOT NULL," +
-	"gender GENDER NOT NULL," +
 	"public BOOLEAN NOT NULL," +
 	"joindate DATE," +
 	"active BOOLEAN NOT NULL," +

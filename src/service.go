@@ -33,7 +33,10 @@ func Start(config Config) *HTMLServer {
 	router.HandleFunc("/", BaseUrlHandler)
 	router.HandleFunc("/login", UserLoginHandler)
 	router.HandleFunc("/create", CreateAccountHandler)
+	router.HandleFunc("/logout", UserLogoutHandler)
 	router.HandleFunc("/{user}", UserLandingHandler)
+
+
 
 	htmlServer := HTMLServer{
 		server: &http.Server{
@@ -102,9 +105,10 @@ func pushAllResources(w http.ResponseWriter) {
 	/*
 	THIS FUNCTION APPLIES THE "PUSH" FUNC TO ALL NEEDED RESOURCE
 	 */
+	push(w, "/")
 	push(w, "css/main.css")
 	push(w, "css/util.css")
-	push(w,"js/main.js")
+	push(w, "js/main.js")
 	push(w, "vendor/animate/animate.js")
 	push(w, "vendor/animsition/css/animsition.css")
 	push(w, "vendor/animsition/js/animsition.js")

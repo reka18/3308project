@@ -30,34 +30,26 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 		lastname = strings.Join(r.Form["lastname"], "")
 		email = strings.Join(r.Form["email"], "")
 		username = strings.Join(r.Form["username"], "")
-		gender = strings.Join(r.Form["gender"], "")
-		password = strings.Join(r.Form["pass"], "")
+		password = GenerateKey(strings.Join(r.Form["pass"], "")) /* Encryption happens here */
 	)
-
-	log.Println(gender)
-	log.Println(username)
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
 
-	e := AddNewUserAccount(age, firstname, lastname, email, username, gender, true, password, db)
+	e := AddNewUserAccount(age, firstname, lastname, email, username, true, password, db)
 	if e != nil {
 		log.Printf("User creation failed with error: %s", e)
 		t := template.Must(template.ParseFiles("web/create_account.html"))
 		_ = t.Execute(w, "Please fill out all fields")
 	} else {
-		SecureCookieController(w, email)
 		t := template.Must(template.ParseFiles("web/account_created.html"))
 		_ = t.Execute(w, "")
-
-		log.Println("Account created page arrival cookies: ", r.Cookies())
 	}
 
 }
 
 func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 
-	pushAllResources(w)
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
 	switch r.Method {
@@ -69,16 +61,16 @@ func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func AddNewUserAccount(age int, firstname string, lastname string, email string, username string, gender string,
+func AddNewUserAccount(age int, firstname string, lastname string, email string, username string,
 	public bool, password string, db *sql.DB) error {
 	/*
 		THIS CONNECTS TO THE DATABASE AND ADDS A USER
 	*/
 
 	query := fmt.Sprintf("INSERT INTO users (" +
-		"age, firstname, lastname, email, username, gender, public, active, password)"+
-		"VALUES (%d, '%s', '%s', '%s', '%s' ,'%s', '%t', '%t', '%s');",
-		age, firstname, lastname, email, username, gender, public, true, password)
+		"age, firstname, lastname, email, username, public, active, password)"+
+		"VALUES (%d, '%s', '%s', '%s', '%s', '%t', '%t', '%s');",
+		age, firstname, lastname, email, username, public, true, password)
 	_, e := db.Query(query)
 	if e != nil {
 		log.Println("Unable to execute query:", e)

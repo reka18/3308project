@@ -14,7 +14,7 @@ func userLoginGET(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(template.ParseFiles("web/login.html"))
 	_ = t.Execute(w, "")
 
-	log.Println("Authenticated login page arrival cookies: ", r.Cookies())
+	log.Println("Login page get cookies: ", r.Cookies())
 
 }
 
@@ -36,18 +36,18 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 		t := template.Must(template.ParseFiles("web/login.html"))
 		_ = t.Execute(w, "Incorrect email/password combination")
 	} else {
-		SecureCookieController(w, username)
+		AddCookie(w, username)
 
 		userPage := fmt.Sprintf("/%s", username)
-		http.Redirect(w, r, userPage, 303) // TODO
+		http.Redirect(w, r, userPage, 303)
 
-		log.Println("Create account page arrival cookies: ", r.Cookies())
+		log.Println("Login page post cookies: ", r.Cookies())
 	}
 }
 
 func UserLoginHandler(w http.ResponseWriter, r *http.Request) {
 
-	pushAllResources(w)
+	pushAllResources(w) /* This is the only place we do this since it is the landing page */
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
 	switch r.Method {
@@ -70,7 +70,7 @@ func LoginUserAccount(inputUsernameOrEmail string, inputPassword string, db *sql
 	}
 
 	/* Login with either username OR email. */
-	query := fmt.Sprintf("SELECT * FROM users WHERE email = '%s' OR username = '%s';",
+	query := fmt.Sprintf("SELECT password, username, email FROM users WHERE email = '%s' OR username = '%s';",
 		inputUsernameOrEmail, inputUsernameOrEmail)
 
 	r := db.QueryRow(query)
@@ -87,10 +87,10 @@ func LoginUserAccount(inputUsernameOrEmail string, inputPassword string, db *sql
 		log.Println("Account not found: ", e)
 		return "", false, e
 	}
-	if VerifyPW(password, inputPassword) {
+	if VerifyKey(password, inputPassword) {
 		log.Println("Password verified.")
 		/* Here we actually want the username. */
-		return usersTable, true, e
+		return username, true, e
 	}
 	/* Here we just want to return whatever the user passed for error logging */
 	return inputUsernameOrEmail, false, e

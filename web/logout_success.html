@@ -28,30 +28,19 @@
     <!--===============================================================================================-->
 </head>
 <body>
+
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100 p-b-160 p-t-50">
-            <h1 class="login100-form-title p-b-43">Social Media Site</h1>
+            <span class="login100-form-title p-b-43">
+                You have been logged out.
+            </span>
 
-
-            <div class="card">
-                <h5 class="card-header">{{.}}</h5>
-                <div class="card-body">
-                    <h5 class="card-title">Post Title</h5>
-                    <p class="card-text">Text content limited to 240 characters.</p><br>
-                    <!--We want to have the button text reflect the current count for that metric.-->
-                    <a href="#" class="btn btn-success btn-sm w-25">upvote</a>
-                    <a href="#" class="btn btn-danger btn-sm w-25">downvote</a>
-                    <a href="#" class="btn btn-warning btn-sm w-25">delete</a>
-                </div>
+            <div class="container-login100-form-btn">
+                <button class="login100-form-btn-solo" onclick="location.href='login'">
+                    Login
+                </button>
             </div>
-
-            <div class="text-center w-full p-t-23">
-                <a href="/logout" class="txt1">
-                    <h6>Logout</h6>
-                </a>
-            </div>
-
         </div>
     </div>
 </div>

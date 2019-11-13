@@ -54,7 +54,7 @@ func DatabaseArgHandler() {
 
 		arg := os.Args[1]
 
-		if arg == "--clean" {
+		if arg == "--naked" {
 			log.Println("Building database with no tables.")
 			e := dropDatabase(db)
 			if e != nil {

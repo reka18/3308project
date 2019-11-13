@@ -1,6 +1,8 @@
 ## DATABASE UTILITIES
 
-#### THESE SCRIPTS ALLOW BACKUPS OF DATABASES TO BE PERFORMED. FOLLOW DIRECTIONS CAREFULLY>
+#### THESE SCRIPTS ALLOW BACKUPS OF DATABASES TO BE PERFORMED. FOLLOW DIRECTIONS CAREFULLY
+
+Make sure you have 
 
 To restore the database to a recent snapshot, first run the executable clean command, i.e.
 `./app --clean` and then run `./restore.sh`. This will replace your database with the data

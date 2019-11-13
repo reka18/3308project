@@ -43,7 +43,7 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 		db, _ := Database(DBNAME)
 		defer db.Close()
 
-		e := AddNewUserAccount(age, firstname, lastname, email, username, true, password, gender, db)
+		e := AddNewUserAccount(age, firstname, lastname, email, username, true, GenerateKey(password), gender, db)
 		if e != nil {
 			log.Printf("User creation failed with error: %s", e)
 			t := template.Must(template.ParseFiles("web/create_account.html"))

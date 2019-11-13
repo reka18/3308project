@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="CLEAN DATABASE" type="GoApplicationRunConfiguration" factoryName="Go Application">
+  <configuration default="false" name="NAKED DATABASE" type="GoApplicationRunConfiguration" factoryName="Go Application">
     <module name="SocialMediaSite" />
     <working_directory value="$PROJECT_DIR$/" />
-    <parameters value="--clean" />
+    <parameters value="--naked" />
     <kind value="DIRECTORY" />
     <filePath value="$PROJECT_DIR$/" />
     <directory value="$PROJECT_DIR$/src" />

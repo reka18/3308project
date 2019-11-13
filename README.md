@@ -16,6 +16,7 @@ brew services start postgresql@9.6
 ```
 psql postgres
     CREATE USER <your whoami> CREATEDB;
+    CREATE USER sms_user CREATEDB;
     \q
 ```
 Note this may say your username already exists. That's fine.

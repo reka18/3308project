@@ -2,12 +2,12 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func createUserAccountGET(w http.ResponseWriter, r *http.Request) {
@@ -58,14 +58,12 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 func AddNewUserAccount(age int, firstname string, lastname string, email string, username string,
 	public bool, password string, gender string, db *sql.DB) error {
 	/*
-		THIS CONNECTS TO THE DATABASE AND ADDS A USER
+	THIS CONNECTS TO THE DATABASE AND ADDS A USER
 	*/
-
-	query := fmt.Sprintf("INSERT INTO users (" +
-		"age, firstname, lastname, email, username, public, active, password, gender)"+
-		"VALUES (%d, '%s', '%s', '%s', '%s', '%t', '%t', '%s', '%s');",
-		age, firstname, lastname, email, username, public, true, password, gender)
-	_, e := db.Query(query)
+	_, e := db.Exec("INSERT INTO users (" +
+		"age, firstname, lastname, email, username, public, active, password, gender, joindate)"+
+		"VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);",
+		age, firstname, lastname, email, username, public, true, password, gender, time.Now())
 	if e != nil {
 		log.Println("Unable to execute query:", e)
 		return e

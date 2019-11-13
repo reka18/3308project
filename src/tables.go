@@ -17,7 +17,7 @@ var usersTable = "CREATE TABLE users (" +
 	"email TEXT UNIQUE NOT NULL," +
 	"username TEXT UNIQUE NOT NULL," +
 	"public BOOLEAN NOT NULL," +
-	"joindate DATE," +
+	"joindate TIMESTAMP NOT NULL," +
 	"active BOOLEAN NOT NULL," +
 	"password TEXT NOT NULL," +
 	"gender GENDER NOT NULL);"

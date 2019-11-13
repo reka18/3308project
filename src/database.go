@@ -54,8 +54,18 @@ func DatabaseArgHandler() {
 
 		arg := os.Args[1]
 
+		if arg == "--clean" {
+			log.Println("Building database with no tables.")
+			e := dropDatabase(db)
+			if e != nil {
+				log.Fatalf("Unable to drop database. Aborting.")
+			}
+			createDatabase(db)
+			db, _ = Database(DBNAME)
+		}
+
 		if arg == "--reset" {
-			log.Println("Manually dropping tables.")
+			log.Println("Resetting database to clean initialized state.")
 			e := dropDatabase(db)
 			if e != nil {
 				log.Fatalf("Unable to drop database. Aborting.")
@@ -65,15 +75,15 @@ func DatabaseArgHandler() {
 			generateTables(db)
 		}
 
-		if arg == "--create" {
-			log.Println("Manually creating database and initializing tables.")
+		if arg == "--init" {
+			log.Println("Creating database and initializing tables.")
 			createDatabase(db)
 			db, _ = Database(DBNAME)
 			generateTables(db)
 		}
 
 		if arg == "--drop" {
-			log.Println("Manually dropping database.")
+			log.Println("Dropping database.")
 			e := dropDatabase(db)
 			if e != nil {
 				log.Fatalf("Unable to drop database. Aborting.")

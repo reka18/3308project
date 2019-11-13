@@ -5,7 +5,7 @@
 -- Dumped from database version 9.6.15
 -- Dumped by pg_dump version 9.6.15
 
--- Started on 2019-11-13 09:47:03 MST
+-- Started on 2019-11-13 10:19:34 MST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -184,8 +184,8 @@ SELECT pg_catalog.setval('public.posts_id_seq', 1, false);
 COPY public.users (id, age, firstname, lastname, email, username, public, joindate, active, password, gender) FROM stdin;
 1	35	Reagan	Karnes	reagan.karnes@colorado.edu	reka18	t	2019-11-13 09:43:55.646359	t	$2a$04$.iwEEhuoYAfnr8oeAU8X5eKP17DfrP1elZ9OmFT3PSYg7w.F/IiUS	M
 2	36	Diyou	Karnes	diyoubolical@icloud.com	dika14	t	2019-11-13 09:45:07.883697	t	$2a$04$e6aMPeV/XrNYag5EcweyOOai9RjuSB482xnqZqghsARQ30UA3I5aS	F
-3	5	Wesley	Karnes	weslogica@icloud.com	wes14	t	2019-11-13 09:45:50.043926	t	$2a$04$6q9dJq9UvZyOI/ydrs7bMegNxFP/FD/L3oEh4ydryEYgGnmqc/2rq	M
-4	1	Alexandria	Karnes	reaganomica@icloud.com	alex18	t	2019-11-13 09:46:30.636529	t	$2a$04$zstL.wI/rbvC.WHn4mhjpuK2EWZ7G9Sgb9wis4Xi1FBZakhuhjivW	F
+4	1	Alexandria	Karnes	reaganomica@icloud.com	alka18	t	2019-11-13 09:46:30.636529	t	$2a$04$zstL.wI/rbvC.WHn4mhjpuK2EWZ7G9Sgb9wis4Xi1FBZakhuhjivW	F
+3	5	Wesley	Karnes	weslogica@icloud.com	weka14	t	2019-11-13 09:45:50.043926	t	$2a$04$6q9dJq9UvZyOI/ydrs7bMegNxFP/FD/L3oEh4ydryEYgGnmqc/2rq	M
 \.
 
 
@@ -243,7 +243,7 @@ ALTER TABLE ONLY public.posts
     ADD CONSTRAINT posts_userid_fkey FOREIGN KEY (userid) REFERENCES public.users(id);
 
 
--- Completed on 2019-11-13 09:47:03 MST
+-- Completed on 2019-11-13 10:19:34 MST
 
 --
 -- PostgreSQL database dump complete

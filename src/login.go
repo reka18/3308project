@@ -11,10 +11,10 @@ import (
 
 func userLoginGET(w http.ResponseWriter, r *http.Request) {
 
+	CookieDebugger(r, "LOGIN")
+
 	t := template.Must(template.ParseFiles("web/login.html"))
 	_ = t.Execute(w, "")
-
-	log.Println("Login page get cookies: ", r.Cookies())
 
 }
 

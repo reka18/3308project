@@ -112,8 +112,14 @@ func CompareTokens(w http.ResponseWriter, r *http.Request) (bool, string) {
 			http.Redirect(w, r, "/logout", http.StatusForbidden)
 			return false, ""
 		}
-		log.Println("Cookie authentication successful.")
+		log.Printf("Cookie authentication successful for '%s'.", username)
 		return true, username
 	}
+
+}
+
+func CookieDebugger(r *http.Request, pagename string) {
+
+	log.Printf("'%s' page cookies: '%v'", pagename, r.Cookies())
 
 }

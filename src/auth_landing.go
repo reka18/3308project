@@ -2,17 +2,16 @@ package main
 
 import (
 	"html/template"
-	"log"
 	"net/http"
 )
 
 func usrLandingGET(w http.ResponseWriter, r *http.Request) {
 
-	log.Println("Landing page get cookies: ", r.Cookies())
+	CookieDebugger(r, "LANDING")
 
 	ok, username := CompareTokens(w, r)
 	if ok {
-		AddCookie(w, username) /* This updates cookie to restart clock. */
+		RefreshCookie(w, username) /* This updates cookie to restart clock. */
 		t := template.Must(template.ParseFiles("web/auth_landing.html"))
 		_ = t.Execute(w, username)
 	}

@@ -13,7 +13,8 @@ def main():
 
     with open(sql_script, 'r') as f:
         content = f.read()
-        new = re.sub(r'Owner:.*', 'Owner: {}'.format(user), content)
+        new = re.sub(r'(Owner:.*)', 'Owner: {}'.format(user), content)
+        new = re.sub(r'(OWNER\sTO.*)(?=;)', 'OWNER TO {}'.format(user), new)
 
     with open(sql_script, 'w') as f:
         f.write(new)

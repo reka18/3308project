@@ -8,6 +8,8 @@
     <option name="PARENT_ENVS" value="true" />
     <option name="SCRIPT_NAME" value="$PROJECT_DIR$/database_utils/restore.sh" />
     <option name="PARAMETERS" value="" />
-    <method v="2" />
+    <method v="2">
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="CLEAN DATABASE" run_configuration_type="GoApplicationRunConfiguration" />
+    </method>
   </configuration>
 </component>

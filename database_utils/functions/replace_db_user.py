@@ -3,6 +3,10 @@ import sys, re
 
 
 def main():
+    '''
+    This script dynamically replaces database owner information with
+    that of the current user.
+    '''
     user = sys.argv[1]
 
     sql_script = 'sql/restore_database.sql'

@@ -10,11 +10,12 @@ func PostsGet(w http.ResponseWriter, r *http.Request) {
 
 	log.Println("Posts page get cookies: ", r.Cookies())
 
-	ok, username := CompareTokens(w, r)
+	ok, _ := CompareTokens(w, r)
 
 	if ok {
 		t := template.Must(template.ParseFiles("web/make_post.html"))
-		_ = t.Execute(w, username)
+		_ = t.Execute(w, "")
+		pushAllResources(w,)
 	}
 
 }

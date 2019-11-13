@@ -37,9 +37,6 @@ func Start(config Config) *HTMLServer {
 	router.HandleFunc("/{user}", UserLandingHandler)
 	router.HandleFunc("/{user}/post", UserPostHandler)
 
-	// subrouter := router.PathPrefix("/{user}").Subrouter()
-	// subrouter.HandleFunc("/{user}/post", UserPostHandler)
-
 	htmlServer := HTMLServer{
 		server: &http.Server{
 			Addr:           config.Host,
@@ -107,7 +104,6 @@ func pushAllResources(w http.ResponseWriter) {
 	/*
 	THIS FUNCTION APPLIES THE "PUSH" FUNC TO ALL NEEDED RESOURCE
 	 */
-	push(w, "/")
 	push(w, "css/main.css")
 	push(w, "css/util.css")
 	push(w, "js/main.js")

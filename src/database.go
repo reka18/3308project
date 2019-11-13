@@ -12,26 +12,26 @@ import (
 const DBNAME = "socialmediasite"
 const PGNAME = "postgres"
 
-func createDatabase(db *sql.DB) {
+func createDatabase(db *sql.DB) error {
 
-	q := fmt.Sprintf("CREATE DATABASE %v;", DBNAME)
-	_, e := db.Query(q)
-	if e == nil {
-		log.Printf("Successfully created database.")
+	query := fmt.Sprintf("CREATE DATABASE %s;", DBNAME)
+	_, e := db.Exec(query)
+	if e != nil {
+		log.Println("Database not created.")
 	} else {
-		log.Println("Failed creating database:", e)
+		log.Println("Database created.")
 	}
-
+	return e
 }
 
 func dropDatabase(db *sql.DB) error {
 
-	q := fmt.Sprintf("DROP DATABASE %v;", DBNAME)
-	_, e := db.Query(q)
-	if e == nil {
-		log.Printf("Successfully dropped database.")
+	query := fmt.Sprintf("DROP DATABASE %s;", DBNAME)
+	_, e := db.Exec(query)
+	if e != nil {
+		log.Println("Database not dropped.")
 	} else {
-		log.Println("Failed dropping database:", e)
+		log.Println("Database dropped.")
 	}
 	return e
 
@@ -41,52 +41,89 @@ func generateTables(db *sql.DB) {
 	/*
 	THIS PROCEDURALLY GENERATES ALL THE NECESSARY TABLES
 	 */
-	createTable(db, genderEnum, "gender enum")
-	createTable(db, usersTable, "users table")
-	createTable(db, postTable, "posts table")
+	e := createTable(db, genderEnum, "'gender' enum")
+	if e != nil {
+		log.Println("Error", e)
+	} else {
+		log.Println("Success.")
+	}
+	e = createTable(db, usersTable, "'users' table")
+	if e != nil {
+		log.Println("Error", e)
+	} else {
+		log.Println("Success.")
+	}
+	e = createTable(db, postTable, "'posts' table")
+	if e != nil {
+		log.Println("Error", e)
+	} else {
+		log.Println("Success.")
+	}
 
 }
 
 func DatabaseArgHandler() {
 
 	if len(os.Args) > 1 {
-		db, _ := Database(PGNAME)
+		db, e := Database(PGNAME)
+		if e != nil {
+			log.Fatal(e)
+		}
 
 		arg := os.Args[1]
 
 		if arg == "--naked" {
-			log.Println("Building database with no tables.")
-			e := dropDatabase(db)
+			log.Println("Attempting to build naked database.")
+			e = dropDatabase(db)
 			if e != nil {
-				log.Fatalf("Unable to drop database. Aborting.")
+				log.Println(e)
 			}
-			createDatabase(db)
-			db, _ = Database(DBNAME)
+			e = createDatabase(db)
+			if e != nil {
+				log.Println(e)
+			} else {
+				log.Println("Naked database created.")
+			}
 		}
 
 		if arg == "--reset" {
-			log.Println("Resetting database to clean initialized state.")
+			log.Println("Attempting to reinitializing database...")
 			e := dropDatabase(db)
 			if e != nil {
-				log.Fatalf("Unable to drop database. Aborting.")
+				log.Println(e)
 			}
-			createDatabase(db)
-			db, _ = Database(DBNAME)
+			e = createDatabase(db)
+			if e != nil {
+				log.Println(e)
+			}
+			db, e = Database(DBNAME)
+			if e != nil {
+				log.Println("Unable to reset. Aborting.")
+				log.Println("Please recreate database.")
+				log.Fatal(e)
+			}
 			generateTables(db)
 		}
 
 		if arg == "--init" {
-			log.Println("Creating database and initializing tables.")
-			createDatabase(db)
-			db, _ = Database(DBNAME)
+			log.Println("Attempting to create database with tables...")
+			e = createDatabase(db)
+			if e != nil {
+				log.Println(e)
+			}
+			db, e = Database(DBNAME)
+			if e != nil {
+				log.Println("Tables not generated. Aborting.")
+				log.Fatal(e)
+			}
 			generateTables(db)
 		}
 
 		if arg == "--drop" {
-			log.Println("Dropping database.")
-			e := dropDatabase(db)
+			log.Println("Attempting to drop database...")
+			e = dropDatabase(db)
 			if e != nil {
-				log.Fatalf("Unable to drop database. Aborting.")
+				log.Println(e)
 			}
 		}
 
@@ -106,9 +143,10 @@ func Database(dbname string) (*sql.DB, error) {
 	dbInfo := fmt.Sprintf("dbname='%v' sslmode=disable", dbname)
 	db, e := sql.Open("postgres", dbInfo)
 	if e != nil {
-		log.Fatal("Database connection failed:", e)
+		log.Println("Database not connected.")
+	} else {
+		log.Println("Database connected.")
 	}
-	log.Println("Database connection established.")
 	return db, e
 
 }

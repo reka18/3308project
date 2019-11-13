@@ -33,10 +33,20 @@
         <div class="wrap-login100 p-b-160 p-t-50">
             <h1 class="login100-form-title p-b-43">Social Media Site</h1>
 
-            <div class="container-login100-form-btn">
-                <button class="login100-form-btn-solo" onclick="location.href='{{.}}/post'">
-                    Post
-                </button>
+
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <textarea name="postbody" rows=3 cols=62% style="resize: none" maxlength="120" placeholder="Start typing!"></textarea>
+                    </form>
+                </div>
+            </div><br>
+            <a href="#" class="btn btn-success btn-sm w-25" >submit</a>
+
+            <div class="text-center w-full p-t-23">
+                <a href="/logout" class="txt1">
+                    <h6>Logout</h6>
+                </a>
             </div>
 
         </div>

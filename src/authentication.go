@@ -63,14 +63,14 @@ func DeleteCookie(w http.ResponseWriter, username string) {
 	log.Printf("Deleted cookies for '%s'.", username)
 }
 
-func CompareTokens(w http.ResponseWriter, r *http.Request) bool {
+func CompareTokens(w http.ResponseWriter, r *http.Request) (bool, string) {
 
 	cookie, _ := r.Cookie("socialmediasite")
 
 	if cookie.Value == "" {
 		log.Println("Unauthorized access.")
 		http.Redirect(w, r, "/logout", http.StatusForbidden)
-		return false
+		return false, ""
 	} else {
 		values := strings.Split(cookie.Value, ":::")
 
@@ -85,10 +85,10 @@ func CompareTokens(w http.ResponseWriter, r *http.Request) bool {
 			log.Println("Unauthorized access.")
 			DeleteCookie(w, username)
 			http.Redirect(w, r, "/logout", http.StatusForbidden)
-			return false
+			return false, ""
 		}
 		log.Println("Cookie authentication successful.")
-		return true
+		return true, username
 	}
 
 }

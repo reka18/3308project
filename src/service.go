@@ -35,6 +35,10 @@ func Start(config Config) *HTMLServer {
 	router.HandleFunc("/create", CreateAccountHandler)
 	router.HandleFunc("/logout", UserLogoutHandler)
 	router.HandleFunc("/{user}", UserLandingHandler)
+	router.HandleFunc("/{user}/post", UserPostHandler)
+
+	// subrouter := router.PathPrefix("/{user}").Subrouter()
+	// subrouter.HandleFunc("/{user}/post", UserPostHandler)
 
 	htmlServer := HTMLServer{
 		server: &http.Server{

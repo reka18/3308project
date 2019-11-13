@@ -10,7 +10,8 @@ func usrLandingGET(w http.ResponseWriter, r *http.Request) {
 
 	log.Println("Landing page get cookies: ", r.Cookies())
 
-	if CompareTokens(w, r) {
+	ok, _ := CompareTokens(w, r)
+	if ok {
 		t := template.Must(template.ParseFiles("web/auth_landing.html"))
 		_ = t.Execute(w, "")
 	}

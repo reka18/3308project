@@ -117,9 +117,9 @@ func CompareTokens(w http.ResponseWriter, r *http.Request) (bool, string) {
 		redisSecret := fmt.Sprintf("%s", result)
 
 		if redisSecret != cookieSecret {
-			log.Printf(Warn("Unauthorized access attempt with stale cookie for %s."), username)
+			log.Printf(Warn("Unauthorized access attempt with stale cookie for '%s'."), username)
 			DeleteCookie(w, username)
-			http.Redirect(w, r, "/logout", http.StatusForbidden)
+			http.Redirect(w, r, "/logout", http.StatusUnauthorized)
 			return false, ""
 		}
 		log.Printf(Success("Cookie authentication successful for '%s'."), username)

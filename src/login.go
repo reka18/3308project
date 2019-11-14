@@ -32,7 +32,7 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 
 	username, v, e := LoginUserAccount(login, password, db)
 	if e != nil || !v {
-		log.Println("User login failed.")
+		log.Println(Warn("User login failed."))
 		t := template.Must(template.ParseFiles("web/login.html"))
 		_ = t.Execute(w, "Incorrect email/password combination")
 	} else {
@@ -40,12 +40,12 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 
 		userPage := fmt.Sprintf("/%s", username)
 		http.Redirect(w, r, userPage, 303)
-
-		log.Println("Login page post cookies: ", r.Cookies())
 	}
 }
 
 func UserLoginHandler(w http.ResponseWriter, r *http.Request) {
+
+	log.Printf(Info("Request to UserLoginHandler from: %s"), GetIP(r))
 
 	pushAllResources(w) /* This is the only place we do this since it is the landing page */
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
@@ -65,15 +65,13 @@ func LoginUserAccount(inputUsernameOrEmail string, inputPassword string, db *sql
 	FAST FAIL IF USERNAME/EMAIL OR PASSWORD ARE BLANK
 	*/
 	if len(inputUsernameOrEmail) == 0 || len(inputPassword) == 0 {
-		log.Println("Username and/or password blank.")
+		log.Println(Warn("Username and/or password blank."))
 		return "", false, &EmptyStringError{}
 	}
 
-	/* Login with either username OR email. */
-	query := fmt.Sprintf("SELECT password, username, email FROM users WHERE email = '%s' OR username = '%s';",
+	/* Login with either username OR email. Safe from SQL injection. */
+	r := db.QueryRow("SELECT password, username, email FROM users WHERE email = $1 OR username = $2;",
 		inputUsernameOrEmail, inputUsernameOrEmail)
-
-	r := db.QueryRow(query)
 
 	var (
 		password	string
@@ -84,11 +82,11 @@ func LoginUserAccount(inputUsernameOrEmail string, inputPassword string, db *sql
 	e := r.Scan(&password, &username, &email)
 
 	if e != nil {
-		log.Println("Account not found: ", e)
+		log.Printf(Warn("Account not found for '%s'"), username)
 		return "", false, e
 	}
 	if VerifyKey(password, inputPassword) {
-		log.Println("Password verified.")
+		log.Printf(Success("Password verified for '%s'."), username)
 		/* Here we actually want the username. */
 		return username, true, e
 	}

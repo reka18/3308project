@@ -2,6 +2,7 @@ package main
 
 import (
 	"html/template"
+	"log"
 	"net/http"
 )
 
@@ -21,6 +22,8 @@ func PostsGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func UserPostHandler(w http.ResponseWriter, r *http.Request) {
+
+	log.Printf(Info("Request to UserPostHandler from: %s"), GetIP(r))
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 

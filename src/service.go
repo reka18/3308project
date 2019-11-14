@@ -50,7 +50,7 @@ func Start(config Config) *HTMLServer {
 	htmlServer.wg.Add(1)
 
 	go func() {
-		log.Printf("SERVER : Service connection started : Host=%v", config.Host)
+		log.Printf(Detail("SERVER : Service connection started : Host=%v"), config.Host)
 		_ = htmlServer.server.ListenAndServe()
 		htmlServer.wg.Done()
 	}()
@@ -65,26 +65,26 @@ func (htmlServer *HTMLServer) Stop() error {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 
-	log.Println("SERVER : Service stopping")
+	log.Println(Detail("SERVER : Service stopping."))
 
-	if err := htmlServer.server.Shutdown(ctx); err != nil {
+	if e := htmlServer.server.Shutdown(ctx); e != nil {
 
-		if err := htmlServer.server.Close(); err != nil {
-			log.Printf("SERVER : Service stopping : Error=%s", err)
-			return err
+		if e := htmlServer.server.Close(); e != nil {
+			log.Printf(Warn("SERVER : Service stopping : Error=%s"), e)
+			return e
 		}
 	}
 
 	htmlServer.wg.Wait()
-	log.Println("SERVER : Stopped")
+	log.Println(Detail("SERVER : Stopped"))
 	return nil
 }
 
 // Render a template, or server error.
 func render(w http.ResponseWriter, r *http.Request, tpl *template.Template, name string, data interface{}) {
 	buf := new(bytes.Buffer)
-	if err := tpl.ExecuteTemplate(buf, name, data); err != nil {
-		log.Println("Render Error: ", err)
+	if e := tpl.ExecuteTemplate(buf, name, data); e != nil {
+		log.Println(Warn("Render Error: "), e)
 		return
 	}
 	w.Write(buf.Bytes())

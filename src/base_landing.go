@@ -1,8 +1,13 @@
 package main
 
-import "net/http"
+import (
+	"log"
+	"net/http"
+)
 
 func BaseUrlHandler(w http.ResponseWriter, r *http.Request) {
+
+	log.Printf(Info("Request to BaseUrlHandler from: %s"), GetIP(r))
 
 	CookieDebugger(r, "BASE")
 

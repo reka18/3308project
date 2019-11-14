@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Print to console with datetime
-function log() {
+function Info() {
     DATE_STR=$(date +"%Y-%m-%dT%H:%M:%S %z")
 
     echo -e "[${DATE_STR}] $*"

@@ -32,7 +32,7 @@ var postTable = "CREATE TABLE posts (" +
 
 func createTable(db *sql.DB, table string, label string) error {
 
-	log.Println("Attempting to create", label)
+	log.Println(Info("Attempting to create"), label)
 	query := fmt.Sprintf(table)
 	_, e := db.Exec(query)
 	return e

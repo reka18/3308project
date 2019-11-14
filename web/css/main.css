@@ -252,7 +252,7 @@ iframe {
 }
 
 .input100 {
-  font-family: OpenSans-Bold;
+  font-family: OpenSans-Bold, serif;
   font-size: 15px;
   color: #555555;
   line-height: 1.2;

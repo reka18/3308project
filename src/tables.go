@@ -6,6 +6,9 @@ import (
 	"log"
 )
 
+var genderEnum = "CREATE TYPE gender " +
+	"AS ENUM ('M', 'F', 'O');"
+
 var usersTable = "CREATE TABLE users (" +
 	"id SERIAL PRIMARY KEY," +
 	"age INT NOT NULL," +
@@ -14,10 +17,10 @@ var usersTable = "CREATE TABLE users (" +
 	"email TEXT UNIQUE NOT NULL," +
 	"username TEXT UNIQUE NOT NULL," +
 	"public BOOLEAN NOT NULL," +
-	"joindate DATE," +
+	"joindate TIMESTAMP NOT NULL," +
 	"active BOOLEAN NOT NULL," +
-	"password TEXT NOT NULL" +
-	");"
+	"password TEXT NOT NULL," +
+	"gender GENDER NOT NULL);"
 
 var postTable = "CREATE TABLE posts (" +
 	"id SERIAL PRIMARY KEY," +
@@ -25,17 +28,13 @@ var postTable = "CREATE TABLE posts (" +
 	"content VARCHAR(240)," +
 	"upvotes INT," +
 	"downvotes INT," +
-	"deleted BOOLEAN" +
-	");"
+	"deleted BOOLEAN);"
 
-func createTable(db *sql.DB, table string, label string) {
+func createTable(db *sql.DB, table string, label string) error {
 
+	log.Println(Info("Attempting to create"), label)
 	query := fmt.Sprintf(table)
-	_, e := db.Query(query)
-	if e == nil {
-		log.Printf("%s created successfully.", label)
-	} else {
-		log.Println("Unable to create table:", e)
-	}
+	_, e := db.Exec(query)
+	return e
 
 }

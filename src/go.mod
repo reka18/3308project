@@ -1,4 +1,4 @@
-module github.com/socialmediasite/app
+module main/app
 
 go 1.13
 

@@ -12,7 +12,7 @@ func main() {
 	DatabaseArgHandler()
 
 	serverConfig := Config {
-		Host:			"localhost:3000",
+		Host:			"localhost:8000",
 		ReadTimeout:	5 * time.Second,
 		WriteTimeout:	5 * time.Second,
 	}

@@ -30,14 +30,11 @@ var postTable = "CREATE TABLE posts (" +
 	"downvotes INT," +
 	"deleted BOOLEAN);"
 
-func createTable(db *sql.DB, table string, label string) {
+func createTable(db *sql.DB, table string, label string) error {
 
+	log.Println(Info("Attempting to create"), label)
 	query := fmt.Sprintf(table)
-	_, e := db.Query(query)
-	if e == nil {
-		log.Printf("%s created successfully.", label)
-	} else {
-		log.Println("Unable to create table:", e)
-	}
+	_, e := db.Exec(query)
+	return e
 
 }

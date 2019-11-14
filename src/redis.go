@@ -15,9 +15,9 @@ func OpenRedisConnection() {
 	address := "localhost:6379"
 	conn, e := redis.Dial("tcp", address)
 	if e != nil {
-		log.Fatal("REDIS  : service connection failed to start.")
+		log.Fatal(Fatal("REDIS  : service connection failed to start."))
 	}
-	log.Printf("REDIS  : Service connection started : Host=%s", address)
+	log.Printf(Detail("REDIS  : Service connection started : Host=%s"), address)
 	redisConn = conn
 
 }
@@ -26,9 +26,9 @@ func CloseRedisConnection() {
 
 	e := redisConn.Close()
 	if e != nil {
-		log.Println("REDIS  : Service connection failed to close:", e)
+		log.Println(Fatal("REDIS  : Service connection failed to close:", e))
 	} else {
-		log.Println("REDIS  : Service connection stopped.")
+		log.Println(Detail("REDIS  : Service connection stopped."))
 	}
 
 }

@@ -8,16 +8,20 @@ import (
 
 func usrLandingGET(w http.ResponseWriter, r *http.Request) {
 
-	log.Println("Landing page get cookies: ", r.Cookies())
+	CookieDebugger(r, "LANDING")
 
-	if CompareTokens(w, r) {
+	ok, username := CompareTokens(w, r)
+	if ok {
+		RefreshCookie(w, username) /* This updates cookie to restart clock. */
 		t := template.Must(template.ParseFiles("web/auth_landing.html"))
-		_ = t.Execute(w, "")
+		_ = t.Execute(w, username)
 	}
 
 }
 
 func UserLandingHandler(w http.ResponseWriter, r *http.Request) {
+
+	log.Printf(Info("Request to UserLandingHandler from: %s"), GetIP(r))
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 

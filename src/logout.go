@@ -2,17 +2,16 @@ package main
 
 import (
 	"html/template"
-	"log"
 	"net/http"
 	"strings"
 )
 
 func userLogoutGET(w http.ResponseWriter, r *http.Request) {
 
+	CookieDebugger(r, "LOGOUT")
+
 	t := template.Must(template.ParseFiles("web/logout_success.html"))
 	_ = t.Execute(w, "")
-
-	log.Println("Logout page arrival cookies: ", r.Cookies())
 
 	cookie, _ := r.Cookie("socialmediasite")
 	values := strings.Split(cookie.Value, ":::")

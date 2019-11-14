@@ -12,10 +12,11 @@ import (
 
 func createUserAccountGET(w http.ResponseWriter, r *http.Request) {
 
+	CookieDebugger(r, "CREATE ACCOUNT")
+
 	t := template.Must(template.ParseFiles("web/create_account.html"))
 	_ = t.Execute(w, "")
 
-	log.Println("Create account page arrival cookies: ", r.Cookies())
 }
 
 func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
@@ -36,7 +37,7 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 	)
 
 	if password != confirmPassword {
-		log.Println("Passwords do not match.")
+		log.Println(Warn("Passwords do not match."))
 		t := template.Must(template.ParseFiles("web/create_account.html"))
 		_ = t.Execute(w, "Passwords do not match.")
 	} else {
@@ -45,7 +46,8 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 
 		e := AddNewUserAccount(age, firstname, lastname, email, username, true, GenerateKey(password), gender, db)
 		if e != nil {
-			log.Printf("User creation failed with error: %s", e)
+			log.Printf(Warn("User creation failed."))
+			log.Println(Warn(e))
 			t := template.Must(template.ParseFiles("web/create_account.html"))
 			_ = t.Execute(w, "Please fill out all fields")
 		} else {
@@ -65,16 +67,18 @@ func AddNewUserAccount(age int, firstname string, lastname string, email string,
 		"VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);",
 		age, firstname, lastname, email, username, public, true, password, gender, time.Now())
 	if e != nil {
-		log.Println("Unable to execute query:", e)
+		log.Println(Warn("Unable to execute query."))
+		log.Println(Warn(e))
 		return e
 	} else {
-		log.Printf("Successfully added User <%s> to Database.", email)
+		log.Printf(Success("Successfully added User <%s> to Database."), email)
 	}
-
 	return e
 }
 
 func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
+
+	log.Printf(Info("Request to CreateAccountHandler from: %s"), GetIP(r))
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 

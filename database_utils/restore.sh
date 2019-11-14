@@ -9,7 +9,7 @@ cd "${0%/*}"
 # Import some utility functions
 source "functions/functions.sh"
 
-python functions/replace_db_user.py ${USER}
+python functions/replace_db_user.py ${USER} || log "Failed to reset database owner."
 
 # Positional parameters for the SQL scripts with safe defaults
 # -- target database name and user

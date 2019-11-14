@@ -16,7 +16,6 @@ brew services start postgresql@9.6
 ```
 psql postgres
     CREATE USER <your whoami> CREATEDB;
-    CREATE USER sms_user CREATEDB;
     \q
 ```
 Note this may say your username already exists. That's fine.
@@ -52,42 +51,11 @@ brew services start postgresql@9.6
 ```
 
 ## Create Database
-Enter the postgres database
-```
-psql postgres
-```
-##### create a new database
-```
-CREATE DATABASE socialmediasite;
-\q
-```
-#### TWO WAYS TO BUILD DATABASE
+In project root, run the script `./build.sh`. This will generate an executable
+in the root directory. Next, to create the database, run `./app --init` to set
+up a clean database
+#### BUILD DATABASE
 
-##### go into the new database
-```
-psql socialmediasite
-```
-##### build the user_account table
-```
-create type gender as enum ('M', 'F', 'O');
-
-create extension if not exists pgcrypto;
-
-create table user_account (
-   id SERIAL PRIMARY KEY,
-   age INT,
-   firstName TEXT,
-   lastName TEXT,
-   email TEXT UNIQUE NOT NULL,
-   gender gender NOT NULL,
-   public BOOLEAN,
-   joinDate DATE,
-   active BOOLEAN,
-   password TEXT
-);
-\q
-```
-#### OR
 ##### in the root directory
 ```
 go build

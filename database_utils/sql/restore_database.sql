@@ -20,7 +20,7 @@ SET row_security = off;
 
 --
 -- TOC entry 1 (class 3079 OID 12657)
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: rkmac
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: rknix
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
@@ -29,7 +29,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 --
 -- TOC entry 2418 (class 0 OID 0)
 -- Dependencies: 1
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: rkmac
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: rknix
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -37,7 +37,7 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 --
 -- TOC entry 481 (class 1247 OID 148107)
--- Name: gender; Type: TYPE; Schema: public; Owner: rkmac
+-- Name: gender; Type: TYPE; Schema: public; Owner: rknix
 --
 
 CREATE TYPE public.gender AS ENUM (
@@ -47,7 +47,7 @@ CREATE TYPE public.gender AS ENUM (
 );
 
 
-ALTER TYPE public.gender OWNER TO rkmac;
+ALTER TYPE public.gender OWNER TO rknix;
 
 SET default_tablespace = '';
 
@@ -55,7 +55,7 @@ SET default_with_oids = false;
 
 --
 -- TOC entry 188 (class 1259 OID 148130)
--- Name: posts; Type: TABLE; Schema: public; Owner: rkmac
+-- Name: posts; Type: TABLE; Schema: public; Owner: rknix
 --
 
 CREATE TABLE public.posts (
@@ -68,11 +68,11 @@ CREATE TABLE public.posts (
 );
 
 
-ALTER TABLE public.posts OWNER TO rkmac;
+ALTER TABLE public.posts OWNER TO rknix;
 
 --
 -- TOC entry 187 (class 1259 OID 148128)
--- Name: posts_id_seq; Type: SEQUENCE; Schema: public; Owner: rkmac
+-- Name: posts_id_seq; Type: SEQUENCE; Schema: public; Owner: rknix
 --
 
 CREATE SEQUENCE public.posts_id_seq
@@ -83,12 +83,12 @@ CREATE SEQUENCE public.posts_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.posts_id_seq OWNER TO rkmac;
+ALTER TABLE public.posts_id_seq OWNER TO rknix;
 
 --
 -- TOC entry 2419 (class 0 OID 0)
 -- Dependencies: 187
--- Name: posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: rkmac
+-- Name: posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: rknix
 --
 
 ALTER SEQUENCE public.posts_id_seq OWNED BY public.posts.id;
@@ -96,7 +96,7 @@ ALTER SEQUENCE public.posts_id_seq OWNED BY public.posts.id;
 
 --
 -- TOC entry 186 (class 1259 OID 148115)
--- Name: users; Type: TABLE; Schema: public; Owner: rkmac
+-- Name: users; Type: TABLE; Schema: public; Owner: rknix
 --
 
 CREATE TABLE public.users (
@@ -114,11 +114,11 @@ CREATE TABLE public.users (
 );
 
 
-ALTER TABLE public.users OWNER TO rkmac;
+ALTER TABLE public.users OWNER TO rknix;
 
 --
 -- TOC entry 185 (class 1259 OID 148113)
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: rkmac
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: rknix
 --
 
 CREATE SEQUENCE public.users_id_seq
@@ -129,12 +129,12 @@ CREATE SEQUENCE public.users_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.users_id_seq OWNER TO rkmac;
+ALTER TABLE public.users_id_seq OWNER TO rknix;
 
 --
 -- TOC entry 2420 (class 0 OID 0)
 -- Dependencies: 185
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: rkmac
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: rknix
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
@@ -142,7 +142,7 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 --
 -- TOC entry 2280 (class 2604 OID 148133)
--- Name: posts id; Type: DEFAULT; Schema: public; Owner: rkmac
+-- Name: posts id; Type: DEFAULT; Schema: public; Owner: rknix
 --
 
 ALTER TABLE ONLY public.posts ALTER COLUMN id SET DEFAULT nextval('public.posts_id_seq'::regclass);
@@ -150,7 +150,7 @@ ALTER TABLE ONLY public.posts ALTER COLUMN id SET DEFAULT nextval('public.posts_
 
 --
 -- TOC entry 2279 (class 2604 OID 148118)
--- Name: users id; Type: DEFAULT; Schema: public; Owner: rkmac
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: rknix
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
@@ -159,7 +159,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 -- TOC entry 2410 (class 0 OID 148130)
 -- Dependencies: 188
--- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: rkmac
+-- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: rknix
 --
 
 COPY public.posts (id, userid, content, upvotes, downvotes, deleted) FROM stdin;
@@ -169,7 +169,7 @@ COPY public.posts (id, userid, content, upvotes, downvotes, deleted) FROM stdin;
 --
 -- TOC entry 2421 (class 0 OID 0)
 -- Dependencies: 187
--- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: rkmac
+-- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: rknix
 --
 
 SELECT pg_catalog.setval('public.posts_id_seq', 1, false);
@@ -178,7 +178,7 @@ SELECT pg_catalog.setval('public.posts_id_seq', 1, false);
 --
 -- TOC entry 2408 (class 0 OID 148115)
 -- Dependencies: 186
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: rkmac
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: rknix
 --
 
 COPY public.users (id, age, firstname, lastname, email, username, public, joindate, active, password, gender) FROM stdin;
@@ -192,7 +192,7 @@ COPY public.users (id, age, firstname, lastname, email, username, public, joinda
 --
 -- TOC entry 2422 (class 0 OID 0)
 -- Dependencies: 185
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: rkmac
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: rknix
 --
 
 SELECT pg_catalog.setval('public.users_id_seq', 4, true);
@@ -200,7 +200,7 @@ SELECT pg_catalog.setval('public.users_id_seq', 4, true);
 
 --
 -- TOC entry 2288 (class 2606 OID 148135)
--- Name: posts posts_pkey; Type: CONSTRAINT; Schema: public; Owner: rkmac
+-- Name: posts posts_pkey; Type: CONSTRAINT; Schema: public; Owner: rknix
 --
 
 ALTER TABLE ONLY public.posts
@@ -209,7 +209,7 @@ ALTER TABLE ONLY public.posts
 
 --
 -- TOC entry 2282 (class 2606 OID 148125)
--- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: rkmac
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: rknix
 --
 
 ALTER TABLE ONLY public.users
@@ -218,7 +218,7 @@ ALTER TABLE ONLY public.users
 
 --
 -- TOC entry 2284 (class 2606 OID 148123)
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: rkmac
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: rknix
 --
 
 ALTER TABLE ONLY public.users
@@ -227,7 +227,7 @@ ALTER TABLE ONLY public.users
 
 --
 -- TOC entry 2286 (class 2606 OID 148127)
--- Name: users users_username_key; Type: CONSTRAINT; Schema: public; Owner: rkmac
+-- Name: users users_username_key; Type: CONSTRAINT; Schema: public; Owner: rknix
 --
 
 ALTER TABLE ONLY public.users
@@ -236,7 +236,7 @@ ALTER TABLE ONLY public.users
 
 --
 -- TOC entry 2289 (class 2606 OID 148136)
--- Name: posts posts_userid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: rkmac
+-- Name: posts posts_userid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: rknix
 --
 
 ALTER TABLE ONLY public.posts

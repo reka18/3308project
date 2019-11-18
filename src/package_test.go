@@ -8,10 +8,10 @@ func TestDatabase(t *testing.T) {
 	db, e := Database(PGNAME)
 	defer db.Close()
 	if e != nil {
-		t.Info("Unable to open connection.")
+		t.Log("Unable to open connection.")
 		t.Fail()
 	}
-	t.Info("TestDatabase pass!")
+	t.Log("TestDatabase pass!")
 }
 
 func TestCreateDatabase(t *testing.T) {
@@ -19,13 +19,13 @@ func TestCreateDatabase(t *testing.T) {
 	e := createDatabase(db)
 	defer db.Close()
 	if e != nil {
-		t.Info("Warning: Problem creating database:", e)
-		t.Info("Continuing...")
+		t.Log("Warning: Problem creating database:", e)
+		t.Log("Continuing...")
 		if e.Error() != "pq: database \"socialmediasite\" already exists" {
 			t.Fail()
 		}
 	}
-	t.Info("TestCreateDatabase pass!")
+	t.Log("TestCreateDatabase pass!")
 }
 
 func TestAddNewUserAccount(t *testing.T) {
@@ -35,18 +35,18 @@ func TestAddNewUserAccount(t *testing.T) {
 		"M", true, "iamtheverymodelofthemodernmajorgeneral", db)
 	defer db.Close()
 	if e != nil {
-		t.Info("Unable to add User:", e)
+		t.Log("Unable to add User:", e)
 		t.Fail()
 	}
 
 	e = AddNewUserAccount(36, "Reagan", "Karnes", "reagan.karnes@colorado.edu",
 		"M", true, "abcdefghijklmnopqrstuvwxyz1234567890", db)
 	if e != nil {
-		t.Info("Unable to add User:", e)
+		t.Log("Unable to add User:", e)
 		t.Fail()
 	}
 
-	t.Info("TestAddNewUserAccount pass!")
+	t.Log("TestAddNewUserAccount pass!")
 
 }
 
@@ -72,9 +72,9 @@ func TestLoginUserAccount(t *testing.T) {
 	}
 
 	if u != v {
-		t.Info("Login data mismatch.")
+		t.Log("Login data mismatch.")
 		t.Fail()
 	}
 
-	t.Info("TestLoginUserAccount pass!")
+	t.Log("TestLoginUserAccount pass!")
 }

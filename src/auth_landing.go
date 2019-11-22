@@ -2,9 +2,10 @@ package main
 
 import (
 	"database/sql"
-	"html/template"
-	"net/http"
 	"fmt"
+	"html/template"
+	"log"
+	"net/http"
 )
 
 func usrLandingGET(w http.ResponseWriter, r *http.Request) {

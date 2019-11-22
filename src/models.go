@@ -19,8 +19,10 @@ type HTMLServer struct {
 
 type User struct {
 	Id        int
+	Username  string
 	Firstname string
 	Lastname  string
+	Age       int
 	Email     string
 	Gender    string
 	Public    bool

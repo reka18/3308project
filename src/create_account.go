@@ -78,8 +78,6 @@ func AddNewUserAccount(age int, firstname string, lastname string, email string,
 
 func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 
-	log.Printf(Info("Request to CreateAccountHandler from: %s"), GetIP(r))
-
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
 	switch r.Method {

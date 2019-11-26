@@ -27,6 +27,98 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/timeline.css"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="vendor/SlickGrid-2.4.14/slick.grid.css" type="text/css"/>
+    <link rel="stylesheet" href="vendor/SlickGrid-2.4.14/css/smoothness/jquery-ui-1.11.3.custom.css" type="text/css"/>
+    <link rel="stylesheet" href="vendor/SlickGrid-2.4.14/controls/slick.pager.css" type="text/css"/>
+    <!--===============================================================================================-->
+
+    <link rel="stylesheet" type="text/css" href="css/desktop.css"/>
+
+    <!--===============================================================================================-->
+    <!--Jquery Plugin-->
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--Slick-Grid -->
+    <script src="vendor/SlickGrid-2.4.14/controls/slick.pager.js"></script>
+    <script src="vendor/SlickGrid-2.4.14/lib/jquery.event.drag-2.3.0.js"></script>
+    <script src="vendor/SlickGrid-2.4.14/slick.core.js"></script>
+    <script src="vendor/SlickGrid-2.4.14/slick.grid.js"></script>
+    <script src="vendor/SlickGrid-2.4.14/lib/firebugx.js"></script>
+    <script src="vendor/SlickGrid-2.4.14/lib/jquery.event.drop-2.3.0.js"></script>
+    <script src="vendor/SlickGrid-2.4.14/plugins/slick.cellrangeselector.js"></script>
+    <script src="vendor/SlickGrid-2.4.14/plugins/slick.cellselectionmodel.js"></script>
+    <script src="vendor/SlickGrid-2.4.14/plugins/slick.rowselectionmodel.js"></script>
+    <script src="vendor/SlickGrid-2.4.14/plugins/slick.rowmovemanager.js"></script>
+    <script src="vendor/SlickGrid-2.4.14/slick.formatters.js"></script>
+    <script src="vendor/SlickGrid-2.4.14/slick.editors.js"></script>
+    <script src="vendor/SlickGrid-2.4.14/slick.dataview.js"></script>
+    <!--===============================================================================================-->
+
+    <script src="vendor/underscore-master/underscore.js"></script>
+
+    <!--Custom Javascript Data Classes -->
+    <script src="js/spectra-library-classes/uvvis-spectra-document-detail-window-class.js"></script>
+    <script src="js/spectra-library-classes/spectra-document-data-class.js"></script>
+    <script src="js/grid-posts.js"></script>
+
+
+    <style type="text/css">
+
+        body
+        {
+            background: linear-gradient(left, #6a11cb, #2575fc);
+            background: #2575fc;
+            background: -webkit-linear-gradient(left, #6a11cb, #2575fc);
+            background: -o-linear-gradient(left, #6a11cb, #2575fc);
+            background: -moz-linear-gradient(left, #6a11cb, #2575fc);
+            background: linear-gradient(left, #6a11cb, #2575fc);
+
+        }
+
+
+        html
+        {
+            background: linear-gradient(left, #6a11cb, #2575fc);
+            background: #2575fc;
+            background: -webkit-linear-gradient(left, #6a11cb, #2575fc);
+            background: -o-linear-gradient(left, #6a11cb, #2575fc);
+            background: -moz-linear-gradient(left, #6a11cb, #2575fc);
+            background: linear-gradient(left, #6a11cb, #2575fc);
+
+
+        }
+
+        #bodyDiv
+        {
+            background: linear-gradient(left, #6a11cb, #2575fc);
+            background: #2575fc;
+            background: -webkit-linear-gradient(left, #6a11cb, #2575fc);
+            background: -o-linear-gradient(left, #6a11cb, #2575fc);
+            background: -moz-linear-gradient(left, #6a11cb, #2575fc);
+            background: linear-gradient(left, #6a11cb, #2575fc);
+            
+
+        }
+
+
+        #main-content-layout-box
+        {
+            background: linear-gradient(left, #6a11cb, #2575fc);
+            background: #2575fc;
+            background: -webkit-linear-gradient(left, #6a11cb, #2575fc);
+            background: -o-linear-gradient(left, #6a11cb, #2575fc);
+            background: -moz-linear-gradient(left, #6a11cb, #2575fc);
+            background: linear-gradient(left, #6a11cb, #2575fc);
+
+        }
+
+    </style>
+
+
+    
+
+
+
 </head>
 <body>
 <div class="limiter">
@@ -57,7 +149,7 @@
             <!--TODO: is to make this a single living page.-->
 
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick=getTime()>
                 Launch demo modal
             </button>
 
@@ -66,7 +158,26 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5><br>
+
+
+                
+                                    <div id=timestamp style="background-color: yellow;">la la</div></br>
+                                    <script type="text/javascript">
+                                        var date;
+
+                                        function getTime()
+                                        {
+                                            date = moment().format('MMMM Do YYYY, h:mm:ss a');
+                                            document.getElementById("timestamp").innerHTML = date;
+                                        }
+
+                                        
+
+                                    </script>
+                          
+                        
+
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -82,52 +193,78 @@
                 </div>
             </div>
 
-            <div class="container-fluid" style="overflow-scrolling: auto">
-                <div class="card">
-                    <div class="card-body">
-                        <h5>
-                            This is a sort of long test card for a future post to go in. It shouldn't be
-                            too long so that we have a good idea of what a few of these should look like.
-                        </h5><br>
+                <div class="container-fluid" style="overflow-scrolling: auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>
+                                This is a sort of long test card for a future post to go in. It shouldn't be
+                                too long so that we have a good idea of what a few of these should look like.
+                            </h5><br>
 
-                        <li style="display: inline-block">
-                            <small id="date">Thursday, November 14, 2019</small>
-                        </li>
-                        <li style="display: inline-block">
-                            <p>•</p>
-                        </li>
-                        <li style="display: inline-block">
-                            <small id="author">Me</small>
-                        </li>
+                            <li style="display: inline-block">
+                                <small id="date">Thursday, November 14, 2019</small>
+                            </li>
+                            <li style="display: inline-block">
+                                <p>•</p>
+                            </li>
+                            <li style="display: inline-block">
+                                <small id="author">Me</small>
+                            </li>
+                        </div>
                     </div>
-                </div>
-            </div><br>
+                </div><br>
 
-            <div class="container-fluid" style="overflow-scrolling: auto">
-                <div class="card">
-                    <div class="card-body">
-                        <h5>
-                            And here is another one. This is a sort of long test card for a future post
-                            to go in. It shouldn't be too long so that we have a good idea of what a
-                            few of these should look like.
-                        </h5><br>
+                <div class="container-fluid" style="overflow-scrolling: auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>
+                                And here is another one. This is a sort of long test card for a future post
+                                to go in. It shouldn't be too long so that we have a good idea of what a
+                                few of these should look like.
+                            </h5><br>
 
-                        <li style="display: inline-block">
-                            <small id="date">Thursday, November 14, 2019</small>
-                        </li>
-                        <li style="display: inline-block">
-                            <p>•</p>
-                        </li>
-                        <li style="display: inline-block">
-                            <small id="author">Me</small>
-                        </li>
+                            <li style="display: inline-block">
+                                <small id="date">Thursday, November 14, 2019</small>
+                            </li>
+                            <li style="display: inline-block">
+                                <p>•</p>
+                            </li>
+                            <li style="display: inline-block">
+                                <small id="author">Me</small>
+                            </li>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
+<div id="bodyDiv">
+   
+    <div id="main-content-layout-box" class="main-content-layout-box">
+
+
+
+         
+        <div class="spectra-files-slick-grid-layout-box">
+            <div id="grid" class="spectra-files-slick-grid"></div>
+        </div>
+    
+    
+    </div>
+
 </div>
+</div>
+
+
+
+
+
+
+
+
+
+</body>
 
 
 
@@ -149,6 +286,20 @@
 <script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 <script src="js/main.js"></script>
+<!--===============================================================================================-->
+<script src="https://rawgit.com/moment/moment/2.24.0/min/moment.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>

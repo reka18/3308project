@@ -31,14 +31,6 @@ func VerifyKey(dbPasswordHash string, password string) bool {
 
 }
 
-func GetIP(r *http.Request) string {
-	forwarded := r.Header.Get("X-FORWARDED-FOR")
-	if forwarded != "" {
-		return forwarded
-	}
-	return r.RemoteAddr
-}
-
 func AddCookie(w http.ResponseWriter, username string) {
 
 	RefreshCookie(w, username)
@@ -97,8 +89,6 @@ func RefreshCookie(w http.ResponseWriter, username string) {
 }
 
 func CompareTokens(w http.ResponseWriter, r *http.Request) (bool, string) {
-
-	log.Printf(Info("Cookie authentication request from: %s"), GetIP(r))
 
 	cookie, _ := r.Cookie("socialmediasite")
 

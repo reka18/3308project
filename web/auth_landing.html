@@ -55,6 +55,7 @@
 
     <script src="vendor/underscore-master/underscore.js"></script>
 
+    <script src="js/user-posts-data-class.js"></script>
     <!--Custom Javascript Data Classes -->
     <script src="js/grid-posts.js"></script>
 
@@ -129,6 +130,9 @@
             <!--TODO: here. Just start with the data that was entered on the account creation page. Maybe leave-->
             <!--TODO: a placeholder for an avatar. If you can figure out how to inject the entered data from the-->
             <!--TODO: then more power!-->
+            <h2>Welcome to the SMS {{.Firstname}} {{.Lastname}} ({{.Username}}) <br>
+            You have been a polite user since {{.Joindate}}
+            </h2>
 
 
             <!--Eventually we do not want a button that goes to another static page.-->

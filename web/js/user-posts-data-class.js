@@ -1,3 +1,5 @@
+//====================================================>// JavaScript Class Start
+
 UserPostData = (function UserPostData(constructor) //class function aka constructor
 		{
 			
@@ -12,37 +14,34 @@ UserPostData = (function UserPostData(constructor) //class function aka construc
 				let username = constructor['username'];
 				let profilePicture = constructor['profile_picture']
 				let postDate = constructor['post_date'];
-				let uploadDate = constructor['upload_date'];
-				let thumbsUpResponse = constructor['thumbs_up_response'];
-				let laughingResponse = constructor['laughing_response'];
-				let happyResponse = constructor['happy_response'];
-				let sadResponse = constructor['sad_response'];
-				let angryResponse = constructor['angry_response'];
-				let thumbsDownResponse = constructor['thumbs_down_response'];
+				let thumbsUpResponse = constructor['thumbs_up'];
+				let laughingResponse = constructor['laughing'];
+				let happyResponse = constructor['happy'];
+				let sadResponse = constructor['sad'];
+				let angryResponse = constructor['angry'];
+				let thumbsDownResponse = constructor['thumbs_down'];
 				let self = this;
 				//private instance variables==================================================>
 				
-				//public methods==================================================>
-				
-				
+				//public methods====================================================>
+
 					//file information getters
 					this.getPostID = function(){return postID;};
 					this.getUsername = function(){return username;};
-					this.getPostDate = function(){return PostDate;};
-					this.getThumbsUpResponse = function(){return uploadDate;};
-				//public methods==================================================>
-				
-				
-				
-				
-	
+					this.getProfilePicture = function(){return profilePicture;};
+					this.getPostDate = function(){return postDate;};
+					this.getThumbsUpResponse = function(){return thumbsUpResponse;};
+					this.getLaughingResponse = function(){return laughingResponse;};
+					this.getHappyResponse = function(){return happyResponse;};
+					this.getSadResponse = function(){return sadResponse;};
+					this.getAngryResponse = function(){return angryResponse;};
+					this.getThumbsDownResponse = function(){return thumbsDownResponse;};
+				//public methods====================================================>
 				
 			}//end of cls
 			
 			
 			return  UserPostData
 			
-			
-		
 		})();
-//====================================================>// JavaScript Document
+//====================================================>// JavaScript Class End

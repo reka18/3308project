@@ -1,8 +1,8 @@
 
 
 
-var spectra_files_grid;
-var spectra_files_data_array = [];
+var user_posts_grid;
+var user_posts_data_array = [];
 var pageNumber_5 = 1;
 var pageLimit_5 = null;
 var searchKey_5 = '';
@@ -118,6 +118,9 @@ function resultsFile(row, cell, value, columnDef, dataContext)
 
 function resultsFile(row, cell, value, columnDef, dataContext)
 {
+
+
+
 
 	return `
 	<div class="post-layout-box">
@@ -237,16 +240,16 @@ var slick_grid_options = {
 		$(function () 
 		{	  
 		
-		  spectra_files_grid = new Slick.Grid("#grid", spectra_files_data_array, spectra_files_grid_columns, slick_grid_options);
+		  user_posts_grid = new Slick.Grid("#grid", user_posts_data_array, spectra_files_grid_columns, slick_grid_options);
 		  
 		
-		  spectra_files_grid.setSelectionModel(new Slick.RowSelectionModel());
+		  user_posts_grid.setSelectionModel(new Slick.RowSelectionModel());
 	
 		
 		
 		//Double Click Function
 		//=============================================================================   
-		  spectra_files_grid.onDblClick.subscribe(function (e, args) 
+		  user_posts_grid.onDblClick.subscribe(function (e, args)
 		  {
 			  console.log("doubleClick activated");
 			  console.log(e);
@@ -259,7 +262,7 @@ var slick_grid_options = {
 		
 		//Double Click Function
 		//=============================================================================   
-		  spectra_files_grid.onClick.subscribe(function (e, args) 
+		  user_posts_grid.onClick.subscribe(function (e, args)
 		  {
 			  console.log("Click activated");
 			  console.log(e);
@@ -295,122 +298,44 @@ function addItem()
 	
 	var dataArray = new Array();
 
-	dataArray["data_id"] = "231-xx-221";
-	dataArray["filename"] = "Filename 10010bhg";
-	dataArray["uploader"] = "Spectra Library";
-	dataArray["upload_date"] = "2017/04/05";
-	dataArray["category"] = "House Goods";
-	dataArray["sample_description"] = "Windex Pro Formula";
-	dataArray["solute"] = "windex";
-	dataArray["solvent"] = "D.I Water";
-	dataArray["concentration"] = ".002";
-	dataArray["concentration_units"] = "g/cc";
-	dataArray["path_length"] = "1";
-	dataArray["path_length_units"] = "cm"
-	dataArray["spectroscopic_method"] = "UV-VIS";
-	dataArray['spectrometer_make'] = "Ocean Optics";
-	dataArray['spectrometer_model'] = "HR 4000";
-	dataArray['spectrometer_mode'] = "Absorbance";
-	dataArray['spectrometer_resolution'] = "1";
-	dataArray['spectrometer_resolution_units'] = "nm";
-	dataArray['spectrometer_snr'] = "1000:1";
-	dataArray['integration_time'] = "500"
-	dataArray['integration_time_units'] = "ms";
-	dataArray['upper_lambda'] = "1100";
-	dataArray['lower_lambda'] = "190";
-	dataArray['lambda_units'] = "nm";
-	dataArray['additional_files'] = "background-corrected-sample-file, cuvette-background-file, solvent-background-file";
-	dataArray['price'] = "109.99";
-	
-	
-	//var dataObject = new SpectraDocumentData(dataArray);
+	dataArray["post_id"] = "231-xx-221";
+	dataArray["username"] = "Regan Karnes";
+	dataArray["profile_picture"] = "images/Reagan-Karnes.jpg";
+	dataArray["post_date"] = "2019/04/05";
+	dataArray["thumbs_up"] = "5";
+	dataArray["laughing"] = "12";
+	dataArray["happy"] = "9";
+	dataArray["sad"] = "11";
+	dataArray["angry"] = "7";
+	dataArray["thumbs_down"] = "7";
 
 	
 	
-	//var item = {file_name:dataObject, data:dataObject};
+	var dataObject = new UserPostData(dataArray);
 
-	var item = {file_name:"11", data:"11"};
+
+	var item = {file_name:dataObject, data:dataObject};
 	
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	/*spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	
-	/*
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-	spectra_files_data_array.push(item);
-*/
+	user_posts_data_array.push(item);
+	user_posts_data_array.push(item);
+	user_posts_data_array.push(item);
+	user_posts_data_array.push(item);
+	user_posts_data_array.push(item);
+	user_posts_data_array.push(item);
+
 	
 	
-	spectra_files_grid.invalidate();
-	spectra_files_grid.updateRowCount();
-	spectra_files_grid.render();
+	user_posts_grid.invalidate();
+	user_posts_grid.updateRowCount();
+	user_posts_grid.render();
 	refreshGrid();
 }
 
 function refreshGrid()
 {
-	spectra_files_grid.invalidate();
-	spectra_files_grid.updateRowCount();
-	spectra_files_grid.render();
+	user_posts_grid.invalidate();
+	user_posts_grid.updateRowCount();
+	user_posts_grid.render();
 	console.log("Grid Refreshed!");
 
 }

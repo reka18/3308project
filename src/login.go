@@ -45,8 +45,6 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 
 func UserLoginHandler(w http.ResponseWriter, r *http.Request) {
 
-	log.Printf(Info("Request to UserLoginHandler from: %s"), GetIP(r))
-
 	pushAllResources(w) /* This is the only place we do this since it is the landing page */
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 

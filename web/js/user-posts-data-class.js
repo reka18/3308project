@@ -1,4 +1,4 @@
-SpectraDocumentData = (function SpectraDocumentData(constructor) //class function aka constructor
+UserPostData = (function UserPostData(constructor) //class function aka constructor
 		{
 			
 			function UserPostData(constructor)
@@ -30,8 +30,6 @@ SpectraDocumentData = (function SpectraDocumentData(constructor) //class functio
 					this.getUsername = function(){return username;};
 					this.getPostDate = function(){return PostDate;};
 					this.getThumbsUpResponse = function(){return uploadDate;};
-					this.getCategory = function(){return category;};
-					this.getSampleDescription = function(){return sampleDescription;};
 				//public methods==================================================>
 				
 				
@@ -42,7 +40,7 @@ SpectraDocumentData = (function SpectraDocumentData(constructor) //class functio
 			}//end of cls
 			
 			
-			return  SpectraDocumentData
+			return  UserPostData
 			
 			
 		

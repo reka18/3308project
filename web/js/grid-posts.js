@@ -125,12 +125,13 @@ function resultsFile(row, cell, value, columnDef, dataContext)
 	return `
 	<div class="post-layout-box">
         <div class="user-profile-icon-container">
-            <img class="user-profile-icon" src="images/Reagan-Karnes.jpg"/>
+            <img class="user-profile-icon" src="images/Reagan-Karnes-64.jpg"/>
         </div>
 
          <div class="spectra-file-attribute-layout-box">
             <div class="user-name-container">
                 <span class="user-name">Reagan Karnes</span>
+                <span class="user-post-date">2019.09.10 12:30:31pm</span>
             </div>
             <div class="user-post-container">
                 <span class="user-post">
@@ -142,34 +143,34 @@ function resultsFile(row, cell, value, columnDef, dataContext)
          <div class="reaction-bar">
 	         <div class="reactions-container">
 	         	<a href="javascrpt:void(0)" onclick="incremenThumbsUp()">
-	             	<img class="reaction-icons" src="images/thumbs-up-512.png">
+	             	<img class="reaction-icons" src="images/thumbs-up-opt-512.png">
 	            </a>
 	             <div class="reaction-counters">12</div>
 	         </div>
 
 	         <div class="reactions-container">
-	             <img class="reaction-icons" src="images/laughing-512.png">
+	             <img class="reaction-icons" src="images/laughing-opt-512.png">
 	             <div class="reaction-counters">7</div>
 	         </div>
 
 	         <div class="reactions-container">
-	             <img class="reaction-icons" src="images/happy-512.png">
+	             <img class="reaction-icons" src="images/happy-opt-512.png">
 	             <div class="reaction-counters">9</div>
 	         </div>
 
 
 	         <div class="reactions-container">
-	             <img class="reaction-icons" src="images/sad-512.png">
+	             <img class="reaction-icons" src="images/sad-opt-512.png">
 	             <div class="reaction-counters">1</div>
 	         </div>
 
 	         <div class="reactions-container">
-	             <img class="reaction-icons" src="images/angry-512.png">
+	             <img class="reaction-icons" src="images/angry-opt-512.png">
 	             <div class="reaction-counters">0</div>
 	         </div>
 
 	         <div class="reactions-container">
-	             <img class="reaction-icons" src="images/thumbs-down-512.png">
+	             <img class="reaction-icons" src="images/thumbs-down-opt-512.png">
 	             <div class="reaction-counters">2</div>
 	         </div>
          </div>
@@ -295,8 +296,24 @@ var slick_grid_options = {
 
 function addItem()
 {
+
+	var dataObject = new UserPostData(ajaxResponseDataSimulation());
+
+	var grid_item = {file_name:dataObject, data:dataObject};
 	
-	var dataArray = new Array();
+	user_posts_data_array.push(grid_item);
+	user_posts_data_array.push(grid_item);
+	user_posts_data_array.push(grid_item);
+	user_posts_data_array.push(grid_item);
+	user_posts_data_array.push(grid_item);
+	user_posts_data_array.push(grid_item);
+	user_posts_data_array.push(grid_item);
+	refreshGrid();
+}
+
+function ajaxResponseDataSimulation()
+{
+	let dataArray = new Array();
 
 	dataArray["post_id"] = "231-xx-221";
 	dataArray["username"] = "Regan Karnes";
@@ -309,26 +326,8 @@ function addItem()
 	dataArray["angry"] = "7";
 	dataArray["thumbs_down"] = "7";
 
-	
-	
-	var dataObject = new UserPostData(dataArray);
+	return dataArray;
 
-
-	var item = {file_name:dataObject, data:dataObject};
-	
-	user_posts_data_array.push(item);
-	user_posts_data_array.push(item);
-	user_posts_data_array.push(item);
-	user_posts_data_array.push(item);
-	user_posts_data_array.push(item);
-	user_posts_data_array.push(item);
-
-	
-	
-	user_posts_grid.invalidate();
-	user_posts_grid.updateRowCount();
-	user_posts_grid.render();
-	refreshGrid();
 }
 
 function refreshGrid()

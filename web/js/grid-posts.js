@@ -120,6 +120,7 @@ function resultsFile(row, cell, value, columnDef, dataContext)
 {
 
 
+	//TODO integrate POSTID into onlick reactions
 
 
 	return `
@@ -143,34 +144,34 @@ function resultsFile(row, cell, value, columnDef, dataContext)
          <div class="reaction-bar">
 	         <div class="reactions-container">
 	         	<a href="javascrpt:void(0)" onclick="incremenThumbsUp()">
-	             	<img class="reaction-icons" src="images/thumbs-up-opt-512.png">
+	             	<img class="reaction-icons" src="images/thumbs-up-opt-512.png" onclick="reactToPost(postID)">
 	            </a>
 	             <div class="reaction-counters">12</div>
 	         </div>
 
 	         <div class="reactions-container">
-	             <img class="reaction-icons" src="images/laughing-opt-512.png">
+	             <img class="reaction-icons" src="images/laughing-opt-512.png" onclick="reactToPost(postID)">
 	             <div class="reaction-counters">7</div>
 	         </div>
 
 	         <div class="reactions-container">
-	             <img class="reaction-icons" src="images/happy-opt-512.png">
+	             <img class="reaction-icons" src="images/happy-opt-512.png" onclick="reactToPost(postID)">
 	             <div class="reaction-counters">9</div>
 	         </div>
 
 
 	         <div class="reactions-container">
-	             <img class="reaction-icons" src="images/sad-opt-512.png">
+	             <img class="reaction-icons" src="images/sad-opt-512.png" onclick="reactToPost(postID)>
 	             <div class="reaction-counters">1</div>
 	         </div>
 
 	         <div class="reactions-container">
-	             <img class="reaction-icons" src="images/angry-opt-512.png">
+	             <img class="reaction-icons" src="images/angry-opt-512.png" onclick="reactToPost(postID)>
 	             <div class="reaction-counters">0</div>
 	         </div>
 
 	         <div class="reactions-container">
-	             <img class="reaction-icons" src="images/thumbs-down-opt-512.png">
+	             <img class="reaction-icons" src="images/thumbs-down-opt-512.png" onclick="reactToPost(postID)">
 	             <div class="reaction-counters">2</div>
 	         </div>
          </div>

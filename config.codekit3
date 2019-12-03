@@ -1645,7 +1645,7 @@
 		"oT": 1,
 		"q": 100
 		},
-	"/web/js/grid-posts.js": {
+	"/web/js/grid-setup.js": {
 		"bF": 0,
 		"ft": 64,
 		"ma": 0,

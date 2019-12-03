@@ -8,54 +8,6 @@ var pageLimit_5 = null;
 var searchKey_5 = '';
 
 
-
-
-/*
-function formatter_5(row, cell, value, columnDef, dataContext) 
-		 {
-			 console.log(row);
-			 console.log(cell);
-			 console.log(value);
-			 console.log(columnDef);
-			 console.log(dataContext);
-			 console.log(grid_5.getCellNode(row,cell));
-			 
-			 
-			 var dataHolder = dataContext.Data;
-			 
-			 
-			 
-			 if(dataHolder.getErrors())
-			 {
-				  return '<div id="icon_rs_' + row + '" class="cell-icon-holder cell-icon-error"></div>';
-				 
-			 }
-			 
-			 else
-			 {
-			 
-			 
-				 if(dataHolder.getViewed() == 0)
-				 {
-					 return '<div id="icon_rs_' + row + '" class="cell-icon-holder cell-icon-unviewed"></div>';
-					  
-				 }
-				 
-				 else
-				 {
-					  return '<div id="icon_rs_' + row + '" class="cell-icon-holder cell-icon-results-file-viewed"></div>';
-					 
-				 }
-			 }
-			 
-			
-			 
-        	return value;
-		}	  
-		
-		
-		*/
-		
 		
 		function requiredFieldValidator(value) {
 		  if (value == null || value == undefined || !value.length) {
@@ -65,62 +17,9 @@ function formatter_5(row, cell, value, columnDef, dataContext)
 			return {valid: true, msg: null};
 		  }
 		}
-		
-
-/*
-function detailButton(row, cell, value, columnDef, dataContext)
-{
-	 
-	 return '<button class="slick-cell-button">Details</button>'
-	 	
-}
-*/
-
-
-/*
-function resultsFile(row, cell, value, columnDef, dataContext)
-{
-	
-	var filename = value.getFilename();
-	var method = value.getSpectroscopicMethod();
-	var mode = value.getSpectrometerMode();
-	var range = value.getLowerLambda() + ' - ' + value.getUpperLambda() + value.getLambdaUnits();
-	var resolution = value.getSpectrometerResolution() + value.getSpectrometerResolutionUnits();
-	var snr = value.getSpectrometerSNR();
-	
-	return '\
-	\
-	\
-	<div class="spectra-file-layout-box">\
-	\
-	\
-	<div class="spectra-file-icon-layout-box"><img class="spectra-file-icon" src="images/spectra-library-file-icon2.png"/></div>\
-    \
-    \
-    <div class="spectra-file-attribute-layout-box">\
-        <div class="spectra-file-attribute"><span class="spectra-file-attribute-header">Filename: </span><span class="spectra-file-attribute-description">'+filename+'</span></div>\
-        <div class="spectra-file-attribute"><span class="spectra-file-attribute-header">Spectroscopic Method: </span><span class="spectra-file-attribute-description">'+method+'</span></div>\
-		<div class="spectra-file-attribute"><span class="spectra-file-attribute-header">Mode: </span><span class="spectra-file-attribute-description">'+mode+'</span></div>\
-        <div class="spectra-file-attribute"><span class="spectra-file-attribute-header">Wavelength Range: </span><span class="spectra-file-attribute-description">'+range+'</span></div>\
-        <div class="spectra-file-attribute"><span class="spectra-file-attribute-header">Resolution: </span><span class="spectra-file-attribute-description">'+resolution+'</span></div>\
-       	<div class="spectra-file-attribute"><span class="spectra-file-attribute-header">Signal to Noise: </span><span class="spectra-file-attribute-description">'+snr+'</span></div>\
-       	<div class="spectra-file-attribute"><span class="spectra-file-attribute-header">Signal to Noise: </span><span class="spectra-file-attribute-description">&nbsp;</span></div>\
-        <div class="spectra-file-attribute"><button class="file-details-button" onclick="someFunction('+row+')"><span class="spectra-file-attribute-description">Load Details</span></button></div>\
-    </div>\
-	\
-	\
-	</div>';
-	
-}
-*/
-
-
 
 function resultsFile(row, cell, value, columnDef, dataContext)
 {
-
-
-
 
 	return `
 	<div class="post-layout-box">
@@ -193,7 +92,7 @@ function resultsFile(row, cell, value, columnDef, dataContext)
 
 
 
-var spectra_files_grid_columns = 
+var grid_columns_setup =
 [
   
   {
@@ -251,7 +150,7 @@ var slick_grid_options = {
 		$(function () 
 		{	  
 		
-		  user_posts_grid = new Slick.Grid("#grid", user_posts_data_array, spectra_files_grid_columns, slick_grid_options);
+		  user_posts_grid = new Slick.Grid("#grid", user_posts_data_array, grid_columns_setup, slick_grid_options);
 		  
 		
 		  user_posts_grid.setSelectionModel(new Slick.RowSelectionModel());
@@ -294,15 +193,6 @@ var slick_grid_options = {
 	//END Grid Setup
 	//=============================================================================
 
-
-//column names		  
-//file-name		  
-//spectoscopic-method
-//mode
-//wavelength-range
-//resolution
-//details
-//data
 
 function addItem()
 {

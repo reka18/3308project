@@ -120,7 +120,6 @@ function resultsFile(row, cell, value, columnDef, dataContext)
 {
 
 
-	//TODO integrate POSTID into onlick reactions
 
 
 	return `
@@ -143,35 +142,45 @@ function resultsFile(row, cell, value, columnDef, dataContext)
         <div class="reaction-bar-container">
          <div class="reaction-bar">
 	         <div class="reactions-container">
-	         	<a href="javascrpt:void(0)" onclick="incremenThumbsUp()">
-	             	<img class="reaction-icons" src="images/thumbs-up-opt-512.png" onclick="reactToPost(postID)">
+	         	<a href="javascrpt:void(0)" onclick="reactToPost(postID)">
+	             	<img class="reaction-icons" src="images/thumbs-up-opt-512.png">
 	            </a>
 	             <div class="reaction-counters">12</div>
 	         </div>
 
 	         <div class="reactions-container">
-	             <img class="reaction-icons" src="images/laughing-opt-512.png" onclick="reactToPost(postID)">
+	         	<a href="javascrpt:void(0)" onclick="reactToPost(postID,1)">
+	         		<img class="reaction-icons" src="images/laughing-opt-512.png">
+	         	</a>
 	             <div class="reaction-counters">7</div>
 	         </div>
 
 	         <div class="reactions-container">
-	             <img class="reaction-icons" src="images/happy-opt-512.png" onclick="reactToPost(postID)">
+	         	<a href="javascrpt:void(0)" onclick="reactToPost(postID,2)">
+	            	<img class="reaction-icons" src="images/happy-opt-512.png">
+	            </a>
 	             <div class="reaction-counters">9</div>
 	         </div>
 
 
 	         <div class="reactions-container">
-	             <img class="reaction-icons" src="images/sad-opt-512.png" onclick="reactToPost(postID)>
+	         	<a href="javascrpt:void(0)" onclick="reactToPost(postID,3)">
+	         		<img class="reaction-icons" src="images/sad-opt-512.png">
+	            </a>
 	             <div class="reaction-counters">1</div>
 	         </div>
 
 	         <div class="reactions-container">
-	             <img class="reaction-icons" src="images/angry-opt-512.png" onclick="reactToPost(postID)>
+	         	<a href="javascrpt:void(0)" onclick="reactToPost(postID,4)">
+	            	<img class="reaction-icons" src="images/angry-opt-512.png">
+	            </a>
 	             <div class="reaction-counters">0</div>
 	         </div>
 
 	         <div class="reactions-container">
-	             <img class="reaction-icons" src="images/thumbs-down-opt-512.png" onclick="reactToPost(postID)">
+	         <a href="javascrpt:void(0)" onclick="reactToPost(postID,5)">
+	             <img class="reaction-icons" src="images/thumbs-down-opt-512.png">
+	         </a>
 	             <div class="reaction-counters">2</div>
 	         </div>
          </div>
@@ -193,7 +202,7 @@ var spectra_files_grid_columns =
 	field: "file_name",
 	width: 10,
 	minWidth: 0,
-	cssClass: "post-template.css",
+	cssClass: "post-template-styling.css",
 	headerCssClass:"spectra-files-slick-grid-header",
 	editor: Slick.Editors.Text,
 	validator: requiredFieldValidator,

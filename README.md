@@ -6,7 +6,7 @@ have 12 version of PSQL.
 ##### install, remember that your rc file is either `.bash_profile` or `.zshrc` depending on what terminal you are using
 ```
 brew install postgresql
-echo 'export PATH="/user/local/opt/postgresql@9.6/bin:$PATH"' >> <your rc file>
+echo 'export PATH="/user/local/opt/postgresql/bin:$PATH"' >> <your rc file>
 ```
 ##### start service
 ```

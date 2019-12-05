@@ -1,16 +1,16 @@
 ## SETUP DATABASE
-Install postgres v9.6 locally. Make sure you also
-have 9.6 version of PSQL.
+Install postgres v12 locally. Make sure you also
+have 12 version of PSQL.
 
 ### Mac
 ##### install, remember that your rc file is either `.bash_profile` or `.zshrc` depending on what terminal you are using
 ```
-brew install postgresql@9.6
+brew install postgresql
 echo 'export PATH="/user/local/opt/postgresql@9.6/bin:$PATH"' >> <your rc file>
 ```
 ##### start service
 ```
-brew services start postgresql@9.6
+brew services start postgresql
 ```
 ##### enter PSQL
 ```
@@ -21,11 +21,11 @@ psql postgres
 Note this may say your username already exists. That's fine.
 ##### stop service
 ```
-brew service stop postgresql@9.6
+brew service stop postgresql
 ```
 ##### edit pg_hba.conf
 ```
-vim /usr/local/var/postgresql@9.6/pg_hba.conf
+vim /usr/local/var/postgresql/pg_hba.conf
 ```
 ##### delete the following
 ```
@@ -47,7 +47,7 @@ vim /usr/local/var/postgresql@9.6/pg_hba.conf
 ```
 ##### start service
 ```
-brew services start postgresql@9.6
+brew services start postgresql
 ```
 
 ## Create Database

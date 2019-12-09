@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -62,17 +63,35 @@ func AddNewUserAccount(age int, firstname string, lastname string, email string,
 	/*
 	THIS CONNECTS TO THE DATABASE AND ADDS A USER
 	*/
-	_, e := db.Exec("INSERT INTO users (" +
+
+	var id int
+	e := db.QueryRow("INSERT INTO users (" +
 		"age, firstname, lastname, email, username, public, active, password, gender, joindate)"+
-		"VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);",
-		age, firstname, lastname, email, username, public, true, password, gender, time.Now())
+		"VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id;",
+		age, firstname, lastname, email, username, public, true, password, gender, time.Now()).Scan(&id)
 	if e != nil {
-		log.Println(Warn("Unable to execute query."))
+		log.Println(Warn("Unable to execute user query."))
 		log.Println(Warn(e))
 		return e
-	} else {
-		log.Printf(Success("Successfully added User <%s> to Database."), email)
 	}
+	img, _ := os.Open("web/images/default_avatar.png")
+	defer img.Close()
+	imgInfo, e := img.Stat()
+	if e != nil {
+		log.Println(Warn("Unable to load image."))
+		log.Println(Warn(e))
+		return e
+	}
+	size := imgInfo.Size()
+	bytes := make([]byte, size)
+	_, e = db.Exec("INSERT INTO avatars (userid, avatar) VALUES ($1, $2);",
+		id, bytes)
+	if e != nil {
+		log.Println(Warn("Unable to execute image query."))
+		log.Println(Warn(e))
+		return e
+	}
+	log.Println(id)
 	return e
 }
 

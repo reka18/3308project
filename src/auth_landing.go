@@ -38,14 +38,15 @@ func loadUserInfo(username string) (User, error) {
 	GET USER INFORMATION FROM AN EXISTING DATABASE CONNECTION 
 	*/
 	db, _ := Database(DBNAME)
-		defer db.Close()
+	defer db.Close()
 
 	var user User
-	var sqlStatement = fmt.Sprintf(`SELECT firstname, lastname, username, age, gender, public, joindate, 
-	active FROM users WHERE username='%s';`, username) 
+	var sqlStatement = fmt.Sprintf("SELECT firstname, lastname, username, age, gender," +
+		"public, joindate, active FROM users WHERE username='%s';", username)
 
 	row := db.QueryRow(sqlStatement)
-	e := row.Scan(&user.Firstname, &user.Lastname, &user.Username, &user.Age, &user.Gender, &user.Public, &user.Joindate, &user.Active)
+	e := row.Scan(&user.Firstname, &user.Lastname, &user.Username, &user.Age, &user.Gender,
+		&user.Public, &user.Joindate, &user.Active)
 	
 	if e != nil {
 		if e == sql.ErrNoRows {

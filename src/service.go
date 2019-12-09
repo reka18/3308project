@@ -36,6 +36,7 @@ func Start(config Config) *HTMLServer {
 	router.HandleFunc("/logout", UserLogoutHandler)
 	router.HandleFunc("/{user}", UserLandingHandler)
 	router.HandleFunc("/{user}/post", UserPostHandler)
+	router.HandleFunc("/{user}/follow", FollowHandler)
 
 	htmlServer := HTMLServer{
 		server: &http.Server{

@@ -39,7 +39,7 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 		AddCookie(w, username)
 
 		userPage := fmt.Sprintf("/%s", username)
-		http.Redirect(w, r, userPage, 303)
+		http.Redirect(w, r, userPage, http.StatusAccepted)
 	}
 }
 
@@ -67,18 +67,15 @@ func LoginUserAccount(inputUsernameOrEmail string, inputPassword string, db *sql
 		return "", false, &EmptyStringError{}
 	}
 
-	/* Login with either username OR email. Safe from SQL injection. */
-	r := db.QueryRow("SELECT password, username, email FROM users WHERE email = $1 OR username = $2;",
-		inputUsernameOrEmail, inputUsernameOrEmail)
-
 	var (
 		password	string
 		username	string
 		email		string
 	)
 
-	e := r.Scan(&password, &username, &email)
-
+	/* Login with either username OR email. Safe from SQL injection. */
+	e := db.QueryRow("SELECT password, username, email FROM users WHERE email = $1 OR username = $2;",
+		inputUsernameOrEmail, inputUsernameOrEmail).Scan(&password, &username, &email)
 	if e != nil {
 		log.Printf(Warn("Account not found for '%s'"), username)
 		return "", false, e

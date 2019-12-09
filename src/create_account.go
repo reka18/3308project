@@ -63,7 +63,6 @@ func AddNewUserAccount(age int, firstname string, lastname string, email string,
 	/*
 	THIS CONNECTS TO THE DATABASE AND ADDS A USER
 	*/
-
 	var id int
 	e := db.QueryRow("INSERT INTO users (" +
 		"age, firstname, lastname, email, username, public, active, password, gender, joindate)"+
@@ -89,10 +88,9 @@ func AddNewUserAccount(age int, firstname string, lastname string, email string,
 	if e != nil {
 		log.Println(Warn("Unable to execute image query."))
 		log.Println(Warn(e))
-		return e
 	}
-	log.Println(id)
 	return e
+
 }
 
 func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {

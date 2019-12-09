@@ -59,6 +59,12 @@ func generateTables(db *sql.DB) {
 	} else {
 		log.Println(Success("Success."))
 	}
+	e = createTable(db, avatarTable, "'avatar' table")
+	if e != nil {
+		log.Println(Fatal("Error"), e)
+	} else {
+		log.Println(Success("Success."))
+	}
 
 }
 
@@ -69,6 +75,7 @@ func DatabaseArgHandler() {
 		if e != nil {
 			log.Fatal(Fatal(e))
 		}
+		defer db.Close()
 
 		arg := os.Args[1]
 
@@ -84,9 +91,7 @@ func DatabaseArgHandler() {
 			} else {
 				log.Println(Success("Naked database created."))
 			}
-		}
-
-		if arg == "--reset" {
+		} else if arg == "--reset" {
 			log.Println(Info("Attempting to reinitializing database..."))
 			e := dropDatabase(db)
 			if e != nil {
@@ -103,9 +108,7 @@ func DatabaseArgHandler() {
 				log.Fatal(Fatal(e))
 			}
 			generateTables(db)
-		}
-
-		if arg == "--init" {
+		} else if arg == "--init" {
 			log.Println(Info("Attempting to create database with tables..."))
 			e = createDatabase(db)
 			if e != nil {
@@ -117,17 +120,15 @@ func DatabaseArgHandler() {
 				log.Fatal(Fatal(e))
 			}
 			generateTables(db)
-		}
-
-		if arg == "--drop" {
+		} else if arg == "--drop" {
 			log.Println(Info("Attempting to drop database..."))
 			e = dropDatabase(db)
 			if e != nil {
 				log.Fatal(Fatal(e))
 			}
+		} else {
+			log.Fatal(Fatal("Unknown database command... exiting."))
 		}
-
-		defer db.Close()
 		os.Exit(0)
 	}
 

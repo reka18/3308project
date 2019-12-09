@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 )
 
@@ -30,11 +29,15 @@ var postTable = "CREATE TABLE posts (" +
 	"downvotes INT," +
 	"deleted BOOLEAN);"
 
+var avatarTable = "CREATE TABLE avatars (" +
+	"id SERIAL PRIMARY KEY," +
+	"userid INT REFERENCES users(id)," +
+	"avatar BYTEA);"
+
 func createTable(db *sql.DB, table string, label string) error {
 
 	log.Println(Info("Attempting to create"), label)
-	query := fmt.Sprintf(table)
-	_, e := db.Exec(query)
+	_, e := db.Exec(table)
 	return e
 
 }

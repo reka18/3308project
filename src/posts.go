@@ -2,21 +2,17 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
-	"strings"
 )
 
 func postsGET(w http.ResponseWriter, r *http.Request) {
 
 	CookieDebugger(r, "POST")
 
-	ok, username := CompareTokens(w, r)
-
-	if !ok {
-		return
-	}
+	username := CompareTokens(w, r)
 
 	RefreshCookie(w, username) /* This updates cookie to restart clock. */
 	t := template.Must(template.ParseFiles("web/make_post.html"))
@@ -26,31 +22,25 @@ func postsGET(w http.ResponseWriter, r *http.Request) {
 }
 
 func postsPOST(w http.ResponseWriter, r *http.Request) {
+
 	CookieDebugger(r, "POST")
 
-	ok, username := CompareTokens(w, r)
+	log.Println(Green("At the right page."))
 
-	if !ok {
-		return
-	}
+	username := CompareTokens(w, r)
 
 	RefreshCookie(w, username)
 
-	var (
-		postTitle = strings.Join(r.Form["post_title"], "")
-		postContent = strings.Join(r.Form["post_content"], "")
-	)
+	var postContent = r.FormValue("content")
 
-	newPost := Post{
-		Username: username,
-		Title:    postTitle,
-		Content:  postContent,
-	}
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
 
-	makePost(newPost, db)
+	makePost(username, postContent, db)
+
+	userPage := fmt.Sprintf("/%s", username)
+	http.Redirect(w, r, userPage, http.StatusSeeOther)
 }
 
 func UserPostHandler(w http.ResponseWriter, r *http.Request) {
@@ -65,12 +55,12 @@ func UserPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func makePost(post Post, db *sql.DB) {
+func makePost(username string, post string, db *sql.DB) {
 
-	userid := GetUserId(post.Username, db)
+	userid := GetUserId(username, db)
 
-	_, e := db.Exec("INSERT INTO posts (userid, title, content, upvotes, downvotes, deleted) " +
-		"VALUES ($1, $2, $3, 0, 0, false);", userid, post.Title, post.Content)
+	_, e := db.Exec("INSERT INTO posts (userid, content, upvotes, downvotes, deleted) " +
+		"VALUES ($1, $2, 0, 0, false);", userid, post)
 	if e != nil {
 		log.Println(Warn("Unable to execute user query."))
 		log.Println(Warn(e))

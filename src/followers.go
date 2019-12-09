@@ -11,11 +11,7 @@ func followPost(w http.ResponseWriter, r *http.Request) {
 
 	_ = r.ParseForm()
 
-	ok, username := CompareTokens(w, r)
-
-	if !ok {
-		return
-	}
+	username := CompareTokens(w, r)
 
 	RefreshCookie(w, username)
 

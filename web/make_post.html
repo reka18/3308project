@@ -31,26 +31,14 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100 p-b-160 p-t-50">
-            <h1 class="login100-form-title p-b-43">Social Media Site</h1>
-
-
-            <div class="container-fluid card">
-                <div class="card-body">
-                    <form>
-                        <label>
-                            <textarea class="w-100" name="postbody" rows=3 style="resize: none" maxlength="170" placeholder="Start typing!"></textarea>
-                        </label>
-                    </form>
+            <form class="login100-form validate-form" method="post">
+                <h1 class="login100-form-title p-b-43">Social Media Site</h1>
+                <div class="container-fluid card" style="margin-bottom: 10px">
+                    <textarea class="card-body" maxlength="240" name="content"
+                              placeholder="Start typing!" required style="resize: none"></textarea>
                 </div>
-            </div><br>
-            <a href="#" class="btn btn-success btn-sm w-100" >SUBMIT</a>
-
-            <div class="text-center w-full p-t-23">
-                <a href="/logout" class="txt1">
-                    <h6>Logout</h6>
-                </a>
-            </div>
-
+                <button class="btn btn-success btn-sm w-100" >Submit</button>
+            </form>
         </div>
     </div>
 </div>

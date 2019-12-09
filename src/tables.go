@@ -25,8 +25,7 @@ var usersTable = "CREATE TABLE users (" +
 var postTable = "CREATE TABLE posts (" +
 	"id SERIAL PRIMARY KEY," +
 	"userid INT REFERENCES users(id)," +
-	"title VARCHAR(60)," +
-	"content VARCHAR(240)," +
+	"content VARCHAR(240) NOT NULL," +
 	"upvotes INT," +
 	"downvotes INT," +
 	"deleted BOOLEAN" +

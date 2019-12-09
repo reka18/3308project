@@ -29,9 +29,3 @@ type User struct {
 	Joindate  string
 	Active    bool
 }
-
-type Post struct {
-	Username	string
-	Title		string
-	Content		string
-}

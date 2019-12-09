@@ -88,14 +88,14 @@ func RefreshCookie(w http.ResponseWriter, username string) {
 	}
 }
 
-func CompareTokens(w http.ResponseWriter, r *http.Request) (bool, string) {
+func CompareTokens(w http.ResponseWriter, r *http.Request) string {
 
 	cookie, _ := r.Cookie("socialmediasite")
 
 	if cookie == nil || cookie.Value == "" {
 		log.Println(Warn("Unauthorized access attempt."))
 		http.Redirect(w, r, "/logout", http.StatusForbidden)
-		return false, ""
+		return ""
 	} else {
 		values := strings.Split(cookie.Value, ":::")
 
@@ -110,10 +110,10 @@ func CompareTokens(w http.ResponseWriter, r *http.Request) (bool, string) {
 			log.Printf(Warn("Unauthorized access attempt with stale cookie for '%s'."), username)
 			DeleteCookie(w, username)
 			http.Redirect(w, r, "/logout", http.StatusUnauthorized)
-			return false, ""
+			return ""
 		}
 		log.Printf(Success("Cookie authentication successful for '%s'."), username)
-		return true, username
+		return username
 	}
 
 }

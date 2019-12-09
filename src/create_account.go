@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	"strings"
 	"time"
 )
 
@@ -27,14 +26,14 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 	_ = r.ParseForm()
 
 	var (
-		age, _          = strconv.Atoi(strings.Join(r.Form["age"], ""))
-		firstname       = strings.Join(r.Form["firstname"], "")
-		lastname        = strings.Join(r.Form["lastname"], "")
-		email           = strings.Join(r.Form["email"], "")
-		username        = strings.Join(r.Form["username"], "")
-		password        = strings.Join(r.Form["pass"], "")
-		confirmPassword = strings.Join(r.Form["confirm_pass"], "")
-		gender			= strings.Join(r.Form["gender"], "")
+		age, _          = strconv.Atoi(r.FormValue("age"))
+		firstname       = r.FormValue("firstname")
+		lastname        = r.FormValue("lastname")
+		email           = r.FormValue("email")
+		username        = r.FormValue("username")
+		password        = r.FormValue("pass")
+		confirmPassword = r.FormValue("confirm_pass")
+		gender			= r.FormValue("gender")
 	)
 
 	if password != confirmPassword {

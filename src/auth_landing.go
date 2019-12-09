@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -12,17 +11,13 @@ func usrLandingGET(w http.ResponseWriter, r *http.Request) {
 
 	CookieDebugger(r, "LANDING")
 
-	ok, username := CompareTokens(w, r)
-	if ok {
-		userInfo, e := loadUserInfo(username)
-		if e == nil {
-			RefreshCookie(w, username) /* This updates cookie to restart clock. */
-			t := template.Must(template.ParseFiles("web/auth_landing.html"))
-			_ = t.Execute(w, userInfo)
-		} else {
-			http.Redirect(w, r, "/logout", http.StatusUnauthorized)
-		}
-	} 
+	username := CompareTokens(w, r)
+
+	RefreshCookie(w, username) /* This updates cookie to restart clock. */
+
+	// userInfo := loadUserInfo(username)
+	t := template.Must(template.ParseFiles("web/auth_landing.html"))
+	_ = t.Execute(w, username)
 }
 
 func UserLandingHandler(w http.ResponseWriter, r *http.Request) {
@@ -33,30 +28,27 @@ func UserLandingHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func loadUserInfo(username string) (User, error) {
+func loadUserInfo(username string) User {
 	/* 
-	GET USER INFORMATION FROM AN EXISTING DATABASE CONNECTION 
+	GET USER INFORMATION
 	*/
 	db, _ := Database(DBNAME)
 	defer db.Close()
 
 	var user User
-	var sqlStatement = fmt.Sprintf("SELECT firstname, lastname, username, age, gender," +
-		"public, joindate, active FROM users WHERE username='%s';", username)
 
-	row := db.QueryRow(sqlStatement)
+	row := db.QueryRow("SELECT firstname, lastname, username, age, gender, public, joindate, " +
+		"active FROM users WHERE username=$1;", username)
 	e := row.Scan(&user.Firstname, &user.Lastname, &user.Username, &user.Age, &user.Gender,
 		&user.Public, &user.Joindate, &user.Active)
 	
 	if e != nil {
 		if e == sql.ErrNoRows {
 			log.Printf(Warn("No user information found for %s", username))
-			return user, e
 		} else {
 			log.Printf(Warn(e))
-			return user, e
 		}
 	}
-	return user, nil
+	return user
 
 }

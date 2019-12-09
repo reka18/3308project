@@ -6,7 +6,6 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"strings"
 )
 
 func userLoginGET(w http.ResponseWriter, r *http.Request) {
@@ -23,8 +22,8 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 	_ = r.ParseForm()
 
 	var (
-		login = strings.Join(r.Form["login"], "")
-		password = strings.Join(r.Form["pass"], "")
+		login = r.FormValue("login")
+		password = r.FormValue("pass")
 	)
 
 	db, _ := Database(DBNAME)
@@ -39,7 +38,7 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 		AddCookie(w, username)
 
 		userPage := fmt.Sprintf("/%s", username)
-		http.Redirect(w, r, userPage, http.StatusAccepted)
+		http.Redirect(w, r, userPage, http.StatusSeeOther)
 	}
 }
 

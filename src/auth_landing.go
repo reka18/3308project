@@ -18,7 +18,7 @@ func usrLandingGET(w http.ResponseWriter, r *http.Request) {
 	db, _ := Database(DBNAME)
 	defer db.Close()
 	code, _ := w.Write(GetPosts(username, db))
-	log.Println(code)
+	log.Println("Response: ", code)
 
 	// userInfo := loadUserInfo(username)
 	t := template.Must(template.ParseFiles("web/auth_landing.html"))

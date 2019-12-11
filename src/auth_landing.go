@@ -15,6 +15,11 @@ func usrLandingGET(w http.ResponseWriter, r *http.Request) {
 
 	RefreshCookie(w, username) /* This updates cookie to restart clock. */
 
+	db, _ := Database(DBNAME)
+	defer db.Close()
+	code, _ := w.Write(GetPosts(username, db))
+	log.Println(code)
+
 	// userInfo := loadUserInfo(username)
 	t := template.Must(template.ParseFiles("web/auth_landing.html"))
 	_ = t.Execute(w, username)

@@ -28,7 +28,8 @@ var postTable = "CREATE TABLE posts (" +
 	"content VARCHAR(240) NOT NULL," +
 	"upvotes INT," +
 	"downvotes INT," +
-	"deleted BOOLEAN" +
+	"deleted BOOLEAN," +
+	"date TIMESTAMP NOT NULL" +
 	");"
 
 var avatarTable = "CREATE TABLE avatars (" +

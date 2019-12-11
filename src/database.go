@@ -65,6 +65,12 @@ func generateTables(db *sql.DB) {
 	} else {
 		log.Println(Success("Success."))
 	}
+	e = createTable(db, followTable, "'follow' table")
+	if e != nil {
+		log.Println(Fatal("Error"), e)
+	} else {
+		log.Println(Success("Success."))
+	}
 
 }
 

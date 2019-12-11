@@ -29,3 +29,12 @@ type User struct {
 	Joindate  string
 	Active    bool
 }
+
+type Post struct {
+	Id			int
+	UserId		int
+	Content		string
+	UpVotes		int
+	DownVotes	int
+	Date		string
+}

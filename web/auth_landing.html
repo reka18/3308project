@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="vendor/SlickGrid-2.4.14/controls/slick.pager.css" type="text/css"/>
     <!--===============================================================================================-->
 
-    <link rel="stylesheet" type="text/css" href="css/grid-styling.css"/> -->
+    <link rel="stylesheet" type="text/css" href="css/grid-styling.css"/>
     <link rel="stylesheet" type="text/css" href="css/post-template-styling.css"/>
 
     <!--===============================================================================================-->
@@ -130,15 +130,12 @@
             <!--TODO: here. Just start with the data that was entered on the account creation page. Maybe leave-->
             <!--TODO: a placeholder for an avatar. If you can figure out how to inject the entered data from the-->
             <!--TODO: then more power!-->
-            <h2>Welcome to the SMS {{.Firstname}} {{.Lastname}} ({{.Username}}) <br>
-            You have been a polite user since {{.Joindate}}
-            </h2>
 
 
             <!--Eventually we do not want a button that goes to another static page.-->
             <div class="container-login100-form-btn">
                 <button class="login100-form-btn-solo w-75" style="background-color: indianred" onclick="location.href='/{{.}}/post'">
-                    New Post (old)
+                    Post
                 </button>
             </div><br>
 

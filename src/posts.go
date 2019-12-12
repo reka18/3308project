@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	json2 "encoding/json"
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
 	"time"
@@ -15,11 +14,12 @@ func postsGET(w http.ResponseWriter, r *http.Request) {
 	CookieDebugger(r, "POST")
 
 	username := CompareTokens(w, r)
-
 	RefreshCookie(w, username) /* This updates cookie to restart clock. */
-	t := template.Must(template.ParseFiles("web/make_post.html"))
-	_ = t.Execute(w, "")
-	pushAllResources(w)
+
+	db, _ := Database(DBNAME)
+	defer db.Close()
+	code, _ := w.Write(GetPosts(username, db))
+	log.Println(Info("Post Response: ", code))
 
 }
 
@@ -27,10 +27,7 @@ func postsPOST(w http.ResponseWriter, r *http.Request) {
 
 	CookieDebugger(r, "POST")
 
-	log.Println(Green("At the right page."))
-
 	username := CompareTokens(w, r)
-
 	RefreshCookie(w, username)
 
 	var postContent = r.FormValue("content")

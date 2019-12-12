@@ -97,11 +97,11 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 		date      string
 	)
 
-	r, _ := db.Query("SELECT * FROM posts WHERE userid=(SELECT id FROM users WHERE username=$1) ORDER BY date LIMIT $2;", username, pagelimit)
+	r, e := db.Query("SELECT * FROM posts WHERE userid=(SELECT id FROM users WHERE username=$1) ORDER BY date LIMIT $2;", username, pagelimit)
 
 	var response []Post
 
-	if !r.Next() {
+	if e != nil {
 		return nil
 	}
 

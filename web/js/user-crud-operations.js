@@ -11,8 +11,7 @@ function reactToPost()
             },
             dataType: 'json',
             data: {/*data that we will be passing to the end point*/},
-            cache: false,
-            error: /* some errorfunction */
+            cache: false
 
         });
 }
@@ -31,8 +30,7 @@ function deletePost()
             },
             dataType: 'json',
             data: {/*data that we will be passing to the end point*/},
-            cache: false,
-            error: /* some errorfunction */
+            cache: false
 
         });
 }
@@ -52,10 +50,34 @@ function newPost()
             },
             dataType: 'json',
             data: {/*data that we will be passing to the end point*/},
-            cache: false,
-            error: /* some errorfunction */
+            cache: false
 
         });
+}
+
+
+function newPost2()
+{
+        console.log("new post fired");
+        $.ajax(
+            {
+                    type:'POST',
+                    url: "rg/post",
+                    success: function(responseData, status, responseObject)
+                    {
+                            //perform some action on success
+                            console.log("success");
+
+                    },
+                    data: {"content" : "some text"},
+                    contentType : "multipart/form-data",
+                    cache: false,
+                    error: function (xhr, ajaxOptions, thrownError) {
+                            alert(xhr.status);
+                            alert(thrownError);
+                            alert(ajaxOptions);
+                    }
+            });
 }
 
 
@@ -73,8 +95,7 @@ function replyToPost()
             },
             dataType: 'json',
             data: {/*data that we will be passing to the end point*/},
-            cache: false,
-            error: /* some errorfunction */
+            cache: false
 
         });
 }
@@ -96,7 +117,7 @@ function editPost()
             dataType: 'json',
             data: {/*data that we will be passing to the end point*/},
             cache: false,
-            error: /* some errorfunction */
+
 
         });
 }

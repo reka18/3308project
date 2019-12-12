@@ -56,6 +56,8 @@
     <script src="vendor/underscore-master/underscore.js"></script>
 
     <script src="js/user-posts-data-class.js"></script>
+    <script src="js/user-crud-operations.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--Custom Javascript Data Classes -->
     <script src="js/grid-setup.js"></script>
 
@@ -113,7 +115,7 @@
     </style>
 
 
-    
+
 
 
 
@@ -147,9 +149,13 @@
             <!--TODO: is to make this a single living page.-->
 
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick=getTime()>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick= getTime()>
                 Launch demo modal
             </button>
+            <button type="button" class="btn btn-primary" onclick= newPost2()>
+               meh
+            </button>
+
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -159,7 +165,7 @@
                             <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5><br>
 
 
-                
+
                                     <div id=timestamp style="background-color: yellow;">la la</div></br>
                                     <script type="text/javascript">
                                         var date;
@@ -168,20 +174,21 @@
                                         {
                                             date = moment().format('MMMM Do YYYY, h:mm:ss a');
                                             document.getElementById("timestamp").innerHTML = date;
+                                            addItem()
                                         }
 
-                                        
+
 
                                     </script>
-                          
-                        
+
+
 
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            ...
+                            <textarea  style="resize: none;" type="textarea" cols="56" rows="5" maxlength="245" name="post-content"></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

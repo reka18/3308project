@@ -30,6 +30,16 @@ func Start(config Config) *HTMLServer {
 			http.FileServer(
 				http.Dir("web/vendor/"))))
 
+	router.PathPrefix("/images/").Handler(
+		http.StripPrefix("/images",
+			http.FileServer(
+				http.Dir("web/images/"))))
+
+	router.PathPrefix("/fonts/").Handler(
+		http.StripPrefix("/fonts",
+			http.FileServer(
+				http.Dir("web/fonts/"))))
+
 	router.HandleFunc("/", BaseUrlHandler)
 	router.HandleFunc("/login", UserLoginHandler)
 	router.HandleFunc("/create", CreateAccountHandler)
@@ -103,8 +113,8 @@ func push(w http.ResponseWriter, resource string) {
 
 func pushAllResources(w http.ResponseWriter) {
 	/*
-	THIS FUNCTION APPLIES THE "PUSH" FUNC TO ALL NEEDED RESOURCE
-	 */
+		THIS FUNCTION APPLIES THE "PUSH" FUNC TO ALL NEEDED RESOURCE
+	*/
 	push(w, "css/main.css")
 	push(w, "css/util.css")
 	push(w, "js/main.js")

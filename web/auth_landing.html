@@ -135,26 +135,25 @@
 
 
             <!--Eventually we do not want a button that goes to another static page.-->
-            <div class="container-login100-form-btn">
+            <!--<div class="container-login100-form-btn">
                 <button class="login100-form-btn-solo w-75" style="background-color: indianred" onclick="location.href='/{{.}}/post'">
                     Post
                 </button>
             </div><br>
+            -->
 
-            <!--TODO: Rigo ticket-->
-            <!--TODO: Below here, see what I have "sort of" started with examples. Feel free to trash that and-->
-            <!--TODO: create something different if you like, otherwise see if you can get a modal to pop up that-->
-            <!--TODO: generates one of the static text boxes with date and author name. As a bonus, see if you-->
-            <!--TODO: can get all those static boxes to scroll while the rest of the page does not. The idea here-->
-            <!--TODO: is to make this a single living page.-->
+
+            <!--
+             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick= getTime()>
+                Launch demo modal
+            -->
 
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick= getTime()>
+            <div class="container-login100-form-btn">
+            <button type="button" class="login100-form-btn-solo w-75"  style="background-color: indianred" data-toggle="modal" data-target="#exampleModalCenter" onclick= getTime()>
                 Launch demo modal
             </button>
-            <button type="button" class="btn btn-primary" onclick= newPost2()>
-               meh
-            </button>
+            </div><br>
 
 
             <!-- Modal -->
@@ -188,11 +187,11 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <textarea  style="resize: none;" type="textarea" cols="56" rows="5" maxlength="245" name="post-content"></textarea>
+                            <textarea id="postText"  style="resize: none;" type="textarea" cols="56" rows="5" maxlength="245" name="post-content"></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-primary" onclick="newPost2()">Save changes</button>
                         </div>
                     </div>
                 </div>

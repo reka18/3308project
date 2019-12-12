@@ -35,7 +35,6 @@ func postsPOST(w http.ResponseWriter, r *http.Request) {
 
 	var postContent = r.FormValue("content")
 
-
 	db, _ := Database(DBNAME)
 	defer db.Close()
 
@@ -61,7 +60,7 @@ func makePost(username string, post string, db *sql.DB) {
 
 	userid := GetUserId(username, db)
 
-	_, e := db.Exec("INSERT INTO posts (userid, content, upvotes, downvotes, deleted, date) " +
+	_, e := db.Exec("INSERT INTO posts (userid, content, upvotes, downvotes, deleted, date) "+
 		"VALUES ($1, $2, 0, 0, false, $3);", userid, post, time.Now())
 	if e != nil {
 		log.Println(Warn("Unable to execute user query."))
@@ -73,16 +72,16 @@ func makePost(username string, post string, db *sql.DB) {
 func GetPosts(username string, db *sql.DB) []byte {
 
 	var (
-		postid	int
-		userid int
-		content string
-		upvotes int
+		postid    int
+		userid    int
+		content   string
+		upvotes   int
 		downvotes int
-		deleted bool
-		date string
+		deleted   bool
+		date      string
 	)
 
-	r, _ := db.Query("SELECT * FROM posts WHERE userid=(SELECT id FROM users WHERE username=$1) ORDER BY date LIMIT 5;", username)
+	r, _ := db.Query("SELECT * FROM posts WHERE userid=(SELECT id FROM users WHERE username=$1) ORDER BY date LIMIT 35;", username)
 
 	var response []Post
 
@@ -90,12 +89,12 @@ func GetPosts(username string, db *sql.DB) []byte {
 		_ = r.Scan(&postid, &userid, &content, &upvotes, &downvotes, &deleted, &date)
 
 		p := Post{
-			Id:			postid,
-			UserId:    	userid,
-			Content:   	content,
-			UpVotes:   	upvotes,
-			DownVotes: 	downvotes,
-			Date:      	date,
+			Id:        postid,
+			UserId:    userid,
+			Content:   content,
+			UpVotes:   upvotes,
+			DownVotes: downvotes,
+			Date:      date,
 		}
 		response = append(response, p)
 	}

@@ -1,0 +1,37 @@
+
+.r0
+{
+    background-color: transparent!important;
+    border:none!important;
+}
+
+.slick-row
+{
+    background-color: transparent!important;
+    border: none!important;
+}
+
+.hidden-header
+{
+    display: none!important;
+}
+
+.hidden-cells
+{
+    display:none !important;
+}
+
+.ui-widget-content
+{
+    background: transparent!important;
+}
+
+::-webkit-scrollbar
+{
+    display: none;
+
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}

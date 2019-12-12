@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 )
 
@@ -20,21 +19,35 @@ var usersTable = "CREATE TABLE users (" +
 	"joindate TIMESTAMP NOT NULL," +
 	"active BOOLEAN NOT NULL," +
 	"password TEXT NOT NULL," +
-	"gender GENDER NOT NULL);"
+	"gender GENDER NOT NULL" +
+	");"
 
 var postTable = "CREATE TABLE posts (" +
 	"id SERIAL PRIMARY KEY," +
 	"userid INT REFERENCES users(id)," +
-	"content VARCHAR(240)," +
+	"content VARCHAR(240) NOT NULL," +
 	"upvotes INT," +
 	"downvotes INT," +
-	"deleted BOOLEAN);"
+	"deleted BOOLEAN," +
+	"date TIMESTAMP NOT NULL" +
+	");"
+
+var avatarTable = "CREATE TABLE avatars (" +
+	"id SERIAL PRIMARY KEY," +
+	"userid INT REFERENCES users(id)," +
+	"avatar BYTEA" +
+	");"
+
+var followTable = "CREATE TABLE follow (" +
+	"id SERIAL PRIMARY KEY," +
+	"userid INT REFERENCES users(id)," +
+	"followid INT REFERENCES users(id)" +
+	");"
 
 func createTable(db *sql.DB, table string, label string) error {
 
-	log.Println(Info("Attempting to create"), label)
-	query := fmt.Sprintf(table)
-	_, e := db.Exec(query)
+	log.Println(Info("Attempting to create ", label))
+	_, e := db.Exec(table)
 	return e
 
 }

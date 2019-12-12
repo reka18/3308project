@@ -2,15 +2,23 @@
   <dictionary name="rkmac">
     <words>
       <w>animsition</w>
+      <w>bytea</w>
       <w>countdowntime</w>
       <w>daterangepicker</w>
+      <w>downvotes</w>
       <w>firstname</w>
+      <w>followid</w>
       <w>hashpw</w>
       <w>joindate</w>
       <w>lastname</w>
+      <w>pagelimit</w>
       <w>pagename</w>
+      <w>postid</w>
       <w>socialimediasite</w>
       <w>socialmediasite</w>
+      <w>targetid</w>
+      <w>upvotes</w>
+      <w>userid</w>
     </words>
   </dictionary>
 </component>

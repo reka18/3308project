@@ -1,0 +1,209 @@
+
+.post-layout-box
+{
+    margin: 0 auto;
+    background-color:#BBB;
+    height:213px;
+    width:785px; /*(viewport - 10) - 15*/
+    padding:2px;
+    border-left: 1px black solid;
+    border-top: 1px black solid;
+    border-right: 1px black solid;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    display:block;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+
+
+.user-profile-icon-container
+{
+    background-color:#BBB;
+    height:204px;
+    width:66px;
+    float:left;
+    display:inline-block;
+    margin: 0 auto;
+    padding: 1px;
+
+}
+
+
+.user-profile-icon
+{
+    height:64px;
+    width:64px;
+    padding:1px;
+}
+
+
+
+.spectra-file-attribute-layout-box
+{
+    background-color: rgba(255,255,255,1);
+    background-color: #BBB;
+    height: 205px; /*220px-15px */
+    width:705px;
+    margin-left:0px;
+    display:inline-block;
+
+
+}
+
+
+
+.user-name-container
+{
+    background-color: #BBB;
+    display:block;
+    padding:0px;
+    height: 20px;
+}
+
+.user-name
+{
+    background-color: #BBB;
+    font-weight:bold;
+    font-size: 20px;
+    float:left;
+    margin: 0 auto;
+
+}
+
+.user-post-date
+{
+    font-weight:bold;
+    font-size: 12px;
+    float:right;
+    margin: 0 auto;
+    margin-top:16px;
+
+}
+
+
+.user-post-container
+{
+    background-color: white;
+    margin-top: 15px;
+    padding:3px;
+    display:block;
+    word-wrap: break-word;
+    white-space:pre-line;
+    white-space:pre-wrap;
+    overflow: scroll;
+    height: 174px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+
+
+}
+
+.user-post
+{
+    background-color: white;
+    overflow: hidden;
+    height: 300px;
+    position: relative;
+    top:-50px;
+    text-align: justify;
+    text-justify: inter-word;
+    text-indent: 1px;
+}
+
+.reaction-bar-container
+{
+    width: 785px;
+    margin: 0 auto;
+    background-color:#BBB;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+}
+
+
+.reaction-bar
+{
+    margin:0 auto;
+    width: 650px;
+    background-color:#BBB;
+    height:36px;
+    display:flex;
+    padding: 1px;
+}
+
+.reactions-container
+{
+    display: inline-block;
+    background: #BBB
+}
+
+.reaction-icons
+{
+    height:32px;
+    width: 32px;
+    background-color: transparent;
+    display: inline-block;
+    transition-duration: 2s;
+}
+
+.reaction-icons:hover
+{
+    height:32px;
+    width: 32px;
+    background-color: transparent;
+    display: inline-block;
+    -webkit-animation: rotate-scale-up 0.65s linear both;
+    animation: rotate-scale-up 0.65s linear both;
+}
+
+.reaction-counters
+{
+    height:22px;
+    width: 32px;
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 20px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+@-webkit-keyframes rotate-scale-up {
+    0% {
+        -webkit-transform: scale(1) rotateZ(0);
+        transform: scale(1) rotateZ(0);
+    }
+    50% {
+        -webkit-transform: scale(2) rotateZ(180deg);
+        transform: scale(2) rotateZ(180deg);
+    }
+    100% {
+        -webkit-transform: scale(1) rotateZ(360deg);
+        transform: scale(1) rotateZ(360deg);
+    }
+}
+@keyframes rotate-scale-up {
+    0% {
+        -webkit-transform: scale(1) rotateZ(0);
+        transform: scale(1) rotateZ(0);
+    }
+    50% {
+        -webkit-transform: scale(2) rotateZ(180deg);
+        transform: scale(2) rotateZ(180deg);
+    }
+    100% {
+        -webkit-transform: scale(1) rotateZ(360deg);
+        transform: scale(1) rotateZ(360deg);
+    }
+}
+
+
+
+

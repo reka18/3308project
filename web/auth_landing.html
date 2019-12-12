@@ -56,6 +56,8 @@
     <script src="vendor/underscore-master/underscore.js"></script>
 
     <script src="js/user-posts-data-class.js"></script>
+    <script src="js/user-crud-operations.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--Custom Javascript Data Classes -->
     <script src="js/grid-setup.js"></script>
 
@@ -113,7 +115,7 @@
     </style>
 
 
-    
+
 
 
 
@@ -133,23 +135,26 @@
 
 
             <!--Eventually we do not want a button that goes to another static page.-->
-            <div class="container-login100-form-btn">
+            <!--<div class="container-login100-form-btn">
                 <button class="login100-form-btn-solo w-75" style="background-color: indianred" onclick="location.href='/{{.}}/post'">
                     Post
                 </button>
             </div><br>
+            -->
 
-            <!--TODO: Rigo ticket-->
-            <!--TODO: Below here, see what I have "sort of" started with examples. Feel free to trash that and-->
-            <!--TODO: create something different if you like, otherwise see if you can get a modal to pop up that-->
-            <!--TODO: generates one of the static text boxes with date and author name. As a bonus, see if you-->
-            <!--TODO: can get all those static boxes to scroll while the rest of the page does not. The idea here-->
-            <!--TODO: is to make this a single living page.-->
+
+            <!--
+             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick= getTime()>
+                Launch demo modal
+            -->
 
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick=getTime()>
+            <div class="container-login100-form-btn">
+            <button type="button" class="login100-form-btn-solo w-75"  style="background-color: indianred" data-toggle="modal" data-target="#exampleModalCenter" onclick= getTime()>
                 Launch demo modal
             </button>
+            </div><br>
+
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -159,7 +164,7 @@
                             <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5><br>
 
 
-                
+
                                     <div id=timestamp style="background-color: yellow;">la la</div></br>
                                     <script type="text/javascript">
                                         var date;
@@ -168,24 +173,25 @@
                                         {
                                             date = moment().format('MMMM Do YYYY, h:mm:ss a');
                                             document.getElementById("timestamp").innerHTML = date;
+                                            addItem()
                                         }
 
-                                        
+
 
                                     </script>
-                          
-                        
+
+
 
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            ...
+                            <textarea id="postText"  style="resize: none;" type="textarea" cols="56" rows="5" maxlength="245" name="post-content"></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-primary" onclick="newPost2()">Save changes</button>
                         </div>
                     </div>
                 </div>

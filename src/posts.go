@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -16,9 +17,27 @@ func postsGET(w http.ResponseWriter, r *http.Request) {
 	username := CompareTokens(w, r)
 	RefreshCookie(w, username) /* This updates cookie to restart clock. */
 
+	limit := 5
+
+	value, ok := r.URL.Query()["limit"]
+	if !ok {
+		log.Println(Warn("No limit value passed in request."))
+	} else {
+		log.Println(Success(fmt.Sprintf("Limit value of %v detected.", value)))
+		parsedLimit, e := strconv.Atoi(value[0])
+
+		if e != nil {
+			log.Println(Warn("Unable to parse page limit."))
+		} else {
+			log.Println(Success("Successfully parsed page limit."))
+			limit = parsedLimit // only set this if no errors
+		}
+	}
+
+
 	db, _ := Database(DBNAME)
 	defer db.Close()
-	code, _ := w.Write(GetPosts(username, db))
+	code, _ := w.Write(GetPosts(username, db, limit))
 	log.Println(Info("Post Response: ", code))
 
 }
@@ -66,7 +85,7 @@ func makePost(username string, post string, db *sql.DB) {
 
 }
 
-func GetPosts(username string, db *sql.DB) []byte {
+func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 
 	var (
 		postid    int
@@ -78,7 +97,7 @@ func GetPosts(username string, db *sql.DB) []byte {
 		date      string
 	)
 
-	r, _ := db.Query("SELECT * FROM posts WHERE userid=(SELECT id FROM users WHERE username=$1) ORDER BY date LIMIT 35;", username)
+	r, _ := db.Query("SELECT * FROM posts WHERE userid=(SELECT id FROM users WHERE username=$1) ORDER BY date LIMIT $2;", username, pagelimit)
 
 	var response []Post
 

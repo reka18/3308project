@@ -85,6 +85,10 @@ func GetPosts(username string, db *sql.DB) []byte {
 
 	var response []Post
 
+	if !r.Next() {
+		return nil
+	}
+
 	for r.Next() {
 		_ = r.Scan(&postid, &userid, &content, &upvotes, &downvotes, &deleted, &date)
 

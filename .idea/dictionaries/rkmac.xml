@@ -11,7 +11,9 @@
       <w>hashpw</w>
       <w>joindate</w>
       <w>lastname</w>
+      <w>pagelimit</w>
       <w>pagename</w>
+      <w>postid</w>
       <w>socialimediasite</w>
       <w>socialmediasite</w>
       <w>targetid</w>

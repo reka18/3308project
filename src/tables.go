@@ -46,7 +46,7 @@ var followTable = "CREATE TABLE follow (" +
 
 func createTable(db *sql.DB, table string, label string) error {
 
-	log.Println(Info("Attempting to create"), label)
+	log.Println(Info("Attempting to create ", label))
 	_, e := db.Exec(table)
 	return e
 

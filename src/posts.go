@@ -6,13 +6,12 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strconv"
 	"time"
 )
 
 func postsGET(w http.ResponseWriter, r *http.Request) {
 
-	CookieDebugger(r, "POST")
+	CookieDebugger(r, "POST ENDPOINT (GET)")
 
 	username, ok := CompareTokens(w, r)
 	if !ok {
@@ -21,34 +20,18 @@ func postsGET(w http.ResponseWriter, r *http.Request) {
 
 	RefreshCookie(username) /* This updates cookie to restart clock. */
 
-	limit := 5
-
-	value, ok := r.URL.Query()["limit"]
-	if !ok {
-		log.Println(Warn("No limit value passed in request."))
-	} else {
-		log.Println(Success(fmt.Sprintf("Limit value of %v detected.", value)))
-		parsedLimit, e := strconv.Atoi(value[0])
-
-		if e != nil {
-			log.Println(Warn("Unable to parse page limit."))
-		} else {
-			log.Println(Success("Successfully parsed page limit."))
-			limit = parsedLimit // only set this if no errors
-		}
-	}
-
+	limit := ParseLimit(r, 5)
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
 	code, _ := w.Write(GetPosts(username, db, limit))
-	log.Println(Info("Post Response: ", code))
+	log.Println(Info("Write-back response: ", code))
 
 }
 
 func postsPOST(w http.ResponseWriter, r *http.Request) {
 
-	CookieDebugger(r, "POST")
+	CookieDebugger(r, "POST ENDPOINT (POST)")
 
 	username, ok := CompareTokens(w, r)
 	if !ok {
@@ -118,7 +101,7 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 	if e != nil {
 		log.Println(Warn("Error making posts query."))
 	}
-	log.Println(Info("Post Content: ", json))
+	log.Println(Info("Post content: ", json))
 
 	return json
 }

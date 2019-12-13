@@ -39,7 +39,6 @@ func AddCookie(w http.ResponseWriter, username string) {
 	cookie := http.Cookie {
 		Name:    	"socialmediasite",
 		Value:   	fmt.Sprintf("%s:%s", username, secret),
-		MaxAge:		300,
 		Expires: 	time.Now().Local().Add(time.Hour * 6),
 	}
 	http.SetCookie(w, &cookie)
@@ -63,7 +62,6 @@ func DeleteCookie(w http.ResponseWriter, username string) {
 		Name:		"socialmediasite",
 		Value:		"",
 		MaxAge:		-1,
-		/* Some browsers dont understand `MaxAge` so we add this. */
 		Expires: 	time.Now().Add(-100 * time.Hour),
 	}
 	http.SetCookie(w, &cookie)
@@ -76,19 +74,16 @@ func DeleteCookie(w http.ResponseWriter, username string) {
 
 }
 
-func RefreshCookie(w http.ResponseWriter, r *http.Request, username string) {
+func RefreshCookie(username string) {
 	/*
 	THIS REFRESHES THE EXPIRATION OF THE COOKIE ON REDIS
 	 */
-	_, e := redisConn.Do("EXPIRE", username, http.StatusMultipleChoices)
+	_, e := redisConn.Do("EXPIRE", username, 300)
 	if e != nil {
 		log.Printf(Warn("Failed to refresh cookie expiration for %s."), username)
 		log.Println(e)
 		return
 	}
-	cookie, _ := r.Cookie("socialmediasite")
-	cookie.MaxAge = 300
-	http.SetCookie(w, cookie)
 	log.Println(Success("Refreshed cookie."))
 
 }

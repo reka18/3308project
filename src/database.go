@@ -89,7 +89,7 @@ func DatabaseArgHandler() {
 			log.Println(Info("Attempting to build naked database."))
 			e = dropDatabase(db)
 			if e != nil {
-				log.Println(Warn(e))
+				log.Println(Fatal(e))
 			}
 			e = createDatabase(db)
 			if e != nil {
@@ -130,6 +130,7 @@ func DatabaseArgHandler() {
 			log.Println(Info("Attempting to drop database..."))
 			e = dropDatabase(db)
 			if e != nil {
+				log.Fatal(Fatal("Unable to drop database."))
 				log.Fatal(Fatal(e))
 			}
 		} else {

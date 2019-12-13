@@ -14,8 +14,11 @@ func postsGET(w http.ResponseWriter, r *http.Request) {
 
 	CookieDebugger(r, "POST")
 
-	username := CompareTokens(w, r)
-	RefreshCookie(w, username) /* This updates cookie to restart clock. */
+	username, ok := CompareTokens(w, r)
+	if !ok {
+		return
+	}
+	RefreshCookie(username) /* This updates cookie to restart clock. */
 
 	limit := 5
 
@@ -46,8 +49,11 @@ func postsPOST(w http.ResponseWriter, r *http.Request) {
 
 	CookieDebugger(r, "POST")
 
-	username := CompareTokens(w, r)
-	RefreshCookie(w, username)
+	username, ok := CompareTokens(w, r)
+	if !ok {
+		return
+	}
+	RefreshCookie(username)
 
 	var postContent = r.FormValue("content")
 

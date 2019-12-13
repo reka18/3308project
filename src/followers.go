@@ -11,9 +11,12 @@ func followPost(w http.ResponseWriter, r *http.Request) {
 
 	_ = r.ParseForm()
 
-	username := CompareTokens(w, r)
+	username, ok := CompareTokens(w, r)
+	if !ok {
+		return
+	}
 
-	RefreshCookie(w, username)
+	RefreshCookie(username)
 
 	targetUsername := strings.Join(r.Form["target_username"], "")
 

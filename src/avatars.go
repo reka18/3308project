@@ -11,8 +11,12 @@ func avatarGET(w http.ResponseWriter, r *http.Request) {
 
 	CookieDebugger(r, "AVATAR")
 
-	username := CompareTokens(w, r)
-	RefreshCookie(w, username) /* This updates cookie to restart clock. */
+	username, ok := CompareTokens(w, r)
+	if !ok {
+		return
+	}
+
+	RefreshCookie(username) /* This updates cookie to restart clock. */
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
@@ -31,8 +35,11 @@ func avatarPOST(w http.ResponseWriter, r *http.Request) {
 
 	CookieDebugger(r, "AVATAR")
 
-	username := CompareTokens(w, r)
-	RefreshCookie(w, username) /* This updates cookie to restart clock. */
+	username, ok := CompareTokens(w, r)
+	if !ok {
+		return
+	}
+	RefreshCookie(username) /* This updates cookie to restart clock. */
 
 	_ = r.ParseMultipartForm(10 << 20)
 

@@ -34,7 +34,7 @@ func VerifyKey(dbPasswordHash string, password string) bool {
 
 func AddCookie(w http.ResponseWriter, username string) {
 
-	RefreshCookie(w, username)
+	RefreshCookie(username)
 
 	secret := GenerateKey(string(securecookie.GenerateRandomKey(64)))
 
@@ -78,7 +78,7 @@ func DeleteCookie(w http.ResponseWriter, username string) {
 
 }
 
-func RefreshCookie(w http.ResponseWriter, username string) {
+func RefreshCookie(username string) {
 	/*
 	THIS REFRESHES THE EXPIRATION OF THE COOKIE ON REDIS
 	 */
@@ -89,36 +89,34 @@ func RefreshCookie(w http.ResponseWriter, username string) {
 	}
 }
 
-func CompareTokens(w http.ResponseWriter, r *http.Request) string {
+func CompareTokens(w http.ResponseWriter, r *http.Request) (string, bool) {
 
 	cookie, _ := r.Cookie("socialmediasite")
 
 	if cookie == nil || cookie.Value == "" {
 		log.Println(Warn("Unauthorized access attempt."))
-		t := template.Must(template.ParseFiles("web/logout_success.html"))
-		_ = t.Execute(w, "")
-		return ""
-	} else {
-		values := strings.Split(cookie.Value, ":")
-
-		username := values[0]
-		cookieSecret := values[1]
-
-		/* result is an interface so we can't caste it */
-		result, _ := redisConn.Do("GET", username)
-		redisSecret := fmt.Sprintf("%s", result)
-
-		if redisSecret != cookieSecret {
-			log.Printf(Warn("Unauthorized access attempt with stale cookie for '%s'."), username)
-			DeleteCookie(w, username)
-			t := template.Must(template.ParseFiles("web/logout_success.html"))
-			_ = t.Execute(w, "")
-			return ""
-		}
-		log.Printf(Success("Cookie authentication successful for '%s'."), username)
-		return username
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return "", false
 	}
 
+	values := strings.Split(cookie.Value, ":")
+
+	username := values[0]
+	cookieSecret := values[1]
+
+	/* result is an interface so we can't caste it */
+	result, _ := redisConn.Do("GET", username)
+	redisSecret := fmt.Sprintf("%s", result)
+
+	if redisSecret != cookieSecret {
+		log.Printf(Warn("Unauthorized access attempt with stale cookie for '%s'."), username)
+		DeleteCookie(w, username)
+		t := template.Must(template.ParseFiles("web/logout_success.html"))
+		_ = t.Execute(w, "")
+		return "", false
+	}
+	log.Printf(Success("Cookie authentication successful for '%s'."), username)
+	return username, true
 }
 
 func CookieDebugger(r *http.Request, pagename string) {

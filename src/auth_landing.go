@@ -11,9 +11,12 @@ func usrLandingGET(w http.ResponseWriter, r *http.Request) {
 
 	CookieDebugger(r, "LANDING")
 
-	username := CompareTokens(w, r)
+	username, ok := CompareTokens(w, r)
+	if !ok {
+		return
+	}
 
-	RefreshCookie(w, username) /* This updates cookie to restart clock. */
+	RefreshCookie(username) /* This updates cookie to restart clock. */
 
 	// userInfo := loadUserInfo(username)
 	t := template.Must(template.ParseFiles("web/auth_landing.html"))

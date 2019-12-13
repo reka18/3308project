@@ -34,8 +34,6 @@ func VerifyKey(dbPasswordHash string, password string) bool {
 
 func AddCookie(w http.ResponseWriter, username string) {
 
-	RefreshCookie(username)
-
 	secret := GenerateKey(string(securecookie.GenerateRandomKey(64)))
 
 	cookie := http.Cookie {
@@ -78,7 +76,7 @@ func DeleteCookie(w http.ResponseWriter, username string) {
 
 }
 
-func RefreshCookie(username string) {
+func RefreshCookie(w http.ResponseWriter, r *http.Request, username string) {
 	/*
 	THIS REFRESHES THE EXPIRATION OF THE COOKIE ON REDIS
 	 */
@@ -86,7 +84,13 @@ func RefreshCookie(username string) {
 	if e != nil {
 		log.Printf(Warn("Failed to refresh cookie expiration for %s."), username)
 		log.Println(e)
+		return
 	}
+	cookie, _ := r.Cookie("socialmediasite")
+	cookie.MaxAge = 300
+	http.SetCookie(w, cookie)
+	log.Println(Success("Refreshed cookie."))
+
 }
 
 func CompareTokens(w http.ResponseWriter, r *http.Request) (string, bool) {

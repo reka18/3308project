@@ -16,7 +16,7 @@ func avatarGET(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	RefreshCookie(username) /* This updates cookie to restart clock. */
+	RefreshCookie(w, r, username) /* This updates cookie to restart clock. */
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
@@ -39,7 +39,8 @@ func avatarPOST(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		return
 	}
-	RefreshCookie(username) /* This updates cookie to restart clock. */
+
+	RefreshCookie(w, r, username) /* This updates cookie to restart clock. */
 
 	_ = r.ParseMultipartForm(10 << 20)
 
@@ -103,8 +104,8 @@ func GetAvatar(username string, db *sql.DB) []byte {
 
 func UpdateAvatar(username string, avatar []byte, db *sql.DB) {
 
-	userid := GetUserId(username, db)
-	_, e := db.Exec("UPDATE avatars SET avatar=$1 WHERE userid=$2;", avatar, userid)
+	_, e := db.Exec("UPDATE avatars SET avatar=$1 WHERE userid=(SELECT id FROM users WHERE username=$2);",
+		avatar, username)
 	if e != nil {
 		log.Println(Warn("Unable to execute avatar query."))
 		log.Println(Warn(e))
@@ -114,14 +115,12 @@ func UpdateAvatar(username string, avatar []byte, db *sql.DB) {
 
 func NewUserAvatar(username string, db *sql.DB) {
 
-	userid := GetUserId(username, db)
-
 	fileBytes, e := ioutil.ReadFile("web/images/default_avatar.png")
 	if e != nil {
 		log.Println(Warn("Unable to read default avatar."))
 	}
 
-	_, e = db.Exec("INSERT INTO avatars(userid, avatar) VALUES ($1, $2)", userid, fileBytes)
+	_, e = db.Exec("INSERT INTO avatars(userid, avatar) VALUES ((SELECT id FROM users WHERE username=$1), $2)", username, fileBytes)
 	if e != nil {
 		log.Println(Warn("Unable to post default avatar on user creation."))
 	}

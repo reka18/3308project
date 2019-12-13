@@ -18,7 +18,8 @@ func postsGET(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		return
 	}
-	RefreshCookie(username) /* This updates cookie to restart clock. */
+
+	RefreshCookie(w, r, username) /* This updates cookie to restart clock. */
 
 	limit := 5
 
@@ -53,7 +54,8 @@ func postsPOST(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		return
 	}
-	RefreshCookie(username)
+
+	RefreshCookie(w, r, username)
 
 	var postContent = r.FormValue("content")
 
@@ -123,10 +125,8 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 
 func MakePost(username string, post string, db *sql.DB) {
 
-	userid := GetUserId(username, db)
-
-	_, e := db.Exec("INSERT INTO posts (userid, content, upvotes, downvotes, deleted, date) "+
-		"VALUES ($1, $2, 0, 0, false, $3);", userid, post, time.Now())
+	_, e := db.Exec("INSERT INTO posts (userid, content, upvotes, downvotes, deleted, date) VALUES ((SELECT id FROM users WHERE username=$1), $2, 0, 0, false, $3);",
+		username, post, time.Now())
 	if e != nil {
 		log.Println(Warn("Unable to execute post query."))
 		log.Println(Warn(e))

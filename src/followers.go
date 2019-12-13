@@ -16,7 +16,7 @@ func followPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	RefreshCookie(username)
+	RefreshCookie(w, r, username)
 
 	targetUsername := strings.Join(r.Form["target_username"], "")
 
@@ -33,10 +33,8 @@ func followPost(w http.ResponseWriter, r *http.Request) {
 
 func FollowUser(username string, targetUsername string, db *sql.DB) error {
 
-	userid := GetUserId(username, db)
-	target := GetUserId(targetUsername, db)
-
-	_, e := db.Exec("INSERT INTO follow (userid, followid) VALUES ($1, $2);", userid, target)
+	_, e := db.Exec("INSERT INTO follow (userid, followid) VALUES ((SELECT id FROM users WHERE username=$1), (SELECT id FROM users WHERE username=$2));",
+		username, targetUsername)
 	if e != nil {
 		log.Println(Warn("Unable to execute follow query."))
 	}
@@ -46,11 +44,10 @@ func FollowUser(username string, targetUsername string, db *sql.DB) error {
 
 func IsFollower(username string, targetUsername string, db *sql.DB) bool {
 
-	userid := GetUserId(username, db)
-	targetid := GetUserId(targetUsername, db)
 
 	var count int
-	r := db.QueryRow("SELECT count(*) FROM follow WHERE userid=$1 AND followid=$2;", targetid, userid)
+	r := db.QueryRow("SELECT count(*) FROM follow WHERE userid=(SELECT id FROM users WHERE username=$1) AND followid=(SELECT id FROM users WHERE username=$2);",
+		username, targetUsername)
 	_ = r.Scan(&count)
 	if count != 0 {
 		return true

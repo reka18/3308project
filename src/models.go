@@ -38,3 +38,9 @@ type Post struct {
 	DownVotes	int
 	Date		string
 }
+
+type Avatar struct {
+	Id		int
+	UserId	int
+	Avatar	[]byte
+}

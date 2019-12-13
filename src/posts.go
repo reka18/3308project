@@ -111,7 +111,7 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 		log.Println(Warn("Error making posts query."))
 	}
 
-	posts := string(json)
+	posts := json
 
 	log.Println(Info(posts))
 	return json

@@ -31,7 +31,7 @@ func dropDatabase(db *sql.DB) error {
 	_, e := db.Exec(query)
 	if e != nil {
 		log.Println(Warn("Database not dropped."))
-		log.Fatal(e)
+		log.Fatal(Fatal(e))
 	} else {
 		log.Println(Success("Database dropped."))
 	}

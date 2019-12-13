@@ -4,10 +4,15 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
-	"strings"
 )
 
-func followPost(w http.ResponseWriter, r *http.Request) {
+func followGET(w http.ResponseWriter, r *http.Request) {
+
+	
+
+}
+
+func followPOST(w http.ResponseWriter, r *http.Request) {
 
 	_ = r.ParseForm()
 
@@ -18,7 +23,7 @@ func followPost(w http.ResponseWriter, r *http.Request) {
 
 	RefreshCookie(w, r, username)
 
-	targetUsername := strings.Join(r.Form["target_username"], "")
+	targetUsername := r.FormValue("target")
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
@@ -59,5 +64,5 @@ func FollowHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
-	followPost(w, r)
+	followPOST(w, r)
 }

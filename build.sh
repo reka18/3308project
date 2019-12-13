@@ -5,7 +5,6 @@ function build {
   echo "*************************************"
   echo "* BUILDING APPLICATION"
   echo "*************************************"
-  echo
   cd src || exit
   go build || exit
   mv app ../

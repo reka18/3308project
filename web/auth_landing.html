@@ -61,9 +61,7 @@
     <!--Custom Javascript Data Classes -->
     <script src="js/grid-setup.js"></script>
 
-
     <style type="text/css">
-
         body
         {
             background: linear-gradient(left, #6a11cb, #2575fc);
@@ -72,10 +70,7 @@
             background: -o-linear-gradient(left, #6a11cb, #2575fc);
             background: -moz-linear-gradient(left, #6a11cb, #2575fc);
             background: linear-gradient(left, #6a11cb, #2575fc);
-
         }
-
-
         html
         {
             background: linear-gradient(left, #6a11cb, #2575fc);
@@ -84,10 +79,7 @@
             background: -o-linear-gradient(left, #6a11cb, #2575fc);
             background: -moz-linear-gradient(left, #6a11cb, #2575fc);
             background: linear-gradient(left, #6a11cb, #2575fc);
-
-
         }
-
         #bodyDiv
         {
             background: linear-gradient(left, #6a11cb, #2575fc);
@@ -96,11 +88,7 @@
             background: -o-linear-gradient(left, #6a11cb, #2575fc);
             background: -moz-linear-gradient(left, #6a11cb, #2575fc);
             background: linear-gradient(left, #6a11cb, #2575fc);
-            
-
         }
-
-
         #main-content-layout-box
         {
             background: linear-gradient(left, #6a11cb, #2575fc);
@@ -109,21 +97,18 @@
             background: -o-linear-gradient(left, #6a11cb, #2575fc);
             background: -moz-linear-gradient(left, #6a11cb, #2575fc);
             background: linear-gradient(left, #6a11cb, #2575fc);
-
         }
-
     </style>
-
-
-
-
-
-
 </head>
 <body>
 <div class="limiter">
     <div class="container-login100">
-        <img src="{{.}}/avatar" width=100 height=100 float=top>
+        <div id="avatar">
+            <img src="{{.}}/avatar" width=100 height=100 float=top>
+            <button type="button" class="login100-form-btn-solo w-75"  style="background-color: indianred" data-toggle="modal" data-target="#avatarModal">
+                Change Avatar
+            </button>
+        </div>
         <div class="wrap-login100 p-b-160 p-t-50">
             <h1 class="login100-form-title p-b-43">Social Media Site</h1>
 
@@ -149,12 +134,35 @@
                 Launch demo modal
             -->
 
+
+                        <!-- Modal -->
+            <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Add New Avatar</h5><br>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form enctype="multipart/form-data" action="{{.}}/avatar" method="post">
+                                <input type="file" name="Avatar" accept="image/*">
+                                <input type="submit" value="Upload">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Button trigger modal -->
             <div class="container-login100-form-btn">
             <button type="button" class="login100-form-btn-solo w-75"  style="background-color: indianred" data-toggle="modal" data-target="#exampleModalCenter" onclick= getTime()>
                 Launch demo modal
             </button>
             </div><br>
+
+
 
 
             <!-- Modal -->
@@ -195,48 +203,38 @@
                             <button type="button" class="btn btn-primary" onclick="newPost2()">Save changes</button>
                         </div>
                     </div>
+>>>>>>> Stashed changes
                 </div>
-            </div>
 
-                <div class="container-fluid" style="overflow-scrolling: auto">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>
-                                This is a sort of long test card for a future post to go in. It shouldn't be
-                                too long so that we have a good idea of what a few of these should look like.
-                            </h5><br>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5><br>
+                                <div id=timestamp style="background-color: yellow;">la la
+                                </div></br>
+                                <script type="text/javascript">
+                                    var date;
 
-                            <li style="display: inline-block">
-                                <small id="date">Thursday, November 14, 2019</small>
-                            </li>
-                            <li style="display: inline-block">
-                                <p>•</p>
-                            </li>
-                            <li style="display: inline-block">
-                                <small id="author">Me</small>
-                            </li>
-                        </div>
-                    </div>
-                </div><br>
-
-                <div class="container-fluid" style="overflow-scrolling: auto">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>
-                                And here is another one. This is a sort of long test card for a future post
-                                to go in. It shouldn't be too long so that we have a good idea of what a
-                                few of these should look like.
-                            </h5><br>
-
-                            <li style="display: inline-block">
-                                <small id="date">Thursday, November 14, 2019</small>
-                            </li>
-                            <li style="display: inline-block">
-                                <p>•</p>
-                            </li>
-                            <li style="display: inline-block">
-                                <small id="author">Me</small>
-                            </li>
+                                    function getTime()
+                                    {
+                                        date = moment().format('MMMM Do YYYY, h:mm:ss a');
+                                        document.getElementById("timestamp").innerHTML = date;
+                                        addItem()
+                                    }
+                                </script>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <textarea id="postText"  style="resize: none;" type="textarea" cols="56" rows="5" maxlength="245" name="post-content"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="newPost2()">Save changes</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -251,17 +249,8 @@
     </div>
 
     <div style=" display:flex; align-items: center; width: 800px; height: 500px; padding: 5px; margin: 0 auto;">
-            <div id="grid" style="width: 800px; height: 600px; background-color: transparent;"></div>
+        <div id="grid" style="width: 800px; height: 600px; background-color: transparent;"></div>
     </div>
-</div>
-
-
-
-
-
-
-
-
 
 </body>
 

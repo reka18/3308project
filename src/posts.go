@@ -19,7 +19,7 @@ func postsGET(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	RefreshCookie(w, r, username) /* This updates cookie to restart clock. */
+	RefreshCookie(username) /* This updates cookie to restart clock. */
 
 	limit := 5
 
@@ -55,7 +55,7 @@ func postsPOST(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	RefreshCookie(w, r, username)
+	RefreshCookie(username)
 
 	var postContent = r.FormValue("content")
 

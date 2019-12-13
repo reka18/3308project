@@ -21,7 +21,7 @@ func followPOST(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	RefreshCookie(w, r, username)
+	RefreshCookie(username)
 
 	targetUsername := r.FormValue("target")
 

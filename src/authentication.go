@@ -40,7 +40,7 @@ func AddCookie(w http.ResponseWriter, username string) {
 
 	cookie := http.Cookie {
 		Name:    	"socialmediasite",
-		Value:   	fmt.Sprintf("%s:::%s", username, secret),
+		Value:   	fmt.Sprintf("%s:%s", username, secret),
 		MaxAge:		300,
 		Expires: 	time.Now().Local().Add(time.Hour * 6),
 	}
@@ -99,7 +99,7 @@ func CompareTokens(w http.ResponseWriter, r *http.Request) string {
 		_ = t.Execute(w, "")
 		return ""
 	} else {
-		values := strings.Split(cookie.Value, ":::")
+		values := strings.Split(cookie.Value, ":")
 
 		username := values[0]
 		cookieSecret := values[1]

@@ -5,7 +5,6 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"os"
 	"strconv"
 	"time"
 )
@@ -72,22 +71,7 @@ func AddNewUserAccount(age int, firstname string, lastname string, email string,
 		log.Println(Warn(e))
 		return e
 	}
-	img, _ := os.Open("web/images/default_avatar.png")
-	defer img.Close()
-	imgInfo, e := img.Stat()
-	if e != nil {
-		log.Println(Warn("Unable to load image."))
-		log.Println(Warn(e))
-		return e
-	}
-	size := imgInfo.Size()
-	bytes := make([]byte, size)
-	_, e = db.Exec("INSERT INTO avatars (userid, avatar) VALUES ($1, $2);",
-		id, bytes)
-	if e != nil {
-		log.Println(Warn("Unable to execute image query."))
-		log.Println(Warn(e))
-	}
+	NewUserAvatar(username, db)
 	return e
 
 }

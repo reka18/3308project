@@ -1,3 +1,6 @@
+## URL TO USE LIVE
+http://bit.ly/cu-boulder-socialmediasite
+
 ## SETUP DATABASE
 Install postgres v12 locally. Make sure you also
 have 12 version of PSQL.

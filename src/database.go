@@ -12,16 +12,16 @@ import (
 const DBNAME = "socialmediasite"
 const PGNAME = "postgres"
 
-func createDatabase(db *sql.DB) error {
+func createDatabase(db *sql.DB) {
 
 	query := fmt.Sprintf("CREATE DATABASE %s;", DBNAME)
 	_, e := db.Exec(query)
 	if e != nil {
-		log.Println(Warn("Database not created."))
+		log.Println(Fatal("Database not created."))
+		log.Fatal(Fatal(e))
 	} else {
 		log.Println(Success("Database created."))
 	}
-	return e
 }
 
 func dropDatabase(db *sql.DB) error {
@@ -30,6 +30,7 @@ func dropDatabase(db *sql.DB) error {
 	_, e := db.Exec(query)
 	if e != nil {
 		log.Println(Warn("Database not dropped."))
+		log.Fatal(Fatal(e))
 	} else {
 		log.Println(Success("Database dropped."))
 	}
@@ -89,24 +90,17 @@ func DatabaseArgHandler() {
 			log.Println(Info("Attempting to build naked database."))
 			e = dropDatabase(db)
 			if e != nil {
-				log.Println(Warn(e))
-			}
-			e = createDatabase(db)
-			if e != nil {
 				log.Println(Fatal(e))
-			} else {
-				log.Println(Success("Naked database created."))
 			}
+			createDatabase(db)
+			log.Println(Success("Naked database created."))
 		} else if arg == "--reset" {
 			log.Println(Info("Attempting to reinitializing database..."))
 			e := dropDatabase(db)
 			if e != nil {
 				log.Println(Warn(e))
 			}
-			e = createDatabase(db)
-			if e != nil {
-				log.Println(Warn(e))
-			}
+			createDatabase(db)
 			db, e = Database(DBNAME)
 			if e != nil {
 				log.Println(Fatal("Unable to reset. Aborting."))
@@ -116,10 +110,7 @@ func DatabaseArgHandler() {
 			generateTables(db)
 		} else if arg == "--init" {
 			log.Println(Info("Attempting to create database with tables..."))
-			e = createDatabase(db)
-			if e != nil {
-				log.Println(Warn(e))
-			}
+			createDatabase(db)
 			db, e = Database(DBNAME)
 			if e != nil {
 				log.Println(Fatal("Tables not generated. Aborting."))
@@ -130,6 +121,7 @@ func DatabaseArgHandler() {
 			log.Println(Info("Attempting to drop database..."))
 			e = dropDatabase(db)
 			if e != nil {
+				log.Fatal(Fatal("Unable to drop database."))
 				log.Fatal(Fatal(e))
 			}
 		} else {

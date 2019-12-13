@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
-	"strings"
 )
 
 func followPost(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +17,7 @@ func followPost(w http.ResponseWriter, r *http.Request) {
 
 	RefreshCookie(w, r, username)
 
-	targetUsername := strings.Join(r.Form["target_username"], "")
+	targetUsername := r.FormValue("target")
 
 	db, _ := Database(DBNAME)
 	defer db.Close()

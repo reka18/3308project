@@ -17,7 +17,8 @@ func createDatabase(db *sql.DB) error {
 	query := fmt.Sprintf("CREATE DATABASE %s;", DBNAME)
 	_, e := db.Exec(query)
 	if e != nil {
-		log.Println(Warn("Database not created."))
+		log.Println(Fatal("Database not created."))
+		log.Fatal(e)
 	} else {
 		log.Println(Success("Database created."))
 	}
@@ -30,6 +31,7 @@ func dropDatabase(db *sql.DB) error {
 	_, e := db.Exec(query)
 	if e != nil {
 		log.Println(Warn("Database not dropped."))
+		log.Fatal(e)
 	} else {
 		log.Println(Success("Database dropped."))
 	}

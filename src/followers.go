@@ -5,6 +5,7 @@ import (
 	json2 "encoding/json"
 	"log"
 	"net/http"
+	"time"
 )
 
 func followGET(w http.ResponseWriter, r *http.Request) {
@@ -22,7 +23,7 @@ func followGET(w http.ResponseWriter, r *http.Request) {
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
-	code, _ := w.Write(GetFollowed(username, db, limit))
+	code, _ := w.Write(FetchFollowed(username, db, limit))
 	log.Println(Info("Write-back response: ", code))
 
 }
@@ -65,10 +66,10 @@ func FollowHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func FollowUser(username string, targetUsername string, db *sql.DB) error {
+func FollowUser(username string, targetname string, db *sql.DB) error {
 
-	_, e := db.Exec("INSERT INTO follow (userid, followid) VALUES ((SELECT id FROM users WHERE username=$1), (SELECT id FROM users WHERE username=$2));",
-		username, targetUsername)
+	_, e := db.Exec("INSERT INTO follow (userid, followid, date, mutual) VALUES ((SELECT id FROM users WHERE username=$1), (SELECT id FROM users WHERE username=$2), date, mutual);",
+		username, targetname, time.Now(), IsFollower(username, -1, targetname, db))
 	if e != nil {
 		log.Println(Warn("Unable to execute follow query."))
 	}
@@ -76,7 +77,7 @@ func FollowUser(username string, targetUsername string, db *sql.DB) error {
 
 }
 
-func GetFollowed(username string, db *sql.DB, limit int) []byte {
+func FetchFollowed(username string, db *sql.DB, limit int) []byte {
 
 	var followid int
 
@@ -87,12 +88,17 @@ func GetFollowed(username string, db *sql.DB, limit int) []byte {
 		return nil
 	}
 	
-	var response []User
+	var response []FollowedUser
 	
 	for r.Next() {
 		_ = r.Scan(&followid)
 
-		response = append(response, GetUser(followid, "", db))
+		f := FollowedUser{
+			User:   GetUser(followid, "", db),
+			Mutual: IsFollower(username, followid, "", db),
+		}
+
+		response = append(response, f)
 	}
 	json, e := json2.Marshal(response)
 	if e != nil {
@@ -104,12 +110,12 @@ func GetFollowed(username string, db *sql.DB, limit int) []byte {
 
 }
 
-func IsFollower(username string, targetUsername string, db *sql.DB) bool {
+func IsFollower(username string, targetid int, targetname string, db *sql.DB) bool {
 
 
 	var count int
-	r := db.QueryRow("SELECT count(*) FROM follow WHERE userid=(SELECT id FROM users WHERE username=$1) AND followid=(SELECT id FROM users WHERE username=$2);",
-		username, targetUsername)
+	r := db.QueryRow("SELECT count(*) FROM follow WHERE userid=(SELECT id FROM users WHERE username=$1) AND followid=($2 OR (SELECT id FROM users WHERE username=$3));",
+		username, targetid, targetname)
 	_ = r.Scan(&count)
 	if count != 0 {
 		return true

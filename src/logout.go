@@ -14,7 +14,7 @@ func userLogoutGET(w http.ResponseWriter, r *http.Request) {
 	_ = t.Execute(w, "")
 
 	cookie, _ := r.Cookie("socialmediasite")
-	values := strings.Split(cookie.Value, ":::")
+	values := strings.Split(cookie.Value, ":")
 	username := values[0]
 
 	DeleteCookie(w, username)

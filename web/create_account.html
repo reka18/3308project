@@ -32,7 +32,7 @@
         <div class="container-login100">
             <div class="wrap-login100 p-b-160 p-t-50">
 
-                <form class="login100-form validate-form" method="post">
+                <form id="signupform" class="login100-form validate-form" method="post">
                     <span class="login100-form-title p-b-43">
                         Account Creation<br>
                         <p style="color: yellow">{{.}}</p>
@@ -60,10 +60,11 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate = "This is required.">
-                        <input class="input100" type="text" name="gender">
-                        <span class="label-input100">
-                            Gender
-                        </span>
+                        <select class="input100" name="gender" form="signupform">
+                            <option class="input100" value = "M">  Male</option>
+                            <option class="input100" value = "F">  Female</option>
+                            <option class="input100" value = "O">  Other</option>
+                        </select>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate = "This is required.">

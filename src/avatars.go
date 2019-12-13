@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"fmt"
 )
 
 func avatarGET(w http.ResponseWriter, r *http.Request) {
@@ -44,9 +45,9 @@ func avatarPOST(w http.ResponseWriter, r *http.Request) {
 
 	_ = r.ParseMultipartForm(10 << 20)
 
-	file, handler, e := r.FormFile("new_avatar")
+	file, handler, e := r.FormFile("Avatar")
 	if e != nil {
-		log.Println(Warn("Error retrieving image."))
+		log.Println(Warn("Error retrieving image."), e)
 		return
 	}
 	defer file.Close()
@@ -65,7 +66,8 @@ func avatarPOST(w http.ResponseWriter, r *http.Request) {
 	db, _ := Database(DBNAME)
 
 	UpdateAvatar(username, fileBytes, db)
-
+	userPage := fmt.Sprintf("/%s", username)
+	http.Redirect(w, r, userPage, http.StatusSeeOther)
 }
 
 func AvatarHandler(w http.ResponseWriter, r *http.Request) {

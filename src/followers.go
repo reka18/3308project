@@ -6,7 +6,13 @@ import (
 	"net/http"
 )
 
-func followPost(w http.ResponseWriter, r *http.Request) {
+func followGET(w http.ResponseWriter, r *http.Request) {
+
+	
+
+}
+
+func followPOST(w http.ResponseWriter, r *http.Request) {
 
 	_ = r.ParseForm()
 
@@ -58,5 +64,5 @@ func FollowHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
-	followPost(w, r)
+	followPOST(w, r)
 }

@@ -271,7 +271,6 @@ input.input100 {
   transition: all 0.4s;
 }
 
-
 .input100:focus {
   height: 55px;
 }
@@ -285,6 +284,15 @@ input.input100 {
 .has-val {
   height: 55px !important;
 }
+
+select.input100 {
+  margin-left: 22px;
+  height:100% !important; 
+  width:80%;
+  border:0px;
+  outline:0px; 
+}
+
 
 .has-val + .label-input100 {
   top: 10px;

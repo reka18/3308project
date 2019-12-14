@@ -45,6 +45,14 @@ var followTable = "CREATE TABLE follow (" +
 	"date TIMESTAMP NOT NULL" +
 	");"
 
+var messageTable = "CREATE TABLE messages (" +
+	"id SERIAL PRIMARY KEY," +
+	"fromid INT REFERENCES users(id) NOT NULL," +
+	"toid INT REFERENCES users(id) NOT NULL," +
+	"content VARCHAR(240) NOT NULL," +
+	"date TIMESTAMP NOT NULL" +
+	");"
+
 func createTable(db *sql.DB, table string, label string) error {
 
 	log.Println(Info("Attempting to create ", label))

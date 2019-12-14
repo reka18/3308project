@@ -72,6 +72,12 @@ func generateTables(db *sql.DB) {
 	} else {
 		log.Println(Success("Success."))
 	}
+	e = createTable(db, messageTable, "'message' table")
+	if e != nil {
+		log.Println(Fatal("Error"), e)
+	} else {
+		log.Println(Success("Success."))
+	}
 
 }
 

@@ -9,7 +9,7 @@ import (
 
 func usrLandingGET(w http.ResponseWriter, r *http.Request) {
 
-	CookieDebugger(r, "LANDING")
+	CookieDebugger(r, "LANDING PAGE GET")
 
 	username, ok := CompareTokens(w, r)
 	if !ok {

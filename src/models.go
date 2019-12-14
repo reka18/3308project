@@ -35,6 +35,11 @@ type FollowedUser struct {
 	Mutual	bool
 }
 
+type SearchResult struct {
+	User	User
+	Count	int
+}
+
 type Post struct {
 	Id			int
 	UserId		int

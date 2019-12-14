@@ -72,11 +72,17 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 		return nil
 	}
 
-	var response []Post
+	var (
+		response []Post
+		post Post
+	)
 
 	for r.Next() {
-		var post Post
-		_ = r.Scan(&post.Id, &post.UserId, &post.Content, &post.UpVotes, &post.DownVotes, &post.Deleted, &post.Date)
+		e = r.Scan(&post.Id, &post.UserId, &post.Content, &post.UpVotes, &post.DownVotes, &post.Deleted, &post.Date)
+		if e != nil {
+			log.Println(Warn("Error scanning post."))
+		}
+
 		response = append(response, post)
 	}
 

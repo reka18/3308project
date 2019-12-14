@@ -24,24 +24,25 @@ var usersTable = "CREATE TABLE users (" +
 
 var postTable = "CREATE TABLE posts (" +
 	"id SERIAL PRIMARY KEY," +
-	"userid INT REFERENCES users(id)," +
+	"userid INT REFERENCES users(id) NOT NULL," +
 	"content VARCHAR(240) NOT NULL," +
-	"upvotes INT," +
-	"downvotes INT," +
-	"deleted BOOLEAN," +
+	"upvotes INT NOT NULL," +
+	"downvotes INT NOT NULL," +
+	"deleted BOOLEAN NOT NULL," +
 	"date TIMESTAMP NOT NULL" +
 	");"
 
 var avatarTable = "CREATE TABLE avatars (" +
 	"id SERIAL PRIMARY KEY," +
-	"userid INT REFERENCES users(id)," +
-	"avatar BYTEA" +
+	"userid INT REFERENCES users(id) NOT NULL," +
+	"avatar BYTEA NOT NULL" +
 	");"
 
 var followTable = "CREATE TABLE follow (" +
 	"id SERIAL PRIMARY KEY," +
-	"userid INT REFERENCES users(id)," +
-	"followid INT REFERENCES users(id)" +
+	"userid INT REFERENCES users(id) NOT NULL," +
+	"followid INT REFERENCES users(id) NOT NULL," +
+	"date TIMESTAMP NOT NULL" +
 	");"
 
 func createTable(db *sql.DB, table string, label string) error {

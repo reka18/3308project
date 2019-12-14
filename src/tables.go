@@ -42,8 +42,7 @@ var followTable = "CREATE TABLE follow (" +
 	"id SERIAL PRIMARY KEY," +
 	"userid INT REFERENCES users(id) NOT NULL," +
 	"followid INT REFERENCES users(id) NOT NULL," +
-	"date TIMESTAMP NOT NULL," +
-	"mutual BOOLEAN" +
+	"date TIMESTAMP NOT NULL" +
 	");"
 
 func createTable(db *sql.DB, table string, label string) error {

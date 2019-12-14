@@ -69,7 +69,7 @@ func FollowHandler(w http.ResponseWriter, r *http.Request) {
 func FollowUser(username string, targetname string, db *sql.DB) error {
 
 	_, e := db.Exec("INSERT INTO follow (userid, followid, date, mutual) VALUES ((SELECT id FROM users WHERE username=$1), (SELECT id FROM users WHERE username=$2), date, mutual);",
-		username, targetname, time.Now(), IsFollower(username, -1, targetname, db))
+		username, targetname, time.Now())
 	if e != nil {
 		log.Println(Warn("Unable to execute follow query."))
 	}
@@ -94,7 +94,7 @@ func FetchFollowed(username string, db *sql.DB, limit int) []byte {
 		_ = r.Scan(&followid)
 
 		user := GetUserById(followid, db)
-		mutual := IsFollower(username, followid, "", db)
+		mutual := IsFollower(username, followid, db)
 
 		log.Println(Info(user))
 
@@ -117,13 +117,18 @@ func FetchFollowed(username string, db *sql.DB, limit int) []byte {
 
 }
 
-func IsFollower(username string, targetid int, targetname string, db *sql.DB) bool {
+func IsFollower(username string, targetid int, db *sql.DB) bool {
 
+	r, e := db.Exec("SELECT * FROM follow WHERE userid=$1 AND followid=(SELECT id FROM users WHERE username=$2);",
+		targetid, username)
+	if e != nil {
+		log.Println(Warn("Error making follow status database query."))
+	}
+	count, e := r.RowsAffected()
+	if e != nil {
+		log.Println(Warn("Error getting follow status count from database response."))
+	}
 
-	var count int
-	r := db.QueryRow("SELECT count(*) FROM follow WHERE userid=(SELECT id FROM users WHERE username=$1) AND followid=($2 OR (SELECT id FROM users WHERE username=$3));",
-		username, targetid, targetname)
-	_ = r.Scan(&count)
 	if count != 0 {
 		return true
 	}

@@ -10,7 +10,7 @@ import (
 
 func searchGET(w http.ResponseWriter, r *http.Request) {
 
-	CookieDebugger(r, "SEARCH ENDPOINT POST")
+	CookieDebugger(r, "SEARCH ENDPOINT (GET)")
 
 	username, ok := CompareTokens(w, r)
 	if !ok {

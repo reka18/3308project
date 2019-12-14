@@ -55,7 +55,7 @@ var messageTable = "CREATE TABLE messages (" +
 
 func createTable(db *sql.DB, table string, label string) error {
 
-	log.Println(Info("Attempting to create ", label))
+	log.Println(Info("Creating ", label))
 	_, e := db.Exec(table)
 	return e
 

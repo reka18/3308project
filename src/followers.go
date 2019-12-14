@@ -64,6 +64,7 @@ func FollowHandler(w http.ResponseWriter, r *http.Request) {
 	case "POST":
 		followPOST(w, r)
 	}
+
 }
 
 func FollowUser(username string, targetname string, db *sql.DB) error {

@@ -100,13 +100,13 @@ func MakePost(username string, post string, db *sql.DB) {
 	r, e := db.Exec("INSERT INTO posts (userid, content, upvotes, downvotes, deleted, date) VALUES ((SELECT id FROM users WHERE username=$1), $2, 0, 0, false, $3);",
 		username, post, time.Now())
 	if e != nil {
-		log.Println(Warn("Unable to execute post query."))
+		log.Println(Warn("Unable to make post in database."))
 		log.Println(Warn(e))
 	}
 
 	c, _ := r.RowsAffected()
 	if c != 0 {
-		log.Println(Success("Successfully added post."))
+		log.Println(Success("Successfully added post to database."))
 	}
 
 }

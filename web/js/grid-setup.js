@@ -3,6 +3,7 @@
 
 var user_posts_grid;
 var user_posts_data_array = [];
+dataView = new Slick.Data.DataView({inlineFilters: true});
 var pageNumber_5 = 1;
 var pageLimit_5 = null;
 var searchKey_5 = '';
@@ -20,27 +21,24 @@ function requiredFieldValidator(value) {
 
 function resultsFile(row, cell, value, columnDef, dataContext)
 {
-	console.log(row);
-	console.log(cell);
+	console.log("results file value object is..." + dataContext);
 
-	return `
-	<div class="post-layout-box">
-        <div class="user-profile-icon-container">
-            <img class="user-profile-icon" src="../images/Reagan-Karnes-64.jpg"/>
-        </div>
-
-         <div class="spectra-file-attribute-layout-box">
-            <div class="user-name-container">
-                <span class="user-name">Reagan Karnes</span>
-                <span class="user-post-date">2019.09.10 12:30:31pm</span>
+	const template = `
+		<div class="post-layout-box">
+			<div class="user-profile-icon-container">
+            	<img class="user-profile-icon" src="../images/Reagan-Karnes-64.jpg"/>
+        	</div>
+        	<div class="spectra-file-attribute-layout-box">
+            	<div class="user-name-container">
+                	<span class="user-name">Reagan Karnes</span>
+                	<span class="user-post-date">2019.09.10 12:30:31pm</span>
+                </div>
+                <div class="user-post-container">
+                	<span class="user-post">${value.getContent()}</span>
+                </div>
             </div>
-            <div class="user-post-container">
-                <span class="user-post">
-                </span>
-            </div>
-        </div>
-    </div>
-        <div class="reaction-bar-container">
+         </div>
+       <div class="reaction-bar-container">
          <div class="reaction-bar">
 	         <div class="reactions-container">
 	         	<a href="javascrpt:void(0)" onclick="reactToPost(postID)">
@@ -62,8 +60,7 @@ function resultsFile(row, cell, value, columnDef, dataContext)
 	            </a>
 	             <div class="reaction-counters">9</div>
 	         </div>
-
-
+	         
 	         <div class="reactions-container">
 	         	<a href="javascrpt:void(0)" onclick="reactToPost(postID,3)">
 	         		<img class="reaction-icons" src="../images/sad-opt-512.png">
@@ -85,7 +82,17 @@ function resultsFile(row, cell, value, columnDef, dataContext)
 	             <div class="reaction-counters">2</div>
 	         </div>
          </div>
-     </div>`;
+     </div>
+	`;
+
+
+
+	return template
+
+
+
+
+
 
 
 }
@@ -98,13 +105,11 @@ var grid_columns_setup =
 	[
 
 		{
-			id: "file_name",
+			id: "Content",
 			name: "Results",
-			field: "file_name",
+			field: "Content",
 			width: 10,
 			minWidth: 0,
-			cssClass: "post-template-styling.css",
-			headerCssClass:"spectra-files-slick-grid-header",
 			editor: Slick.Editors.Text,
 			validator: requiredFieldValidator,
 			formatter: resultsFile,
@@ -151,8 +156,9 @@ var slick_grid_options = {
 //=============================================================================
 $(function ()
 {
+	dataView.setItems([], "Id");
 
-	user_posts_grid = new Slick.Grid("#grid", user_posts_data_array, grid_columns_setup, slick_grid_options);
+	user_posts_grid = new Slick.Grid("#grid", dataView, grid_columns_setup, slick_grid_options);
 
 
 	user_posts_grid.setSelectionModel(new Slick.RowSelectionModel());
@@ -184,6 +190,27 @@ $(function ()
 
 	});
 	//=============================================================================
+
+	// Make the grid respond to DataView change events.
+	dataView.onRowCountChanged.subscribe(function (e, args) {
+		console.log('count');
+		console.log(e);
+		console.log(args);
+		user_posts_grid.updateRowCount();
+		user_posts_grid.render();
+		dataView.refresh();
+		refreshGrid();
+	});
+
+	dataView.onRowsChanged.subscribe(function (e, args) {
+		console.log('rows');
+		console.log(e);
+		console.log(args);
+		user_posts_grid.invalidateRows(args.rows);
+		user_posts_grid.render();
+		dataView.refresh();
+		refreshGrid();
+	});
 
 });
 
@@ -230,9 +257,15 @@ function ajaxResponseDataSimulation()
 
 function refreshGrid()
 {
-	user_posts_grid.invalidate();
+	user_posts_grid.invalidateAllRows();
 	user_posts_grid.updateRowCount();
 	user_posts_grid.render();
 	console.log("Grid Refreshed!");
+
+}
+
+function clearGridData()
+{
+	user_posts_data_array = [];
 
 }

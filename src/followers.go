@@ -89,14 +89,21 @@ func FetchFollowed(username string, db *sql.DB, limit int) []byte {
 	}
 	
 	var response []FollowedUser
-	
+
 	for r.Next() {
 		_ = r.Scan(&followid)
 
+		user := GetUserById(followid, db)
+		mutual := IsFollower(username, followid, "", db)
+
+		log.Println(Info(user))
+
 		f := FollowedUser{
-			User:   GetUser(followid, "", db),
-			Mutual: IsFollower(username, followid, "", db),
+			User:   user,
+			Mutual: mutual,
 		}
+
+		log.Println(Info(f))
 
 		response = append(response, f)
 	}
@@ -104,7 +111,7 @@ func FetchFollowed(username string, db *sql.DB, limit int) []byte {
 	if e != nil {
 		log.Println(Warn("Error getting followed users."))
 	}
-	log.Println(Info("Followed users: ", json))
+	log.Println(Info("Followed users: ", string(json)))
 
 	return json
 

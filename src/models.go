@@ -41,6 +41,7 @@ type Post struct {
 	Content		string
 	UpVotes		int
 	DownVotes	int
+	Deleted		bool
 	Date		string
 }
 

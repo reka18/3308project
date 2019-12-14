@@ -93,15 +93,9 @@ func FetchFollowed(username string, db *sql.DB, limit int) []byte {
 	for r.Next() {
 		_ = r.Scan(&followid)
 
-		user := GetUserById(followid, db)
-		mutual := IsFollower(username, followid, db)
-
-		log.Println(Info(user))
-
-		f := FollowedUser{
-			User:   user,
-			Mutual: mutual,
-		}
+		var f FollowedUser
+		f.User = GetUserById(followid, db)
+		f.Mutual = IsFollower(username, followid, db)
 
 		log.Println(Info(f))
 

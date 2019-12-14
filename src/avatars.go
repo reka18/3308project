@@ -83,15 +83,11 @@ func AvatarHandler(w http.ResponseWriter, r *http.Request) {
 
 func GetAvatar(username string, db *sql.DB) []byte {
 
-	var (
-		avatarid	int
-		userid		int
-		avatarBytes	[]byte
-	)
+	var avatarBytes []byte
 
-	r := db.QueryRow("SELECT * FROM avatars WHERE userid=(SELECT id FROM users WHERE username=$1);", username)
+	r := db.QueryRow("SELECT avatar FROM avatars WHERE userid=(SELECT id FROM users WHERE username=$1);", username)
 
-	e := r.Scan(&avatarid, &userid, &avatarBytes)
+	e := r.Scan(&avatarBytes)
 
 	if e != nil {
 		log.Println(Warn("Error retrieving image from database."))

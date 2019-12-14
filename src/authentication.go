@@ -58,12 +58,12 @@ func AddCookie(w http.ResponseWriter, username string) {
 
 func DeleteCookie(w http.ResponseWriter, username string) {
 
-	cookie := http.Cookie {
-		Name:		"socialmediasite",
-		Value:		"",
-		MaxAge:		-1,
-		Expires: 	time.Now().Add(-100 * time.Hour),
-	}
+	var cookie http.Cookie
+	cookie.Name = "socialmediasite"
+	cookie.Value = ""
+	cookie.MaxAge = -1
+	cookie.Expires = time.Now().Add(-100 * time.Hour)
+
 	http.SetCookie(w, &cookie)
 
 	_, e := redisConn.Do("DEL", username)

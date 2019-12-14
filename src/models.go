@@ -30,6 +30,11 @@ type User struct {
 	Active    bool
 }
 
+type FollowedUser struct {
+	User	User
+	Mutual	bool
+}
+
 type Post struct {
 	Id			int
 	UserId		int

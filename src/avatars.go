@@ -17,7 +17,7 @@ func avatarGET(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	RefreshCookie(w, r, username) /* This updates cookie to restart clock. */
+	RefreshCookie(username) /* This updates cookie to restart clock. */
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
@@ -41,7 +41,7 @@ func avatarPOST(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	RefreshCookie(w, r, username) /* This updates cookie to restart clock. */
+	RefreshCookie(username) /* This updates cookie to restart clock. */
 
 	_ = r.ParseMultipartForm(10 << 20)
 

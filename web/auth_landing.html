@@ -104,7 +104,7 @@
     <div class="limiter">
         <div class="container-login100">
             <div id="avatar">
-                <img src="{{.}}/avatar" width=100 height=100 float=top>
+                <img src="{{.}}/avatar" width=100 height=100 style="margin: 12px">
                 <button type="button" class="login100-form-btn-solo w-75"  style="background-color: indianred" data-toggle="modal" data-target="#avatarModal">
                     Change Avatar
                 </button>
@@ -117,7 +117,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add New Avatar</h5><br>
+                                <h5 class="modal-title" id="exampleModalLongTitle">Change avatar...</h5><br>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -134,8 +134,8 @@
 
                 <!-- Button trigger modal -->
                 <div class="container-login100-form-btn">
-                    <button type="button" class="login100-form-btn-solo w-75"  style="background-color: indianred" data-toggle="modal" data-target="#exampleModalCenter" onclick= getTime()>
-                        Launch demo modal
+                    <button type="button" class="login100-form-btn-solo w-75"  style="background-color: indianred; margin: 5px" data-toggle="modal" data-target="#exampleModalCenter" onclick= getTime()>
+                        Make Post
                     </button>
                 </div><br>
 
@@ -145,7 +145,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLongTitle"></h5><br>
-                                <div id=timestamp style="background-color: yellow;">la la</div></br>
+                                <div id=timestamp style="background-color: white;">la la</div></br>
                                 <script type="text/javascript">
                                     var date;
                                     function getTime()
@@ -161,57 +161,27 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <textarea id="postText"  style="resize: none;" type="textarea" cols="56" rows="5" maxlength="245" name="post-content"></textarea>
+                                <textarea id="postText" style="resize: none; width: 100%;" rows="5" maxlength="245" name="post-content"></textarea>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" onclick="newPost2()">Post</button>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5><br>
-                                    <div id=timestamp style="background-color: yellow;">la la
-                                    </div></br>
-                                    <script type="text/javascript">
-                                        var date;
-                                        function getTime()
-                                        {
-                                            date = moment().format('MMMM Do YYYY, h:mm:ss a');
-                                            document.getElementById("timestamp").innerHTML = date;
-                                            addItem()
-                                        }
-                                    </script>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <textarea id="postText"  style="resize: none;" type="textarea" cols="56" rows="5" maxlength="245" name="post-content"></textarea>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" onclick="newPost2()">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center w-full p-t-23">
-                        <a href="/logout" class="txt1">
-                            Logout
-                        </a>
-                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div style=" display:flex; align-items: center; width: 800px; height: 500px; padding: 5px; margin: 0 auto;">
-            <div id="grid" style="width: 800px; height: 600px; background-color: transparent;"></div>
+
+                <div style="display:flex; align-items: center; width: 150%; height: 100%; padding: 5px; margin: 25px;">
+                    <div id="grid" style="width: 800px; height: 600px; background-color: transparent;"></div>
+                </div>
+
+                <div class="text-center w-full p-t-23">
+                    <a href="/logout" class="txt1">
+                        Logout
+                    </a>
+                </div>
+
+            </div>
         </div>
     </div>
 </body>

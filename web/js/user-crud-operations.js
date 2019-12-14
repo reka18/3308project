@@ -36,27 +36,7 @@ function deletePost()
 }
 
 
-
-function newPost()
-{
-    $.ajax(
-        {
-            type:'POST',
-            url: "some/endpoint",
-            success: function(responseData, status, responseObject)
-            {
-                //perform some action on success
-
-            },
-            dataType: 'json',
-            data: {/*data that we will be passing to the end point*/},
-            cache: false
-
-        });
-}
-
-
-function newPost2()
+function newPost2() //TODO Why does this not let you change it to newPost? Why the 2?
 {
         console.log("new post fired");
 
@@ -71,7 +51,7 @@ function newPost2()
 
         if(postData === "")
         {
-            alert("Enter some text to post!")
+            alert("Enter some text to post!");
             return;
         }
 

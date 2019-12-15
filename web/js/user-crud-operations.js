@@ -60,14 +60,13 @@ function newPost()
 async function getPosts()
 {
     const postURL = getUsername() + "/post";
-    const result = await $.ajax(
+    const [result] = await Promise.all([$.ajax(
         {
             type: 'GET',
             //TODO grab un from url onload and save for crud operations
             url: postURL,
-            success: function(responseData, status, responseObject)
-            {
-                if(responseData) {
+            success: function (responseData, status, responseObject) {
+                if (responseData) {
                     return responseData.reverse();
                 }
             },

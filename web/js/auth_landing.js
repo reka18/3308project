@@ -1,24 +1,18 @@
 $( window ).on("load", async function()
 {
-    console.log("async");
 
-    getPosts().then(function (res)
+    getPosts().then(function (postData)
     {
-        dataView.beginUpdate();
+        let cardViews = document.getElementById('grid').innerHTML;
 
-        for(let x = 0; x < res.length ; x++)
+        for(let x = 0; x < postData.length ; x++)
         {
+            const postObject = new UserPostData(postData[x]);
+            cardViews += generate_user_card(postObject);
 
-            const postObject = new UserPostData(res[x]);
-            console.log(postObject.getID());
-            let dataViewObject = {"Id": x, "Content": postObject}
-            dataView.addItem(dataViewObject, "Id");
         }
 
-        dataView.endUpdate();
-
-
-
+        document.getElementById('grid').innerHTML = cardViews;
     });
 
 
@@ -27,25 +21,11 @@ $( window ).on("load", async function()
 
 function updatePosts(postsData)
 {
-
     console.log(postsData);
-
-    dataView.beginUpdate();
-
-
-
-
-    for(let x = 0; x < postsData.length  ; x++)
-    {
-        const postObject = new UserPostData(postsData[x]);
-        console.log(postObject.getID());
-        let dataViewObject = {"Id": x, "Content": postObject}
-        dataView.addItem(dataViewObject, "Id");
-    }
-
-    //dataView.setItems(objectArray, "Id");
-    dataView.endUpdate();
-
+    const postObject = new UserPostData(postsData[0]);
+    let newCard = generate_user_card(postObject)
+    console.log(newCard);
+    $('#grid').prepend(newCard);
 }
 
 

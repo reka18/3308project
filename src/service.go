@@ -119,7 +119,7 @@ func pushAllResources(w http.ResponseWriter) {
 	push(w, "css/main.css")
 	push(w, "css/util.css")
 	push(w, "js/main.js")
-	push(w, "vendor/animate/animate.js")
+	push(w, "vendor/animate/animate.css")
 	push(w, "vendor/animsition/css/animsition.css")
 	push(w, "vendor/animsition/js/animsition.js")
 	push(w, "vendor/bootstrap/css/bootstrap.css")

@@ -24,35 +24,17 @@ func followGET(w http.ResponseWriter, r *http.Request) {
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
+
+	user := ParseFollowQuery(r)
+	if user != "" {
+		e := FollowUser(username, user, db)
+		if e != nil {
+			log.Println(Warn("Unable to follow ", user))
+		}
+	}
+
 	code, _ := w.Write(FetchFollowed(username, db, limit))
 	log.Println(Info("Write-back response: ", code))
-
-}
-
-func followPOST(w http.ResponseWriter, r *http.Request) {
-
-	CookieDebugger(r, "FOLLOW ENDPOINT (POST)")
-
-	username, ok := CompareTokens(w, r)
-	if !ok {
-		http.Redirect(w, r, "login", http.StatusSeeOther)
-		return
-	}
-
-	_ = r.ParseForm()
-
-	RefreshCookie(username)
-
-	targetUsername := r.FormValue("target")
-
-	db, _ := Database(DBNAME)
-	defer db.Close()
-
-	e := FollowUser(username, targetUsername, db)
-	if e != nil {
-		log.Println(Warn("Failed to follow user."))
-		log.Println(Warn(e))
-	}
 
 }
 
@@ -64,7 +46,7 @@ func FollowHandler(w http.ResponseWriter, r *http.Request) {
 	case "GET":
 		followGET(w, r)
 	case "POST":
-		followPOST(w, r)
+		log.Println(Warn("Follow endpoint has no POST method."))
 	}
 
 }

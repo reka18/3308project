@@ -1,6 +1,6 @@
 //====================================================>// JavaScript Class Start
 
-UserPostData = (function UserPostData(constructor) //class function aka constructor
+UserPostData = (function UserPostData() //class function aka constructor
 		{
 			
 			function UserPostData(constructor)
@@ -10,12 +10,13 @@ UserPostData = (function UserPostData(constructor) //class function aka construc
 				
 				//Standardized Data Variables
 				//let dataID = "SS_" + Math.random().toString(36).substring(2);
-				let id = constructor['Id']
+				let id = constructor['Id'];
 				let username = constructor['UserName'];
 				let content = constructor['Content'];
 				let upvotes = constructor['UpVotes'];
 				let downvotes = constructor['DownVotes'];
 				let date = constructor['Date'];
+				let friendlydate = constructor['FriendlyDate'];
 				let self = this;
 				//private instance variables==================================================>
 				
@@ -27,6 +28,7 @@ UserPostData = (function UserPostData(constructor) //class function aka construc
 					self.getUpVotes = function(){return upvotes;};
 					self.getDownVotes = function(){return downvotes;};
 					self.getDate = function(){return date;};
+					self.getFriendlyDate = function(){return friendlydate;};
 				//public methods====================================================>
 				
 			}//end of cls

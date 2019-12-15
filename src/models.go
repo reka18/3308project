@@ -41,14 +41,15 @@ type SearchResult struct {
 }
 
 type Post struct {
-	Id			int
-	UserId		int
-	UserName	string // this is not stored in the post table
-	Content		string
-	UpVotes		int
-	DownVotes	int
-	Deleted		bool
-	Date		string
+	Id				int
+	UserId			int
+	UserName		string // this is not stored in the post table
+	Content			string
+	UpVotes			int
+	DownVotes		int
+	Deleted			bool
+	Date			time.Time
+	FriendlyDate	string
 }
 
 type Avatar struct {

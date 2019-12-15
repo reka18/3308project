@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"sort"
 	"strings"
 	"time"
 )
@@ -86,8 +87,7 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 	}
 
 	for _, id := range ids {
-		r, e := db.Query("SELECT * FROM posts WHERE userid=$1 ORDER BY date LIMIT $2;",
-			id, pagelimit)
+		r, e := db.Query("SELECT * FROM posts WHERE userid=$1 ORDER BY date LIMIT $2;", id, pagelimit)
 		if e != nil {
 			return nil
 		}
@@ -97,11 +97,11 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 				log.Println(Warn("Error scanning post."))
 			}
 
-			timestamp := strings.Split(post.Date, "T")
+			timestamp := strings.Split(post.Date.String(), " ")
 			date := timestamp[0]
 			clock := strings.Split(timestamp[1], ".")[0][:5]
 
-			post.Date = fmt.Sprintf("%s @ %s", date, clock)
+			post.FriendlyDate = fmt.Sprintf("%s @ %s", date, clock)
 
 
 			e = db.QueryRow("SELECT username FROM users WHERE id=(SELECT userid FROM posts WHERE posts.id=$1);", post.Id).Scan(&post.UserName)
@@ -112,6 +112,10 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 			response = append(response, post)
 		}
 	}
+
+	sort.Slice(response, func(i, j int) bool {
+		return response[i].Date.Before(response[j].Date)
+	})
 
 	js, e := json.Marshal(response)
 	if e != nil {

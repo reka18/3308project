@@ -24,7 +24,6 @@ function updatePosts(postsData)
     console.log(postsData);
     const postObject = new UserPostData(postsData[0]);
     let newCard = generate_user_card(postObject)
-    console.log(newCard);
     $('#grid').prepend(newCard);
 }
 

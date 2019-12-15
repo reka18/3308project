@@ -52,6 +52,15 @@ type Post struct {
 	FriendlyDate	string
 }
 
+type Message struct {
+	Id				int
+	FromId			int
+	ToId			int
+	Content			string
+	Date			time.Time
+	FriendlyDate	string
+}
+
 type Avatar struct {
 	Id		int
 	UserId	int

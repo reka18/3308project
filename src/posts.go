@@ -51,7 +51,6 @@ func postsPOST(w http.ResponseWriter, r *http.Request) {
 
 	MakePost(username, postContent, db)
 
-	http.Redirect(w, r, fmt.Sprintf("/%s", username), http.StatusSeeOther)
 }
 
 func UserPostHandler(w http.ResponseWriter, r *http.Request) {
@@ -78,12 +77,15 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 	r, e := db.Query("SELECT followid FROM follow WHERE follow.userid=(SELECT id FROM users WHERE username=$1) UNION SELECT id FROM users WHERE username=$1;", username)
 	if e != nil {
 		log.Println(Warn("Unable to retrieve relevant ids."))
-	}
-	if r != nil {
+		return []byte{}
+	} else if r != nil {
 		for r.Next() {
 			_ = r.Scan(&id)
 			ids = append(ids, id)
 		}
+	} else {
+		log.Println(Warn("Unable to parse query response."))
+		return []byte{}
 	}
 
 	for _, id := range ids {

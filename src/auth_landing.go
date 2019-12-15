@@ -22,6 +22,9 @@ func usrLandingGET(w http.ResponseWriter, r *http.Request) {
 	// userInfo := loadUserInfo(username)
 	t := template.Must(template.ParseFiles("web/auth_landing.html"))
 	_ = t.Execute(w, username)
+
+	db, _ := Database(DBNAME)
+	defer db.Close()
 }
 
 func UserLandingHandler(w http.ResponseWriter, r *http.Request) {

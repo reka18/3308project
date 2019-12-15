@@ -67,37 +67,50 @@ func UserPostHandler(w http.ResponseWriter, r *http.Request) {
 
 func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 
-	r, e := db.Query("SELECT * FROM posts WHERE userid=(SELECT id FROM users WHERE username=$1) OR userid=(SELECT followid FROM follow WHERE follow.userid=(SELECT id FROM users WHERE username=$1)) ORDER BY date LIMIT $2;",
-		username, pagelimit)
-
-	if e != nil {
-		return nil
-	}
-
 	var (
+		id int
+		ids []int
 		response []Post
 		post Post
 	)
 
-	for r.Next() {
-		e = r.Scan(&post.Id, &post.UserId, &post.Content, &post.UpVotes, &post.DownVotes, &post.Deleted, &post.Date)
-		if e != nil {
-			log.Println(Warn("Error scanning post."))
+	r, e := db.Query("SELECT followid FROM follow WHERE follow.userid=(SELECT id FROM users WHERE username=$1) UNION SELECT id FROM users WHERE username=$1;", username)
+	if e != nil {
+		log.Println(Warn("Unable to retrieve relevant ids."))
+	}
+	if r != nil {
+		for r.Next() {
+			_ = r.Scan(&id)
+			ids = append(ids, id)
 		}
+	}
 
-		timestamp := strings.Split(post.Date, "T")
-		date := timestamp[0]
-		clock := strings.Split(timestamp[1], ".")[0][:5]
-
-		post.Date = fmt.Sprintf("%s @ %s", date, clock)
-
-
-		e = db.QueryRow("SELECT username FROM users WHERE id=(SELECT userid FROM posts WHERE posts.id=$1);", post.Id).Scan(&post.UserName)
+	for _, id := range ids {
+		r, e := db.Query("SELECT * FROM posts WHERE userid=$1 ORDER BY date LIMIT $2;",
+			id, pagelimit)
 		if e != nil {
-			log.Println(Warn("Unable to fetch post owner from database."))
+			return nil
 		}
+		for r.Next() {
+			e = r.Scan(&post.Id, &post.UserId, &post.Content, &post.UpVotes, &post.DownVotes, &post.Deleted, &post.Date)
+			if e != nil {
+				log.Println(Warn("Error scanning post."))
+			}
 
-		response = append(response, post)
+			timestamp := strings.Split(post.Date, "T")
+			date := timestamp[0]
+			clock := strings.Split(timestamp[1], ".")[0][:5]
+
+			post.Date = fmt.Sprintf("%s @ %s", date, clock)
+
+
+			e = db.QueryRow("SELECT username FROM users WHERE id=(SELECT userid FROM posts WHERE posts.id=$1);", post.Id).Scan(&post.UserName)
+			if e != nil {
+				log.Println(Warn("Unable to fetch post owner from database."))
+			}
+
+			response = append(response, post)
+		}
 	}
 
 	js, e := json.Marshal(response)

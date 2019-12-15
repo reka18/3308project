@@ -87,15 +87,15 @@
                                     date = moment().format('MMMM Do YYYY, h:mm:ss a');
                                     document.getElementById("timestamp").innerHTML = date;
                                 }
+                                var text = document.getElementById('postText')
                             </script>
                         </div>
 
                         <div class="modal-body">
-                            <textarea id="postText" style="resize:none; width: 100%" rows="5" maxlength="240" name="post-content"></textarea>
+                            <textarea id="postText" style="resize:none; width: 100%" rows="5" maxlength="240" name="post-content" placeholder="Start your post here..."></textarea>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" onclick="newPost()">Post Message</button>
+                            <button type="button" class="btn btn-primary" onclick="newPost(); $('#postText').val('');">Post Message</button>
                         </div>
                     </div>
                 </div>

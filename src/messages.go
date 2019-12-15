@@ -84,7 +84,7 @@ func GetMessages(username string, db *sql.DB, limit int) []byte {
 			log.Println(Warn("Unable to fetch messages for id=", id))
 		} else if r != nil {
 			for r.Next() {
-				_ = r.Scan(&msg)
+				_ = r.Scan(&msg.Id, &msg.FromId, &msg.ToId, &msg.Content, &msg.Date, &msg.FriendlyDate)
 				messages = append(messages, msg)
 			}
 		}

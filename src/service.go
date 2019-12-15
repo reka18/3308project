@@ -1,9 +1,7 @@
 package main
 
 import (
-	"bytes"
 	"context"
-	"html/template"
 	"log"
 	"net/http"
 	"time"
@@ -93,16 +91,6 @@ func (htmlServer *HTMLServer) Stop() error {
 	htmlServer.wg.Wait()
 	log.Println(Detail("SERVER : Stopped"))
 	return nil
-}
-
-// Render a template, or server error.
-func render(w http.ResponseWriter, r *http.Request, tpl *template.Template, name string, data interface{}) {
-	buf := new(bytes.Buffer)
-	if e := tpl.ExecuteTemplate(buf, name, data); e != nil {
-		log.Println(Warn("Render Error: "), e)
-		return
-	}
-	w.Write(buf.Bytes())
 }
 
 // Push the given resource to the client.

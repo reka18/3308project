@@ -62,3 +62,16 @@ func ParseAvatarQuery(r *http.Request) string {
 	}
 	return ""
 }
+
+func ParseFollowQuery(r *http.Request) string {
+
+	values, ok := r.URL.Query()["user"]
+	if !ok {
+		log.Println(Warn("No user value passed in request."))
+	} else {
+		username := strings.Split(values[0], " ")[0]
+		return username
+	}
+	return ""
+
+}

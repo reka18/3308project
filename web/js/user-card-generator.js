@@ -18,7 +18,7 @@ function generate_user_card(postObject)
 		<div class="spectra-file-attribute-layout-box-2">
 			<div class="user-name-container-2" style="margin-top:5px">
 				<span class="user-name-2">${postObject.getUserName()}</span>
-				<span class="user-post-date-2">${postObject.getDate()}</span>
+				<span class="user-post-date-2">${postObject.getFriendlyDate()}</span>
 			</div>
 			<div class="user-post-container-2">
 				<span class="user-post-2">${postObject.getContent()}</span>

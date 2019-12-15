@@ -25,14 +25,14 @@ function generate_user_card(postObject)
 		<div class="reaction-bar-container-2">
 			<div class="reaction-bar-2">
 				<div class="reactions-container-2">
-					<a href="javascrpt:void(0)" onclick="reactToPost(postID)">
+					<a href="javascript:void(0)" onclick="reactToPost(postID)">
 						<img class="reaction-icons-2" src="images/thumbs-up-opt-512.png">
 					</a>
 					<div class="reaction-counters-2">12</div>
 				</div>
 		
 				<div class="reactions-container-2">
-					<a href="javascrpt:void(0)" onclick="reactToPost(postID,5)">
+					<a href="javascript:void(0)" onclick="reactToPost(postID,5)">
 						<img class="reaction-icons-2" src="images/thumbs-down-opt-512.png">
 					</a>
 					<div class="reaction-counters-2">2</div>
@@ -40,7 +40,7 @@ function generate_user_card(postObject)
 				
 				
 				<div class="reactions-container-2">
-					<a href="javascrpt:void(0)" onclick="reactToPost(postID,5)">
+					<a href="javascript:void(0)" onclick="reactToPost(postID,5)">
 						<img class="reaction-icons-2" src="images/follow-opt-512.png">
 					</a>
 					<div class="reaction-counters-2">2</div>

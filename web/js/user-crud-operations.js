@@ -53,7 +53,7 @@ function newPost()
 
         if(postData === "")
         {
-            alert("Enter some text to post!")
+            alert("Enter some text to post!");
             return;
         }
 

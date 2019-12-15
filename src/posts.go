@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -82,6 +83,7 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 		if e != nil {
 			log.Println(Warn("Error scanning post."))
 		}
+		post.Date = strings.Split(post.Date, "T")[0]
 
 		response = append(response, post)
 	}

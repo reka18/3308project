@@ -15,16 +15,17 @@ UserPostData = (function UserPostData(constructor) //class function aka construc
 				let content = constructor['Content'];
 				let upVotes = constructor['UpVotes'];
 				let downVotes = constructor['DownVotes'];
+				let date = constructor['Date'];
 				let self = this;
 				//private instance variables==================================================>
 				
 				//public methods====================================================>
-
 					//file information getters
 					this.getID =  function(){return Id;};
 					this.getContent= function(){return content;};
 					this.getUpVotes = function(){return upVotes;};
 					this.getDownVotes = function(){return downVotes;};
+					this.getDate = function(){return date;};
 				//public methods====================================================>
 				
 			}//end of cls

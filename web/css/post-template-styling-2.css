@@ -1,43 +1,36 @@
 
 a
 {
-    text-decoration: none;
+    text-decoration:none;
 }
 
 .post-layout-box-2
 {
-    margin: 0 auto;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    height:260px;
+    margin: 15px auto;
+    height:200px;
     width:785px; /*(viewport - 10) - 15*/
     padding:0px;
-    border-left: 1px black solid;
-    border-top: 1px black solid;
-    border-bottom: 1px black solid;
-    border-right: 1px black solid;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-radius: 12px;
     display:block;
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-    box-sizing: border-box;         /* Opera/IE 8+ */
-    background-color: #BBB;
+    -webkit-box-sizing:border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing:border-box;    /* Firefox, other Gecko */
+    box-sizing:border-box;         /* Opera/IE 8+ */
+    background-color:#ffffff;
 }
 
 
 
 .user-profile-icon-container-2
 {
-    background-color:transparent;
-    height:204px;
-    width:66px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    background-color:#ffffff;
+    height:150px;
+    width:50px;
     float:left;
     display:inline-block;
-    margin: 0 auto;
-    padding: 1px;
+    margin:0 auto;
+    padding:1px;
 
 }
 
@@ -53,10 +46,10 @@ a
 
 .spectra-file-attribute-layout-box-2
 {
-    background-color: #BBB;
-    height: 205px; /*220px-15px */
+    background-color:#ffffff;
+    height:200px; /*220px-15px */
     width:705px;
-    margin-left:0px;
+    margin-left:0;
     display:inline-block;
 }
 
@@ -64,142 +57,133 @@ a
 
 .user-name-container-2
 {
-    background-color: #BBB;
+    background-color:#ffffff;
     display:block;
-    padding:0px;
-    height: 20px;
+    padding:0;
+    height:20px;
 }
 
 .user-name-2
 {
-    background-color: #BBB;
+    background-color:#ffffff;
     font-weight:bold;
-    font-size: 20px;
+    font-size:20px;
     float:left;
-    margin: 0 auto;
+    margin-bottom:8px;
 
 }
 
 .user-post-date-2
 {
     font-weight:bold;
-    font-size: 12px;
+    font-size:16px;
     float:right;
-    margin: 0 auto;
-    margin-top:16px;
-
+    margin-bottom:8px;
 }
 
 
 .user-post-container-2
 {
-    background-color: white;
-    margin-top: 15px;
+    background-color:white;
+    margin:10px;
     padding:3px;
     display:block;
-    word-wrap: break-word;
+    word-wrap:break-word;
     white-space:normal;
-    overflow: scroll;
-    height: 174px;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
-    text-align: justify;
-    text-justify: inter-word;
-    text-indent: 15px;
+    height:75px;
+    text-align:justify;
+    text-justify:inter-word;
+    text-indent:15px;
 }
 
 .user-post-2
 {
-    overflow: hidden;
-    color: black;
-    background-color: white;
+    overflow:hidden;
+    color:black;
+    background-color:white;
 }
 
 .reaction-bar-container-2
 {
-    width: 705px;
-    height: 38px;
-    background-color: #BBB;
-    margin: 0 auto;
+    background-color:#ffffff;
+    margin:0 auto;
+    margin-top: 30px;
     display:block;
-
+    height: 50px;
 }
-
 
 .reaction-bar-2
 {
-    width: 650px;
-    background-color: transparent;
+    width:650px;
+    background-color:#ffffff;
     height:36px;
     display:flex;
-    padding: 1px;
-    justify-content: flex-start;
+    padding:1px;
+    justify-content:flex-start;
 }
 
 .reactions-container-2
 {
-    display: inline-block;
-    background-color: #BBB;
+    display:inline-block;
+    background-color:#ffffff;
 }
 
 .reaction-icons-2
 {
     height:32px;
-    width: 32px;
-    background-color: transparent;
-    display: inline-block;
-    transition-duration: 2s;
+    width:32px;
+    background-color:#ffffff;
+    display:inline-block;
+    transition-duration:2s;
 }
 
 .reaction-icons-2:hover
 {
     height:32px;
-    width: 32px;
-    background-color: transparent;
-    display: inline-block;
-    -webkit-animation: rotate-scale-up 0.65s linear both;
-    animation: rotate-scale-up 0.65s linear both;
+    width:32px;
+    background-color:#ffffff;
+    display:inline-block;
+    -webkit-animation:rotate-scale-up 0.65s linear both;
+    animation:rotate-scale-up 0.65s linear both;
 }
 
 .reaction-counters-2
 {
     height:22px;
-    width: 32px;
-    font-size: 14px;
-    display: inline-block;
-    margin-right: 20px;
-    text-align: left;
-    vertical-align: middle;
+    width:32px;
+    font-size:14px;
+    display:inline-block;
+    margin-right:20px;
+    text-align:left;
+    vertical-align:middle;
 }
 
 @-webkit-keyframes rotate-scale-up {
     0% {
-        -webkit-transform: scale(1) rotateZ(0);
-        transform: scale(1) rotateZ(0);
+        -webkit-transform:scale(1) rotateZ(0);
+        transform:scale(1) rotateZ(0);
     }
     50% {
-        -webkit-transform: scale(2) rotateZ(180deg);
-        transform: scale(2) rotateZ(180deg);
+        -webkit-transform:scale(2) rotateZ(180deg);
+        transform:scale(2) rotateZ(180deg);
     }
     100% {
-        -webkit-transform: scale(1) rotateZ(360deg);
-        transform: scale(1) rotateZ(360deg);
+        -webkit-transform:scale(1) rotateZ(360deg);
+        transform:scale(1) rotateZ(360deg);
     }
 }
 @keyframes rotate-scale-up {
     0% {
-        -webkit-transform: scale(1) rotateZ(0);
-        transform: scale(1) rotateZ(0);
+        -webkit-transform:scale(1) rotateZ(0);
+        transform:scale(1) rotateZ(0);
     }
     50% {
-        -webkit-transform: scale(2) rotateZ(180deg);
-        transform: scale(2) rotateZ(180deg);
+        -webkit-transform:scale(2) rotateZ(180deg);
+        transform:scale(2) rotateZ(180deg);
     }
     100% {
-        -webkit-transform: scale(1) rotateZ(360deg);
-        transform: scale(1) rotateZ(360deg);
+        -webkit-transform:scale(1) rotateZ(360deg);
+        transform:scale(1) rotateZ(360deg);
     }
 }
 

@@ -26,42 +26,27 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/timeline.css"/>
     <!--===============================================================================================-->
-    <link rel="stylesheet" href="vendor/SlickGrid-2.4.14/slick.grid.css" type="text/css"/>
-    <link rel="stylesheet" href="vendor/SlickGrid-2.4.14/css/smoothness/jquery-ui-1.11.3.custom.css" type="text/css"/>
-    <link rel="stylesheet" href="vendor/SlickGrid-2.4.14/controls/slick.pager.css" type="text/css"/>
-    <!--===============================================================================================-->
 
-    <link rel="stylesheet" type="text/css" href="css/grid-styling.css"/>
-    <link rel="stylesheet" type="text/css" href="css/post-template-styling.css"/>
+
+    <link rel="stylesheet" type="text/css" href="css/post-template-styling-2.css?version=51"/>
 
     <!--===============================================================================================-->
     <!--Jquery Plugin-->
-    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-    <!--Slick-Grid -->
-    <script src="vendor/SlickGrid-2.4.14/controls/slick.pager.js"></script>
-    <script src="vendor/SlickGrid-2.4.14/lib/jquery.event.drag-2.3.0.js"></script>
-    <script src="vendor/SlickGrid-2.4.14/slick.core.js"></script>
-    <script src="vendor/SlickGrid-2.4.14/slick.grid.js"></script>
-    <script src="vendor/SlickGrid-2.4.14/lib/firebugx.js"></script>
-    <script src="vendor/SlickGrid-2.4.14/lib/jquery.event.drop-2.3.0.js"></script>
-    <script src="vendor/SlickGrid-2.4.14/plugins/slick.cellrangeselector.js"></script>
-    <script src="vendor/SlickGrid-2.4.14/plugins/slick.cellselectionmodel.js"></script>
-    <script src="vendor/SlickGrid-2.4.14/plugins/slick.rowselectionmodel.js"></script>
-    <script src="vendor/SlickGrid-2.4.14/plugins/slick.rowmovemanager.js"></script>
-    <script src="vendor/SlickGrid-2.4.14/slick.formatters.js"></script>
-    <script src="vendor/SlickGrid-2.4.14/slick.editors.js"></script>
-    <script src="vendor/SlickGrid-2.4.14/slick.dataview.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--===============================================================================================-->
 
     <script src="vendor/underscore-master/underscore.js"></script>
 
-    <script src="js/user-posts-data-class.js"></script>
-    <script src="js/user-crud-operations.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!--Custom Javascript Data Classes -->
-    <script src="js/grid-setup.js"></script>
+    <script src="js/user-posts-data-class.js?v11"></script>
+    <script src="js/user-crud-operations.js?v11"></script>
+
+    <script src="js/auth_landing.js?v11"></script>
+    <script src="js/user-card-generator.js?v11"></script>
+
 
     <style type="text/css">
+
         body
         {
             background: linear-gradient(left, #6a11cb, #2575fc);
@@ -70,7 +55,10 @@
             background: -o-linear-gradient(left, #6a11cb, #2575fc);
             background: -moz-linear-gradient(left, #6a11cb, #2575fc);
             background: linear-gradient(left, #6a11cb, #2575fc);
+
         }
+
+
         html
         {
             background: linear-gradient(left, #6a11cb, #2575fc);
@@ -79,26 +67,17 @@
             background: -o-linear-gradient(left, #6a11cb, #2575fc);
             background: -moz-linear-gradient(left, #6a11cb, #2575fc);
             background: linear-gradient(left, #6a11cb, #2575fc);
+
+
         }
-        #bodyDiv
-        {
-            background: linear-gradient(left, #6a11cb, #2575fc);
-            background: #2575fc;
-            background: -webkit-linear-gradient(left, #6a11cb, #2575fc);
-            background: -o-linear-gradient(left, #6a11cb, #2575fc);
-            background: -moz-linear-gradient(left, #6a11cb, #2575fc);
-            background: linear-gradient(left, #6a11cb, #2575fc);
-        }
-        #main-content-layout-box
-        {
-            background: linear-gradient(left, #6a11cb, #2575fc);
-            background: #2575fc;
-            background: -webkit-linear-gradient(left, #6a11cb, #2575fc);
-            background: -o-linear-gradient(left, #6a11cb, #2575fc);
-            background: -moz-linear-gradient(left, #6a11cb, #2575fc);
-            background: linear-gradient(left, #6a11cb, #2575fc);
-        }
+
     </style>
+
+
+
+
+
+
 </head>
 <body>
     <div class="limiter">
@@ -132,62 +111,75 @@
                     </div>
                 </div>
 
-                <!-- Button trigger modal -->
-                <div class="container-login100-form-btn">
-                    <button type="button" class="login100-form-btn-solo w-75"  style="background-color: indianred; margin: 5px" data-toggle="modal" data-target="#exampleModalCenter" onclick= getTime()>
-                        Make Post
-                    </button>
-                </div><br>
+            <!-- Button trigger modal -->
+            <div class="container-login100-form-btn">
+            <button type="button" class="login100-form-btn-solo w-75"  style="background-color: forestgreen" data-toggle="modal" data-target="#exampleModalCenter" onclick= getTime()>
+                Make A New Post!
+            </button>
+            </div><br>
 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle"></h5><br>
-                                <div id=timestamp style="background-color: white;">la la</div></br>
-                                <script type="text/javascript">
-                                    var date;
-                                    function getTime()
-                                    {
-                                        date = moment().format('MMMM Do YYYY, h:mm:ss a');
-                                        document.getElementById("timestamp").innerHTML = date;
-                                        addItem()
-                                    }
-                                </script>
 
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <textarea id="postText" style="resize: none; width: 100%;" rows="5" maxlength="245" name="post-content"></textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" onclick="newPost2()">Post</button>
-                            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+
+
+                                    <div id=timestamp style="margin: 0 auto"></div></br>
+                                    <script type="text/javascript">
+                                        var date;
+
+                                        function getTime()
+                                        {
+                                            date = moment().format('MMMM Do YYYY, h:mm:ss a');
+                                            document.getElementById("timestamp").innerHTML = date;
+                                        }
+
+                                    </script>
+
+
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea id="postText"  style="resize: none;" type="textarea" cols="56" rows="5" maxlength="445" name="post-content"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="newPost()">Post Message</button>
                         </div>
                     </div>
                 </div>
-
-
-                <div style="display:flex; align-items: center; width: 150%; height: 100%; padding: 5px; margin: 25px;">
-                    <div id="grid" style="width: 800px; height: 600px; background-color: transparent;"></div>
-                </div>
-
-                <div class="text-center w-full p-t-23">
-                    <a href="/logout" class="txt1">
-                        Logout
-                    </a>
-                </div>
-
             </div>
-        </div>
+            </div>
+
+
+       <div id="grid"></div>
+
     </div>
+
+</div>
+
+
+
+
+
+
+
+
+
 </body>
 
+
+
+
+
 <!--===============================================================================================-->
-<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+
 <!--===============================================================================================-->
 <script src="vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
@@ -205,4 +197,17 @@
 <!--===============================================================================================-->
 <script src="https://rawgit.com/moment/moment/2.24.0/min/moment.min.js"></script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
 </html>

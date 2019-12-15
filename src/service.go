@@ -120,7 +120,7 @@ func pushAllResources(w http.ResponseWriter) {
 	push(w, "css/main.css")
 	push(w, "css/util.css")
 	push(w, "js/main.js")
-	push(w, "vendor/animate/animate.js")
+	push(w, "vendor/animate/animate.css")
 	push(w, "vendor/animsition/css/animsition.css")
 	push(w, "vendor/animsition/js/animsition.js")
 	push(w, "vendor/bootstrap/css/bootstrap.css")
@@ -139,5 +139,23 @@ func pushAllResources(w http.ResponseWriter) {
 	push(w, "vendor/perfect-scrollbar/perfect-scrollbar.min.js")
 	push(w, "vendor/select2/select2.css")
 	push(w, "vendor/select2/select2.js")
+	push(w, "vendor/SlickGrid-2.4.14/lib/jquery-3.1.0.js")
+
+	push(w, "vendor/SlickGrid-2.4.15/lib/jquery-3.1.0.js")
+	push(w, "vendor/SlickGrid-2.4.15/controls/slick.pager.js")
+	push(w, "vendor/SlickGrid-2.4.15/lib/jquery.event.drag-2.3.0.js")
+	push(w, "vendor/SlickGrid-2.4.15/slick.core.js")
+	push(w, "vendor/SlickGrid-2.4.15/slick.grid.js")
+	push(w, "vendor/SlickGrid-2.4.15/lib/firebugx.js")
+
+	push(w, "vendor/SlickGrid-2.4.15/lib/jquery.event.drop-2.3.0.js")
+	push(w, "vendor/SlickGrid-2.4.15/plugins/slick.cellrangeselector.js")
+	push(w, "vendor/SlickGrid-2.4.15/plugins/slick.cellselectionmodel.js")
+	push(w, "vendor/SlickGrid-2.4.15/plugins/slick.rowselectionmodel.js")
+
+	push(w, "vendor/SlickGrid-2.4.15/plugins/slick.rowmovemanager.js")
+	push(w, "vendor/SlickGrid-2.4.15/slick.formatters.js")
+	push(w, "vendor/SlickGrid-2.4.15/slick.editors.js")
+	push(w, "vendor/SlickGrid-2.4.15/slick.dataview.js")
 
 }

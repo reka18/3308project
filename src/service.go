@@ -44,10 +44,10 @@ func Start(config Config) *HTMLServer {
 	router.HandleFunc("/login", UserLoginHandler)
 	router.HandleFunc("/create", CreateAccountHandler)
 	router.HandleFunc("/logout", UserLogoutHandler)
+	router.HandleFunc("/avatar", AvatarHandler)
 	router.HandleFunc("/{user}", UserLandingHandler)
 	router.HandleFunc("/{user}/post", UserPostHandler)
 	router.HandleFunc("/{user}/follow", FollowHandler)
-	router.HandleFunc("/{user}/avatar", AvatarHandler)
 	router.HandleFunc("/{user}/search", SearchHandler)
 
 	htmlServer := HTMLServer{

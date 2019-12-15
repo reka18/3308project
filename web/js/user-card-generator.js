@@ -6,19 +6,14 @@ function generate_user_card(postObject)
 {
 	cards_holder.push(postObject);
 
-	let windowURL = window.location.href;
-	let splitArray = windowURL.split("/");
-	const username = splitArray[3];
-
-
 	return `
 	<div class="post-layout-box-2 animated zoomInUp delay-1s">
 		<div class="user-profile-icon-container-2">
-			<img class="user-profile-icon-2 w-75 h-25" src="{{.}}/avatar" style="margin:10%;"/>
+			<img class="user-profile-icon-2 w-75 h-25" src="avatar?user=${postObject.getUserName()}" style="margin:10%;"/>
 		</div>
 		<div class="spectra-file-attribute-layout-box-2">
 			<div class="user-name-container-2" style="margin-top:5px">
-				<span class="user-name-2">${username}</span>
+				<span class="user-name-2">${postObject.getUserName()}</span>
 				<span class="user-post-date-2">${postObject.getDate()}</span>
 			</div>
 			<div class="user-post-container-2">

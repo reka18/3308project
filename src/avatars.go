@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"fmt"
+	"strings"
 )
 
 func avatarGET(w http.ResponseWriter, r *http.Request) {
@@ -22,7 +23,7 @@ func avatarGET(w http.ResponseWriter, r *http.Request) {
 	db, _ := Database(DBNAME)
 	defer db.Close()
 
-	bytes := GetAvatar(username, db)
+	bytes := GetAvatar(ParseAvatarQuery(r), db)
 
 	w.Header().Set("Content-Type", "image/png")
 	_, e := w.Write(bytes)
@@ -66,8 +67,7 @@ func avatarPOST(w http.ResponseWriter, r *http.Request) {
 	db, _ := Database(DBNAME)
 
 	UpdateAvatar(username, fileBytes, db)
-	userPage := fmt.Sprintf("/%s", username)
-	http.Redirect(w, r, userPage, http.StatusSeeOther)
+	http.Redirect(w, r, fmt.Sprintf("/%s", username), http.StatusSeeOther)
 }
 
 func AvatarHandler(w http.ResponseWriter, r *http.Request) {
@@ -122,5 +122,19 @@ func NewUserAvatar(username string, db *sql.DB) {
 	if e != nil {
 		log.Println(Warn("Unable to post default avatar on user creation."))
 	}
+
+}
+
+func ParseAvatarQuery(r *http.Request) string {
+
+	values, ok := r.URL.Query()["user"]
+	if !ok {
+		log.Println(Warn("No avatar query terms specified."))
+	} else {
+		log.Println(Info("Found avatar name: ", values))
+	}
+	username := values[0]
+
+	return strings.Split(username, " ")[0]
 
 }

@@ -85,6 +85,11 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 		}
 		post.Date = strings.Split(post.Date, "T")[0]
 
+		e = db.QueryRow("SELECT username FROM users WHERE id=(SELECT userid FROM posts WHERE posts.id=$1);", post.Id).Scan(&post.UserName)
+		if e != nil {
+			log.Println(Warn("Unable to fetch post owner from database."))
+		}
+
 		response = append(response, post)
 	}
 

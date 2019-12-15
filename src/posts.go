@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -65,7 +66,7 @@ func UserPostHandler(w http.ResponseWriter, r *http.Request) {
 
 func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 
-	r, e := db.Query("SELECT * FROM posts WHERE userid=(SELECT id FROM users WHERE username=$1) ORDER BY date LIMIT $2;",
+	r, e := db.Query("SELECT * FROM posts WHERE userid=(SELECT id FROM users WHERE username=$1) OR userid=(SELECT followid FROM follow WHERE follow.userid=(SELECT id FROM users WHERE username=$1)) ORDER BY date LIMIT $2;",
 		username, pagelimit)
 
 	if e != nil {
@@ -81,6 +82,12 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 		e = r.Scan(&post.Id, &post.UserId, &post.Content, &post.UpVotes, &post.DownVotes, &post.Deleted, &post.Date)
 		if e != nil {
 			log.Println(Warn("Error scanning post."))
+		}
+		post.Date = strings.Split(post.Date, "T")[0]
+
+		e = db.QueryRow("SELECT username FROM users WHERE id=(SELECT userid FROM posts WHERE posts.id=$1);", post.Id).Scan(&post.UserName)
+		if e != nil {
+			log.Println(Warn("Unable to fetch post owner from database."))
 		}
 
 		response = append(response, post)

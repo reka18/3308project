@@ -11,20 +11,21 @@ UserPostData = (function UserPostData(constructor) //class function aka construc
 				//Standardized Data Variables
 				//let dataID = "SS_" + Math.random().toString(36).substring(2);
 
-				let Id = constructor['Id'];
+				let username = constructor['UserName'];
 				let content = constructor['Content'];
-				let upVotes = constructor['UpVotes'];
-				let downVotes = constructor['DownVotes'];
+				let upvotes = constructor['UpVotes'];
+				let downvotes = constructor['DownVotes'];
+				let date = constructor['Date'];
 				let self = this;
 				//private instance variables==================================================>
 				
 				//public methods====================================================>
-
 					//file information getters
-					this.getID =  function(){return Id;};
-					this.getContent= function(){return content;};
-					this.getUpVotes = function(){return upVotes;};
-					this.getDownVotes = function(){return downVotes;};
+					self.getUserName = function(){return username;};
+					self.getContent= function(){return content;};
+					self.getUpVotes = function(){return upvotes;};
+					self.getDownVotes = function(){return downvotes;};
+					self.getDate = function(){return date;};
 				//public methods====================================================>
 				
 			}//end of cls

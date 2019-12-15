@@ -15,7 +15,6 @@ func messageGET(w http.ResponseWriter, r *http.Request) {
 
 	username, ok := CompareTokens(w, r)
 	if !ok {
-		http.Redirect(w, r, "login", http.StatusSeeOther)
 		return
 	}
 

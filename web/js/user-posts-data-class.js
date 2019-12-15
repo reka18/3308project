@@ -10,7 +10,7 @@ UserPostData = (function UserPostData(constructor) //class function aka construc
 				
 				//Standardized Data Variables
 				//let dataID = "SS_" + Math.random().toString(36).substring(2);
-
+				let id = constructor['Id']
 				let username = constructor['UserName'];
 				let content = constructor['Content'];
 				let upvotes = constructor['UpVotes'];
@@ -21,6 +21,7 @@ UserPostData = (function UserPostData(constructor) //class function aka construc
 				
 				//public methods====================================================>
 					//file information getters
+					self.getId = function(){return id;};
 					self.getUserName = function(){return username;};
 					self.getContent= function(){return content;};
 					self.getUpVotes = function(){return upvotes;};

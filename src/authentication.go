@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
 	"strings"
@@ -94,7 +93,7 @@ func CompareTokens(w http.ResponseWriter, r *http.Request) (string, bool) {
 
 	if cookie == nil || cookie.Value == "" {
 		log.Println(Warn("Unauthorized access attempt."))
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		http.Redirect(w, r, "login", http.StatusSeeOther)
 		return "", false
 	}
 
@@ -110,8 +109,7 @@ func CompareTokens(w http.ResponseWriter, r *http.Request) (string, bool) {
 	if redisSecret != cookieSecret {
 		log.Printf(Warn("Unauthorized access attempt with stale cookie for '%s'."), username)
 		DeleteCookie(w, username)
-		t := template.Must(template.ParseFiles("web/logout_success.html"))
-		_ = t.Execute(w, "")
+		http.Redirect(w, r, "login", http.StatusSeeOther)
 		return "", false
 	}
 	log.Printf(Success("Cookie authentication successful for '%s'."), username)

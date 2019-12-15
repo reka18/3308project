@@ -53,6 +53,12 @@ var messageTable = "CREATE TABLE messages (" +
 	"date TIMESTAMP NOT NULL" +
 	");"
 
+var votesTable = "CREATE TABLE votes (" +
+	"id SERIAL PRIMARY KEY," +
+	"postid INT REFERENCES posts(id) NOT NULL," +
+	"userid INT REFERENCES users(id) NOT NULL" +
+	");"
+
 func createTable(db *sql.DB, table string, label string) error {
 
 	log.Println(Info("Creating ", label))

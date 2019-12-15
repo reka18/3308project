@@ -2,11 +2,10 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"fmt"
-	"strings"
 )
 
 func avatarGET(w http.ResponseWriter, r *http.Request) {
@@ -15,6 +14,7 @@ func avatarGET(w http.ResponseWriter, r *http.Request) {
 
 	username, ok := CompareTokens(w, r)
 	if !ok {
+		http.Redirect(w, r, "login", http.StatusSeeOther)
 		return
 	}
 
@@ -39,6 +39,7 @@ func avatarPOST(w http.ResponseWriter, r *http.Request) {
 
 	username, ok := CompareTokens(w, r)
 	if !ok {
+		http.Redirect(w, r, "login", http.StatusSeeOther)
 		return
 	}
 
@@ -62,9 +63,8 @@ func avatarPOST(w http.ResponseWriter, r *http.Request) {
 		log.Println("Error reading image bytes.")
 	}
 
-	// log.Println("ioutil.ReadAll: ", fileBytes[:10])
-
 	db, _ := Database(DBNAME)
+	defer db.Close()
 
 	UpdateAvatar(username, fileBytes, db)
 	http.Redirect(w, r, fmt.Sprintf("/%s", username), http.StatusSeeOther)
@@ -122,19 +122,5 @@ func NewUserAvatar(username string, db *sql.DB) {
 	if e != nil {
 		log.Println(Warn("Unable to post default avatar on user creation."))
 	}
-
-}
-
-func ParseAvatarQuery(r *http.Request) string {
-
-	values, ok := r.URL.Query()["user"]
-	if !ok {
-		log.Println(Warn("No avatar query terms specified."))
-	} else {
-		log.Println(Info("Found avatar name: ", values))
-	}
-	username := values[0]
-
-	return strings.Split(username, " ")[0]
 
 }

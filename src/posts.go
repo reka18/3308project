@@ -16,12 +16,13 @@ func postsGET(w http.ResponseWriter, r *http.Request) {
 
 	username, ok := CompareTokens(w, r)
 	if !ok {
+		http.Redirect(w, r, "login", http.StatusSeeOther)
 		return
 	}
 
 	RefreshCookie(username) /* This updates cookie to restart clock. */
 
-	limit := ParseLimit(r, 5)
+	limit := ParseLimitQuery(r, 5)
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
@@ -36,6 +37,7 @@ func postsPOST(w http.ResponseWriter, r *http.Request) {
 
 	username, ok := CompareTokens(w, r)
 	if !ok {
+		http.Redirect(w, r, "login", http.StatusSeeOther)
 		return
 	}
 
@@ -48,8 +50,7 @@ func postsPOST(w http.ResponseWriter, r *http.Request) {
 
 	MakePost(username, postContent, db)
 
-	userPage := fmt.Sprintf("/%s", username)
-	http.Redirect(w, r, userPage, http.StatusSeeOther)
+	http.Redirect(w, r, fmt.Sprintf("/%s", username), http.StatusSeeOther)
 }
 
 func UserPostHandler(w http.ResponseWriter, r *http.Request) {

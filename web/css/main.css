@@ -546,3 +546,22 @@ select.input100 {
     border-right: 1px solid #e0e0e0;
   }
 }
+
+.body
+{
+  background: linear-gradient(left, #6a11cb, #2575fc);
+  background: #2575fc;
+  background: -webkit-linear-gradient(left, #6a11cb, #2575fc);
+  background: -o-linear-gradient(left, #6a11cb, #2575fc);
+  background: -moz-linear-gradient(left, #6a11cb, #2575fc);
+  background: linear-gradient(left, #6a11cb, #2575fc);
+}
+.html
+{
+  background: linear-gradient(left, #6a11cb, #2575fc);
+  background: #2575fc;
+  background: -webkit-linear-gradient(left, #6a11cb, #2575fc);
+  background: -o-linear-gradient(left, #6a11cb, #2575fc);
+  background: -moz-linear-gradient(left, #6a11cb, #2575fc);
+  background: linear-gradient(left, #6a11cb, #2575fc);
+}

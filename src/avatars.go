@@ -10,7 +10,7 @@ import (
 
 func avatarGET(w http.ResponseWriter, r *http.Request) {
 
-	CookieDebugger(r, "AVATAR")
+	CookieDebugger(r, "AVATAR ENDPOINT (GET)")
 
 	username, ok := CompareTokens(w, r)
 	if !ok {
@@ -34,7 +34,7 @@ func avatarGET(w http.ResponseWriter, r *http.Request) {
 
 func avatarPOST(w http.ResponseWriter, r *http.Request) {
 
-	CookieDebugger(r, "AVATAR")
+	CookieDebugger(r, "AVATAR ENDPOINT (POST)")
 
 	username, ok := CompareTokens(w, r)
 	if !ok {
@@ -45,7 +45,7 @@ func avatarPOST(w http.ResponseWriter, r *http.Request) {
 
 	_ = r.ParseMultipartForm(10 << 20)
 
-	file, handler, e := r.FormFile("Avatar")
+	file, handler, e := r.FormFile("avatar")
 	if e != nil {
 		log.Println(Warn("Error retrieving image."), e)
 		return
@@ -83,15 +83,11 @@ func AvatarHandler(w http.ResponseWriter, r *http.Request) {
 
 func GetAvatar(username string, db *sql.DB) []byte {
 
-	var (
-		avatarid	int
-		userid		int
-		avatarBytes	[]byte
-	)
+	var avatarBytes []byte
 
-	r := db.QueryRow("SELECT * FROM avatars WHERE userid=(SELECT id FROM users WHERE username=$1);", username)
+	r := db.QueryRow("SELECT avatar FROM avatars WHERE userid=(SELECT id FROM users WHERE username=$1);", username)
 
-	e := r.Scan(&avatarid, &userid, &avatarBytes)
+	e := r.Scan(&avatarBytes)
 
 	if e != nil {
 		log.Println(Warn("Error retrieving image from database."))

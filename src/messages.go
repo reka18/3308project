@@ -3,9 +3,11 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"sort"
+	"strings"
 	"time"
 )
 
@@ -78,14 +80,36 @@ func GetMessages(username string, db *sql.DB, limit int) []byte {
 	friends := FetchMutualFollowers(username, db)
 
 	for _, id := range friends {
-		r, e := db.Query("SELECT * FROM messages WHERE fromid=$1 LIMIT $2;", id, limit)
+		r, e := db.Query("SELECT * FROM messages WHERE fromid=$1;", id)
 		if e != nil {
 			log.Println(Warn("Unable to fetch messages for id=", id))
 		} else if r != nil {
 			for r.Next() {
-				_ = r.Scan(&msg.Id, &msg.FromId, &msg.ToId, &msg.Content, &msg.Date, &msg.FriendlyDate)
+				_ = r.Scan(&msg.Id, &msg.FromId, &msg.ToId, &msg.Content, &msg.Date)
+
+				timestamp := strings.Split(msg.Date.String(), " ")
+				date := timestamp[0]
+				clock := strings.Split(timestamp[1], ".")[0][:5]
+				msg.FriendlyDate = fmt.Sprintf("%s @ %s", date, clock)
+
 				messages = append(messages, msg)
 			}
+		}
+	}
+
+	r, e := db.Query("SELECT * FROM messages WHERE fromid=(SELECT id FROM users WHERE username=$1);", username )
+	if e != nil {
+		log.Println(Warn("Unable to fetch messages for logged in user."))
+	} else if r != nil {
+		for r.Next() {
+			_ = r.Scan(&msg.Id, &msg.FromId, &msg.ToId, &msg.Content, &msg.Date)
+
+			timestamp := strings.Split(msg.Date.String(), " ")
+			date := timestamp[0]
+			clock := strings.Split(timestamp[1], ".")[0][:5]
+			msg.FriendlyDate = fmt.Sprintf("%s @ %s", date, clock)
+
+			messages = append(messages, msg)
 		}
 	}
 

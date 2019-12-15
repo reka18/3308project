@@ -101,7 +101,6 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 			timestamp := strings.Split(post.Date.String(), " ")
 			date := timestamp[0]
 			clock := strings.Split(timestamp[1], ".")[0][:5]
-
 			post.FriendlyDate = fmt.Sprintf("%s @ %s", date, clock)
 
 

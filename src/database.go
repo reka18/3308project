@@ -66,6 +66,10 @@ func generateTables(db *sql.DB) {
 	if e != nil {
 		log.Println(Fatal("Error"), e)
 	}
+	e = createTable(db, votesTable, "'votes' table")
+	if e != nil {
+		log.Println(Fatal("Error"), e)
+	}
 
 }
 

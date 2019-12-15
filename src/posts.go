@@ -2,7 +2,7 @@ package main
 
 import (
 	"database/sql"
-	json2 "encoding/json"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -83,7 +83,13 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 		if e != nil {
 			log.Println(Warn("Error scanning post."))
 		}
-		post.Date = strings.Split(post.Date, "T")[0]
+
+		timestamp := strings.Split(post.Date, "T")
+		date := timestamp[0]
+		clock := strings.Split(timestamp[1], ".")[0][:5]
+
+		post.Date = fmt.Sprintf("%s @ %s", date, clock)
+
 
 		e = db.QueryRow("SELECT username FROM users WHERE id=(SELECT userid FROM posts WHERE posts.id=$1);", post.Id).Scan(&post.UserName)
 		if e != nil {
@@ -93,13 +99,13 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 		response = append(response, post)
 	}
 
-	json, e := json2.Marshal(response)
+	js, e := json.Marshal(response)
 	if e != nil {
 		log.Println(Warn("Error making posts query."))
 	}
-	log.Println(Info("Post content: ", string(json)))
+	log.Println(Info("Post content: ", string(js)))
 
-	return json
+	return js
 }
 
 func MakePost(username string, post string, db *sql.DB) {

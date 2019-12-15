@@ -45,32 +45,26 @@ func generateTables(db *sql.DB) {
 	e := createTable(db, genderEnum, "'gender' enum")
 	if e != nil {
 		log.Println(Fatal("Error"), e)
-	} else {
-		log.Println(Success("Success."))
 	}
 	e = createTable(db, usersTable, "'users' table")
 	if e != nil {
 		log.Println(Fatal("Error"), e)
-	} else {
-		log.Println(Success("Success."))
 	}
 	e = createTable(db, postTable, "'posts' table")
 	if e != nil {
 		log.Println(Fatal("Error"), e)
-	} else {
-		log.Println(Success("Success."))
 	}
 	e = createTable(db, avatarTable, "'avatar' table")
 	if e != nil {
 		log.Println(Fatal("Error"), e)
-	} else {
-		log.Println(Success("Success."))
 	}
 	e = createTable(db, followTable, "'follow' table")
 	if e != nil {
 		log.Println(Fatal("Error"), e)
-	} else {
-		log.Println(Success("Success."))
+	}
+	e = createTable(db, messageTable, "'message' table")
+	if e != nil {
+		log.Println(Fatal("Error"), e)
 	}
 
 }

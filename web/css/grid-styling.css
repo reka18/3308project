@@ -1,37 +1,12 @@
-
-.r0
+#grid
 {
-    background-color: transparent!important;
-    border:none!important;
-}
-
-.slick-row
-{
-    background-color: transparent!important;
-    border: none!important;
-}
-
-.hidden-header
-{
-    display: none!important;
-}
-
-.hidden-cells
-{
-    display:none !important;
-}
-
-.ui-widget-content
-{
-    background: transparent!important;
-}
-
-::-webkit-scrollbar
-{
-    display: none;
-
-}
-
-::-webkit-scrollbar-track {
-    background: transparent;
+    width: 100%;
+    height: 800px;
+    margin: 0 auto;
+    overflow-y: scroll;
+    background: #2575fc;
+    background: -webkit-linear-gradient(left, #6a11cb, #2575fc);
+    background: -o-linear-gradient(left, #6a11cb, #2575fc);
+    background: -moz-linear-gradient(left, #6a11cb, #2575fc);
+    background: linear-gradient(left, #6a11cb, #2575fc);
 }

@@ -1645,7 +1645,7 @@
 		"oT": 1,
 		"q": 100
 		},
-	"/web/js/grid-setup.js": {
+	"/web/js/user-card-generator.js": {
 		"bF": 0,
 		"ft": 64,
 		"ma": 0,

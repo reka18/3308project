@@ -36,7 +36,7 @@ function deletePost()
 }
 
 
-function newPost2() //TODO Why does this not let you change it to newPost? Why the 2?
+function newPost()
 {
         console.log("new post fired");
 
@@ -48,10 +48,12 @@ function newPost2() //TODO Why does this not let you change it to newPost? Why t
 
 
         const postData = document.getElementById('postText').value;
+         document.getElementById("postText").innerText="";
+
 
         if(postData === "")
         {
-            alert("Enter some text to post!");
+            alert("Enter some text to post!")
             return;
         }
 
@@ -63,13 +65,11 @@ function newPost2() //TODO Why does this not let you change it to newPost? Why t
                     url: postURL,
                     success: function(responseData, status, responseObject)
                     {
-                            //perform some action on success
-                            console.log("success");
-                            console.log(responseData);
-                            console.log(status);
-                            console.log(responseObject);
-                            console.log("End Transmission5");
                             $('.modal').click()
+                            getPosts().then(function (results)
+                            {
+                                updatePosts(results);
+                            });
 
                     },
                     data: {
@@ -86,6 +86,51 @@ function newPost2() //TODO Why does this not let you change it to newPost? Why t
 
                     }
             });
+}
+
+
+
+async function getPosts()
+{
+    console.log("get post fired");
+
+    let windowURL = window.location.href;
+    let splitArray = windowURL.split("/");
+    const username = splitArray[3];
+    const postURL = username + "/post";
+
+
+    const result = await $.ajax(
+        {
+            type:'GET',
+            //TODO grab un from url onload and save for crud operations
+            url: postURL,
+            success: function(responseData, status, responseObject)
+            {
+                console.log("Post data sucessfully retrieved");
+                console.log("Post data length: " + responseData.length)
+                console.log("Post Data : " + responseData);
+                return responseData.reverse()
+            },
+            dataType: 'json',
+            data:{"limit":"500"},
+            cache: false,
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+
+                if(!thrownError)
+                {
+                    alert(xhr.status);
+                    alert(thrownError);
+                    alert(ajaxOptions);
+
+                }
+
+            }
+        })
+
+
+    return result;
 }
 
 

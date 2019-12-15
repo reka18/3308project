@@ -65,16 +65,6 @@ func UserPostHandler(w http.ResponseWriter, r *http.Request) {
 
 func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 
-	var (
-		postid    int
-		userid    int
-		content   string
-		upvotes   int
-		downvotes int
-		deleted   bool
-		date      string
-	)
-
 	r, e := db.Query("SELECT * FROM posts WHERE userid=(SELECT id FROM users WHERE username=$1) ORDER BY date LIMIT $2;",
 		username, pagelimit)
 
@@ -82,37 +72,41 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 		return nil
 	}
 
-	var response []Post
+	var (
+		response []Post
+		post Post
+	)
 
 	for r.Next() {
-		_ = r.Scan(&postid, &userid, &content, &upvotes, &downvotes, &deleted, &date)
-
-		p := Post{
-			Id:        postid,
-			UserId:    userid,
-			Content:   content,
-			UpVotes:   upvotes,
-			DownVotes: downvotes,
-			Date:      date,
+		e = r.Scan(&post.Id, &post.UserId, &post.Content, &post.UpVotes, &post.DownVotes, &post.Deleted, &post.Date)
+		if e != nil {
+			log.Println(Warn("Error scanning post."))
 		}
-		response = append(response, p)
+
+		response = append(response, post)
 	}
+
 	json, e := json2.Marshal(response)
 	if e != nil {
 		log.Println(Warn("Error making posts query."))
 	}
-	log.Println(Info("Post content: ", json))
+	log.Println(Info("Post content: ", string(json)))
 
 	return json
 }
 
 func MakePost(username string, post string, db *sql.DB) {
 
-	_, e := db.Exec("INSERT INTO posts (userid, content, upvotes, downvotes, deleted, date) VALUES ((SELECT id FROM users WHERE username=$1), $2, 0, 0, false, $3);",
+	r, e := db.Exec("INSERT INTO posts (userid, content, upvotes, downvotes, deleted, date) VALUES ((SELECT id FROM users WHERE username=$1), $2, 0, 0, false, $3);",
 		username, post, time.Now())
 	if e != nil {
-		log.Println(Warn("Unable to execute post query."))
+		log.Println(Warn("Unable to make post in database."))
 		log.Println(Warn(e))
+	}
+
+	c, _ := r.RowsAffected()
+	if c != 0 {
+		log.Println(Success("Successfully added post to database."))
 	}
 
 }

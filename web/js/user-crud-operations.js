@@ -59,23 +59,17 @@ function newPost()
 
 async function getPosts()
 {
-    console.log("get post fired");
-
-    let windowURL = window.location.href;
-    let splitArray = windowURL.split("/");
-    const username = splitArray[3];
-    const postURL = username + "/post";
-
-    const [result] = await Promise.all([$.ajax(
+    const postURL = getUsername() + "/post";
+    const result = await $.ajax(
         {
             type: 'GET',
             //TODO grab un from url onload and save for crud operations
             url: postURL,
-            success: function (responseData, status, responseObject) {
-                console.log("Post data successfully retrieved");
-                console.log("Post data length: " + responseData.length);
-                console.log("Post Data : " + responseData);
-                return responseData.reverse()
+            success: function(responseData, status, responseObject)
+            {
+                if(responseData) {
+                    return responseData.reverse();
+                }
             },
             dataType: 'json',
             data: {"limit": "500"},
@@ -91,4 +85,41 @@ async function getPosts()
         })]);
 
     return result;
+}
+
+
+
+function userSearch()
+{
+    let getUrl = window.location;
+    let baseUrl = getUrl .protocol + "//" + getUrl.host + "/";
+    const searchURL = baseUrl + "search";
+    let searchTerms = document.getElementById('userSearchBar').value;
+
+    if(!searchTerms) {
+        return}
+
+    $.ajax(
+        {
+            type:'GET',
+            url: searchURL,
+            success: function(responseData, status, responseObject)
+            {
+                console.log("Search: " + JSON.stringify(responseData));
+            },
+            data:{"terms":searchTerms},
+            dataType: 'json',
+            cache: false
+
+        });
+}
+
+
+function getUsername()
+{
+    let windowURL = window.location.href;
+    let splitArray = windowURL.split("/");
+    const username = splitArray[3];
+    return username
+
 }

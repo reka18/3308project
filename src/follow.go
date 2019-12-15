@@ -14,12 +14,13 @@ func followGET(w http.ResponseWriter, r *http.Request) {
 
 	username, ok := CompareTokens(w, r)
 	if !ok {
+		http.Redirect(w, r, "login", http.StatusSeeOther)
 		return
 	}
 
 	RefreshCookie(username)
 
-	limit := ParseLimit(r, 5)
+	limit := ParseLimitQuery(r, 5)
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
@@ -32,12 +33,13 @@ func followPOST(w http.ResponseWriter, r *http.Request) {
 
 	CookieDebugger(r, "FOLLOW ENDPOINT (POST)")
 
-	_ = r.ParseForm()
-
 	username, ok := CompareTokens(w, r)
 	if !ok {
+		http.Redirect(w, r, "login", http.StatusSeeOther)
 		return
 	}
+
+	_ = r.ParseForm()
 
 	RefreshCookie(username)
 

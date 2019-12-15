@@ -6,6 +6,10 @@ function generate_user_card(postObject)
 {
 	cards_holder.push(postObject);
 
+	let windowURL = window.location.href;
+	let splitArray = windowURL.split("/");
+	const username = splitArray[3];
+
 	return `
 	<div class="post-layout-box-2 animated zoomInUp delay-1s">
 		<div class="user-profile-icon-container-2">
@@ -23,14 +27,14 @@ function generate_user_card(postObject)
 		<div class="reaction-bar-container-2">
 			<div class="reaction-bar-2">
 				<div class="reactions-container-2">
-					<a href="javascript:void(0)" onclick="reactToPost(postID)">
+					<a href="/${username}/vote?cast=up-${postObject.getId()}">
 						<img class="reaction-icons-2" src="images/thumbs-up-opt-512.png">
 					</a>
 					<div class="reaction-counters-2">${postObject.getUpVotes()}</div>
 				</div>
 		
 				<div class="reactions-container-2">
-					<a href="javascript:void(0)" onclick="reactToPost(postID,5)">
+					<a href="/${username}/vote?cast=down-${postObject.getId()}">
 						<img class="reaction-icons-2" src="images/thumbs-down-opt-512.png">
 					</a>
 					<div class="reaction-counters-2">${postObject.getDownVotes()}</div>

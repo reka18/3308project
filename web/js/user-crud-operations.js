@@ -59,16 +59,21 @@ function newPost()
 
 async function getPosts()
 {
-    const postURL = getUsername() + "/post";
+    console.log("get post fired");
+
+    const username = getUsername();
+    const postURL = username + "/post";
+
     const [result] = await Promise.all([$.ajax(
         {
             type: 'GET',
             //TODO grab un from url onload and save for crud operations
             url: postURL,
             success: function (responseData, status, responseObject) {
-                if (responseData) {
-                    return responseData.reverse();
-                }
+                console.log("Post data successfully retrieved");
+                console.log("Post data length: " + responseData.length);
+                console.log("Post Data : " + responseData);
+                return responseData.reverse()
             },
             dataType: 'json',
             data: {"limit": "500"},
@@ -85,6 +90,7 @@ async function getPosts()
 
     return result;
 }
+
 
 
 

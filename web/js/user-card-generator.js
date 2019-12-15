@@ -32,39 +32,22 @@ function generate_user_card(postObject)
 				</div>
 		
 				<div class="reactions-container-2">
-					<a href="javascrpt:void(0)" onclick="reactToPost(postID,1)">
-						<img class="reaction-icons-2" src="images/laughing-opt-512.png">
-					</a>
-					<div class="reaction-counters-2">7</div>
-				</div>
-		
-				<div class="reactions-container-2">
-					<a href="javascrpt:void(0)" onclick="reactToPost(postID,2)">
-						<img class="reaction-icons-2" src="images/happy-opt-512.png">
-					</a>
-					<div class="reaction-counters-2">9</div>
-				</div>
-		
-				<div class="reactions-container-2">
-					<a href="javascrpt:void(0)" onclick="reactToPost(postID,3)">
-						<img class="reaction-icons-2" src="images/sad-opt-512.png">
-					</a>
-					<div class="reaction-counters-2">1</div>
-				</div>
-		
-				<div class="reactions-container-2">
-					<a href="javascrpt:void(0)" onclick="reactToPost(postID,4)">
-						<img class="reaction-icons-2" src="images/angry-opt-512.png">
-					</a>
-					<div class="reaction-counters-2">0</div>
-				</div>
-		
-				<div class="reactions-container-2">
 					<a href="javascrpt:void(0)" onclick="reactToPost(postID,5)">
 						<img class="reaction-icons-2" src="images/thumbs-down-opt-512.png">
 					</a>
 					<div class="reaction-counters-2">2</div>
 				</div>
+				
+				
+				<div class="reactions-container-2">
+					<a href="javascrpt:void(0)" onclick="reactToPost(postID,5)">
+						<img class="reaction-icons-2" src="images/follow-opt-512.png">
+					</a>
+					<div class="reaction-counters-2">2</div>
+				</div>
+				
+				
+				
 			</div>
 		</div>
 	</div>
@@ -135,6 +118,37 @@ function generate_user_card(postObject)
          </div>
      </div>
 	`;
+
+
+
+
+		<div class="reactions-container-2">
+					<a href="javascrpt:void(0)" onclick="reactToPost(postID,1)">
+						<img class="reaction-icons-2" src="images/laughing-opt-512.png">
+					</a>
+					<div class="reaction-counters-2">7</div>
+				</div>
+
+				<div class="reactions-container-2">
+					<a href="javascrpt:void(0)" onclick="reactToPost(postID,2)">
+						<img class="reaction-icons-2" src="images/happy-opt-512.png">
+					</a>
+					<div class="reaction-counters-2">9</div>
+				</div>
+
+				<div class="reactions-container-2">
+					<a href="javascrpt:void(0)" onclick="reactToPost(postID,3)">
+						<img class="reaction-icons-2" src="images/sad-opt-512.png">
+					</a>
+					<div class="reaction-counters-2">1</div>
+				</div>
+
+				<div class="reactions-container-2">
+					<a href="javascrpt:void(0)" onclick="reactToPost(postID,4)">
+						<img class="reaction-icons-2" src="images/angry-opt-512.png">
+					</a>
+					<div class="reaction-counters-2">0</div>
+				</div>
 
 		 */
 

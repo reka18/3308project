@@ -91,7 +91,7 @@ async function getPosts()
                     alert(ajaxOptions);
                 }
             }
-        });
+        })]);
 
     return result;
 }

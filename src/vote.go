@@ -24,6 +24,7 @@ func voteGET(w http.ResponseWriter, r *http.Request) {
 	vote, postid := ParseVoteQuery(r)
 
 	CastVote(vote, postid, username, db)
+	CountVotes(postid, username, db)
 	http.Redirect(w, r, fmt.Sprintf("/%s", username), http.StatusSeeOther)
 
 }
@@ -66,6 +67,19 @@ func CastVote(vote string, postid int, username string, db *sql.DB) {
 			log.Println(Warn("Error incrementing downvote field in database."))
 		}
 	}
+
+}
+
+func CountVotes(postid int, db *sql.DB) {
+
+	var count int
+
+	r := db.QueryRow("SELECT upvotes FROM posts WHERE id=$1;", postid).Scan(&count)
+	if r != nil {
+		log.Println(Warn("Unable to fetch count for postid=", postid))
+	}
+
+
 
 }
 

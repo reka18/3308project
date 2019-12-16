@@ -121,10 +121,9 @@ function userSearch()
             url: searchURL,
             success: function(responseData, status, responseObject)
             {
-                console.log("Search: " + JSON.stringify(responseData));
+                showUserSearchResults(responseData);
             },
             data:{"terms":searchTerms},
-            dataType: 'json',
             cache: false,
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(JSON.stringify((xhr)));

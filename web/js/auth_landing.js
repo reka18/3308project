@@ -39,5 +39,12 @@ function userLogout()
     window.location.href = "logout";
 }
 
+function showUserSearchResults(searchResults)
+{
+    console.log(JSON.stringify(searchResults)[0]);
+
+
+}
+
 
 

@@ -46,8 +46,8 @@ func CastVote(vote string, postid int, username string, db *sql.DB) []byte {
 	var votes Votes
 
 	if CheckHasVoted(postid, username, db) {
-		log.Println(Warn(username, " has already voted for postid=", postid))
-		votes = Votes{}
+		log.Printf(Warn(username, "'%s' has already voted for postid = ", postid))
+		return []byte{}
 	}
 
 	_, e := db.Exec("INSERT INTO votes (postid, userid) VALUES ($1, (SELECT id FROM users WHERE username=$2));",

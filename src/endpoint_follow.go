@@ -57,7 +57,7 @@ func FollowUser(username string, targetname string, db *sql.DB) error {
 	_, e := db.Exec("INSERT INTO follow (userid, followid, date) VALUES ((SELECT id FROM users WHERE username=$1), (SELECT id FROM users WHERE username=$2), $3);",
 		username, targetname, time.Now())
 	if e != nil {
-		log.Println(Warn("Unable to execute follow query."))
+		log.Println(Warn("Already followed."))
 	}
 	return e
 

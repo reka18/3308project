@@ -13,6 +13,7 @@ func createUserAccountGET(w http.ResponseWriter, r *http.Request) {
 
 	CookieDebugger(r, "CREATE ACCOUNT")
 
+	w.WriteHeader(http.StatusOK)
 	t := template.Must(template.ParseFiles("web/create_account.html"))
 	_ = t.Execute(w, "")
 

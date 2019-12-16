@@ -24,6 +24,7 @@ func avatarGET(w http.ResponseWriter, r *http.Request) {
 
 	bytes := GetAvatar(ParseAvatarQuery(r), db)
 
+	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "image/png")
 	_, e := w.Write(bytes)
 	if e != nil {

@@ -40,26 +40,32 @@
 
 </head>
 <body class="body">
-<div class="limiter">
-    <div style="flex-direction: column; display: flex; justify-content: center; align-items: center; margin-top:20px; margin-bottom:20px;">
-        <div style="display: inline-block;">
-            <span style="font-size: 26px; font-weight: bold; color: white; margin-top: 10px; margin-bottom: 10px;">{{.}}</span>
-        </div>
 
-        <div style="display:block; margin-top: 5px; margin-bottom: 5px;" id="avatar">
-            <img src="avatar?user={{.}}" width=180 height=180 style="margin-bottom: 12px;" alt="unable to load">
-        </div>
 
-        <div style="display: block; margin-top: 10px; margin-bottom: 10px;">
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#avatarModal">
-                Change Avatar
-            </button>
-            <button type="button" style="display:inline-block !important;" class="btn btn-warning" onclick="userLogout()">Logout</button>
-        </div>
+<nav class="brown-nav fixed-top navbar navbar-expand-lg navbar-dark">
+
+    <a class="navbar-brand" href="../contents.html">
+        <img src="avatar?user={{.}}" width="100" height="100" alt="">&nbsp;&nbsp;{{.}}</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><button type="button" class="navbar-brand nav-link" data-toggle="modal" data-target="#avatarModal">Change Avatar</button></li>
+            <li class="nav-item"><button type="button" class="navbar-brand nav-link" data-toggle="modal" data-target="#infoModal">My Info</button></li>
+            <li class="nav-item"><button type="button" style="display:inline-block !important;" class="nav-link" onclick="userLogout()">Logout</button></li>
+        </ul>
     </div>
 
+</nav>
 
-        <div class="container-fluid">
+
+<div class="limiter">
+
+
+        <div class="container-fluid" style="margin-top: 200px;">
             <h1 class="login100-form-title p-b-43">ScreeBit</h1>
 
             <!-- Modal -->
@@ -71,6 +77,20 @@
                                 <input type="file" name="avatar" accept="image/*"><br>
                                 <button type="submit" class="login100-form-btn-solo w-full h-25" style="margin-top: 10px">SUBMIT</button>
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h2>My Info</h2><br>
+                            <h5 style="font-weight: bold">Username: <span style="font-weight: normal">{{.}}</span></h5>
+                            <h5 style="font-weight: bold">Fullname: <span style="font-weight: normal"></span></h5>
+                            <h5 style="font-weight: bold">Join Date: <span style="font-weight: normal"></span></h5>
                         </div>
                     </div>
                 </div>

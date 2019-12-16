@@ -8,16 +8,16 @@ import (
 
 func userLogoutGET(w http.ResponseWriter, r *http.Request) {
 
-	CookieDebugger(r, "LOGOUT")
+	CookieDebugger(r, "LOGOUT PAGE (GET)")
 
 	t := template.Must(template.ParseFiles("web/logout_success.html"))
 	_ = t.Execute(w, "")
 
-	cookie, _ := r.Cookie("socialmediasite")
+	cookie, _ := r.Cookie("screebit")
 	values := strings.Split(cookie.Value, ":")
 	username := values[0]
 
-	DeleteCookie(w, username)
+	DeleteCookie(username)
 }
 
 func UserLogoutHandler(w http.ResponseWriter, r *http.Request) {

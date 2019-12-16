@@ -4,10 +4,10 @@ import "fmt"
 
 var (
 	Success = Green
-	Info = White
-	Warn = Yellow
-	Fatal = Red
-	Detail = Teal
+	Info    = White
+	Warn    = Yellow
+	Fail    = Red
+	Detail  = Teal
 )
 
 var (

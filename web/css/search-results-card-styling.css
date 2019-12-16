@@ -50,4 +50,5 @@
 .search-results-user-information
 {
     display: block;
+    word-break: break-word;
 }

@@ -41,7 +41,19 @@ function userLogout()
 
 function showUserSearchResults(searchResults)
 {
-    console.log(JSON.stringify(searchResults)[0]);
+
+    document.getElementById('searchCardContainer').innerHTML="";
+    let jsonSearchData = JSON.parse(searchResults);
+    let searchCardViews = '';
+    jsonSearchData.forEach( user =>
+        {
+            searchCardViews += search_results_card_generator(user);
+        }
+    );
+
+    $('#searchCardContainer').prepend(searchCardViews);
+    $('#exampleModalLong').modal('toggle');
+
 
 
 }

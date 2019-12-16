@@ -26,7 +26,9 @@ func postsGET(w http.ResponseWriter, r *http.Request) {
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
-	code, _ := w.Write(GetPosts(username, db, limit))
+
+	posts := GetPosts(username, db, limit)
+	code, _ := w.Write(posts)
 	log.Println(Info("Write-back response: ", code))
 
 }

@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 )
@@ -25,9 +24,8 @@ func voteGET(w http.ResponseWriter, r *http.Request) {
 	vote, postid := ParseVoteQuery(r)
 
 	votes := CastVote(vote, postid, username, db)
-	log.Println(Fail(string(votes)))
-
-	http.Redirect(w, r, fmt.Sprintf("/%s", username), http.StatusSeeOther)
+	code, _ := w.Write(votes)
+	log.Println(Info("Write-back response: ", code))
 
 }
 

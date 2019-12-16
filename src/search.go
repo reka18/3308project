@@ -88,7 +88,13 @@ func SearchUser(input []string, db *sql.DB) []byte {
 		}
 	}
 
-	json, e := json2.Marshal(userSet)
+	var userResponse []SearchResult
+
+	for _, v := range userSet {
+		userResponse = append(userResponse, v)
+	}
+
+	json, e := json2.Marshal(userResponse)
 	if e != nil {
 		log.Println(Warn("Error making search query."))
 	}

@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -21,14 +22,10 @@ func voteGET(w http.ResponseWriter, r *http.Request) {
 	db, _ := Database(DBNAME)
 	defer db.Close()
 
-	// vote, postid := ParseVoteQuery(r)
+	vote, postid := ParseVoteQuery(r)
 
-	// votes := CastVote(vote, postid, username, db)
-	// if votes.PostId == 0 {
-	// 	log.Println(Warn("Unable to vote."))
-	// } else {
-	// 	w.Write(count)
-	// }
+	votes := CastVote(vote, postid, username, db)
+	log.Println(votes)
 
 	http.Redirect(w, r, fmt.Sprintf("/%s", username), http.StatusSeeOther)
 
@@ -67,16 +64,22 @@ func CastVote(vote string, postid int, username string, db *sql.DB) []byte {
 		if e != nil {
 			log.Println(Warn("Error incrementing upvote field in database."))
 		}
-		 return countVotes(postid, db)
+		 votes = countVotes(postid, db)
 	}
 	if vote == "down" {
 		_, e := db.Exec("UPDATE posts SET downvotes=downvotes+1 WHERE id=$1;", postid)
 		if e != nil {
 			log.Println(Warn("Error incrementing downvote field in database."))
 		}
-		return countVotes(postid, db)
+		votes = countVotes(postid, db)
 	}
-	votes = Votes{}
+
+	js, e := json.Marshal(votes)
+	if e != nil {
+		log.Println(Warn("Unable to parse votes into json object."))
+	}
+	return js
+
 }
 
 func countVotes(postid int, db *sql.DB) Votes {

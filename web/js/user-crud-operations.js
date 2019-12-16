@@ -115,7 +115,6 @@ function userSearch()
             data:{"terms":searchTerms},
             dataType: 'json',
             cache: false
-
         });
 }
 
@@ -124,7 +123,6 @@ function getUsername()
 {
     let windowURL = window.location.href;
     let splitArray = windowURL.split("/");
-    const username = splitArray[3];
-    return username
+    return splitArray[3]
 
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"sync"
 	"time"
@@ -72,4 +73,11 @@ type Avatar struct {
 	Id		int
 	UserId	int
 	Avatar	[]byte
+}
+
+// ERRORS
+type EmptyStringError struct {}
+
+func (e *EmptyStringError) Error() string {
+	return fmt.Sprint("empty string error")
 }

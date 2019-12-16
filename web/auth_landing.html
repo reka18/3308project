@@ -45,7 +45,7 @@
 <nav class="brown-nav fixed-top navbar navbar-expand-lg navbar-dark">
 
     <a class="navbar-brand" href="../contents.html">
-        <img src="avatar?user={{.}}" width="100" height="100" alt="">&nbsp;&nbsp;{{.}}</a>
+        <img src="avatar?user={{.Username}}" width="100" height="100" alt="">&nbsp;&nbsp;{{.Username}}</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -88,9 +88,9 @@
                     <div class="modal-content">
                         <div class="modal-body">
                             <h2>My Info</h2><br>
-                            <h5 style="font-weight: bold">Username: <span style="font-weight: normal">{{.}}</span></h5>
-                            <h5 style="font-weight: bold">Fullname: <span style="font-weight: normal"></span></h5>
-                            <h5 style="font-weight: bold">Join Date: <span style="font-weight: normal"></span></h5>
+                            <h5 style="font-weight: bold">Username: <span style="font-weight: normal">{{.Username}}</span></h5>
+                            <h5 style="font-weight: bold">Fullname: <span style="font-weight: normal">{{.Firstname}} {{.Lastname}}</span></h5>
+                            <h5 style="font-weight: bold">Join Date: <span style="font-weight: normal">{{.FriendlyJoinDate}}</span></h5>
                         </div>
                     </div>
                 </div>

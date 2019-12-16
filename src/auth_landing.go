@@ -29,11 +29,11 @@ func usrLandingGET(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Println(Info("User content: ", string(js)))
 
-	code, _ := w.Write(js)
-	log.Println(Info("Write-back response: ", code))
+	//code, _ := w.Write(js)
+	//log.Println(Info("Write-back response: ", code))
 
 	t := template.Must(template.ParseFiles("web/auth_landing.html"))
-	_ = t.Execute(w, username)
+	_ = t.Execute(w, user)
 }
 
 func UserLandingHandler(w http.ResponseWriter, r *http.Request) {

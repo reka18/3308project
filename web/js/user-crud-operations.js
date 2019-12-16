@@ -70,7 +70,7 @@ async function getPosts()
     const username = getUsername();
     const postURL = username + "/post";
 
-    const [result] = await Promise.all([$.ajax(
+    const [result] = await $.ajax(
         {
             type: 'GET',
             url: postURL,
@@ -91,7 +91,7 @@ async function getPosts()
                     alert(ajaxOptions);
                 }
             }
-        })]);
+        });
 
     return result;
 }

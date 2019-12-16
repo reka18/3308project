@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="css/timeline.css"/>
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/post-template-styling-2.css?version=51"/>
+    <link rel="stylesheet" type="text/css" href="css/search-results-card-styling.css"/>
     <!--===============================================================================================-->
     <!--Jquery Plugin-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -37,6 +38,7 @@
     <script src="js/user-crud-operations.js?v11"></script>
     <script src="js/auth_landing.js?v11"></script>
     <script src="js/user-card-generator.js?v11"></script>
+    <script src="js/search-results-card-generator.js?v11"></script>
 
 </head>
 <body class="body">
@@ -149,14 +151,9 @@
 
 </div>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-    Launch demo modal
-</button>
-
 <!-- search results Modal -->
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div id="searchCardContainer" class="modal-dialog" role="document">
 
     </div>
 </div>

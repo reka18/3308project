@@ -133,6 +133,12 @@ function userSearch()
 }
 
 
+function upVotePost(da)
+{
+
+}
+
+
 function getUsername()
 {
     let windowURL = window.location.href;

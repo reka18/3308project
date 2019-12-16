@@ -41,14 +41,22 @@
 </head>
 <body class="body">
 <div class="limiter">
-    <div class="container-login100">
-        <div id="avatar">
+    <div style="flex-direction: column; display: flex; justify-content: center; align-items: center; margin-top:20px; margin-bottom:20px;">
+        <div style="display: inline-block;">
+            <span style="font-size: 26px; font-weight: bold; color: white; margin-top: 10px; margin-bottom: 10px;">{{.}}</span>
+        </div>
+
+        <div style="display:block; margin-top: 5px; margin-bottom: 5px;" id="avatar">
             <img src="avatar?user={{.}}" width=180 height=180 style="margin-bottom: 12px;" alt="unable to load">
-            <button type="button" class="login100-form-btn-solo w-full h-50"  style="background-color: indianred;" data-toggle="modal" data-target="#avatarModal">
+        </div>
+
+        <div style="display: block; margin-top: 10px; margin-bottom: 10px;">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#avatarModal">
                 Change Avatar
             </button>
-            <h1 style="font-size: 16px; font-weight: bold; margin-top: -50px; color: white; padding-left: 5px">{{.}}</h1>
         </div>
+    </div>
+
 
         <div class="container-fluid">
             <h1 class="login100-form-title p-b-43">Social Media Site</h1>
@@ -67,12 +75,18 @@
                 </div>
             </div>
 
+
+            <!-- Search form -->
+            <div style="flex-direction: column; display: flex; justify-content: center; align-items: center; margin-top:10px; margin-bottom:10px;">
+                <input class="form-control" id="userSearchBar" style="width: 500px; margin-top: 10px; margin-bottom: 10px;" type="text" placeholder="Search" aria-label="Search"><button type="button" class="btn btn-secondary" onclick=userSearch()>User Search</button>
+            </div><br>
+
             <!-- Button trigger modal -->
             <div class="container-login100-form-btn" style="margin: 0 auto; width: 600px">
                 <button type="button" class="login100-form-btn-solo w-75"  style="background-color: forestgreen;" data-toggle="modal" data-target="#exampleModalCenter" onclick= getTime()>
                     NEW POST
                 </button>
-            </div><br>
+
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -101,7 +115,7 @@
                 </div>
             </div>
         </div>
-        <div id="grid" class="grid"></div>
+        <div id="grid" class="grid" style="margin-top: 25px;"></div>
         <div class="text-center w-full p-t-23">
             <a href="logout" class="txt1" style="position: absolute; bottom: 25px;">
                 Logout

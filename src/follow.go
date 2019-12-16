@@ -14,7 +14,6 @@ func followGET(w http.ResponseWriter, r *http.Request) {
 
 	username, ok := CompareTokens(w, r)
 	if !ok {
-		http.Redirect(w, r, "login", http.StatusSeeOther)
 		return
 	}
 
@@ -53,7 +52,7 @@ func FollowHandler(w http.ResponseWriter, r *http.Request) {
 
 func FollowUser(username string, targetname string, db *sql.DB) error {
 
-	_, e := db.Exec("INSERT INTO follow (userid, followid, date, mutual) VALUES ((SELECT id FROM users WHERE username=$1), (SELECT id FROM users WHERE username=$2), date, mutual);",
+	_, e := db.Exec("INSERT INTO follow (userid, followid, date) VALUES ((SELECT id FROM users WHERE username=$1), (SELECT id FROM users WHERE username=$2), $3);",
 		username, targetname, time.Now())
 	if e != nil {
 		log.Println(Warn("Unable to execute follow query."))
@@ -80,7 +79,7 @@ func FetchFollowed(username string, db *sql.DB, limit int) []byte {
 
 		var f FollowedUser
 		f.User = GetUserById(followid, db)
-		f.Mutual = IsFollower(username, followid, db)
+		f.Mutual = IsFollowerIdToName(followid, username, db)
 
 		log.Println(Info(f))
 
@@ -96,20 +95,63 @@ func FetchFollowed(username string, db *sql.DB, limit int) []byte {
 
 }
 
-func IsFollower(username string, targetid int, db *sql.DB) bool {
+func FetchMutualFollowers(username string, db *sql.DB) []int {
+
+	var id int
+	var ids []int
+
+	r, e := db.Query("SELECT followid FROM follow WHERE userid=(SELECT id FROM users WHERE username=$1);",
+		username)
+	if e != nil {
+		log.Println(Warn("Unable to retrieve relevant ids."))
+	}
+	if r != nil {
+		for r.Next() {
+			_ = r.Scan(&id)
+			if IsFollowerIdToName(id, username, db) {
+				ids = append(ids, id)
+			}
+		}
+	}
+	return ids
+}
+
+func IsFollowerIdToName(follower int, followed string, db *sql.DB) bool {
 
 	r, e := db.Exec("SELECT * FROM follow WHERE userid=$1 AND followid=(SELECT id FROM users WHERE username=$2);",
-		targetid, username)
+		follower, followed)
 	if e != nil {
 		log.Println(Warn("Error making follow status database query."))
 	}
-	count, e := r.RowsAffected()
-	if e != nil {
-		log.Println(Warn("Error getting follow status count from database response."))
-	}
-
-	if count != 0 {
-		return true
+	if r != nil {
+		count, e := r.RowsAffected()
+		if e != nil {
+			log.Println(Warn("Error getting follow status count from database response."))
+		}
+		if count != 0 {
+			return true
+		}
 	}
 	return false
+
+}
+
+func IsFollowerNameToName(follower string, followed string, db *sql.DB) bool {
+
+	r, e := db.Exec("SELECT * FROM follow WHERE userid=(SELECT id FROM users WHERE username=$1) AND followid=(SELECT id FROM users WHERE username=$2);",
+		follower, followed)
+	if e != nil {
+		log.Println(Warn("Error making follow status database query."))
+	}
+	if r != nil {
+		count, e := r.RowsAffected()
+		if e != nil {
+			log.Println(Warn("Error getting follow status count from database response."))
+		}
+		if count != 0 {
+			return true
+		}
+	}
+	return false
+
 }

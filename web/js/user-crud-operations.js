@@ -130,8 +130,32 @@ function userSearch()
 
 function followUser(userName)
 {
-    userName = 'fu';
-    console.log(userName);
+    const followURL = getUsername() + "/follow";
+
+    $.ajax(
+        {
+            type:'GET',
+            url: followURL,
+            success: function(responseData, status, responseObject)
+            {
+                if(!responseData)
+                {
+                    return;
+                }
+
+            },
+            data:{"user":userName},
+            cache: false,
+            error: function (xhr, ajaxOptions, thrownError)
+            {
+                console.log(JSON.stringify((xhr)));
+                alert(xhr);
+                alert(thrownError);
+                alert(ajaxOptions);
+            }
+
+
+        });
 
 }
 

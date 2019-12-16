@@ -84,14 +84,6 @@ async function getPosts()
             dataType: 'json',
             data: {"limit": "500"},
             cache: false,
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                if (!thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                    alert(ajaxOptions);
-                }
-            }
         });
 
     return result;
@@ -116,6 +108,10 @@ function userSearch()
             url: searchURL,
             success: function(responseData, status, responseObject)
             {
+                if(!responseData)
+                {
+                    return;
+                }
                 showUserSearchResults(responseData);
             },
             data:{"terms":searchTerms},
@@ -129,6 +125,14 @@ function userSearch()
 
 
         });
+}
+
+
+function followUser(userName)
+{
+    userName = 'fu';
+    console.log(userName);
+
 }
 
 

@@ -5,6 +5,11 @@ $( window ).on("load", async function()
     {
         let cardViews = document.getElementById('grid').innerHTML;
 
+        if(!postData)
+        {
+            return;
+        }
+
         if(postData.length)
         {
             for(let x = 0; x < postData.length ; x++)
@@ -41,10 +46,11 @@ function userLogout()
 
 function showUserSearchResults(searchResults)
 {
-
     document.getElementById('searchCardContainer').innerHTML="";
     let jsonSearchData = JSON.parse(searchResults);
     let searchCardViews = '';
+
+
     jsonSearchData.forEach( user =>
         {
             searchCardViews += search_results_card_generator(user);
@@ -53,9 +59,6 @@ function showUserSearchResults(searchResults)
 
     $('#searchCardContainer').prepend(searchCardViews);
     $('#exampleModalLong').modal('toggle');
-
-
-
 }
 
 

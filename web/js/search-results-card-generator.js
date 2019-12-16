@@ -1,9 +1,7 @@
 
-var search_results_holder=[];
-
-
 function search_results_card_generator(userObject)
 {
+	var userName = userObject['User']['Username'];
 
 	return `
 	 <div class="card text-white bg-dark mb-3 card-plus"> <!--column flex-->
@@ -12,7 +10,7 @@ function search_results_card_generator(userObject)
                 	<img class="search-results-user-image" src="avatar?user=rg"/>
                 </div>
                 <div class="search-results-user-details-container">
-                    <h5 class="card-title card-title-plus">${userObject['User']['Username']}</h5>
+                    <div><h5 class="card-title card-title-plus">${userName}</h5><a href="#"><img class="search-results-follow-icon followMe" onclick="followUser('userObject[User][Username]')" class="search-results-follow-icon" src="images/follow-opt-w-512.png"/></a></div>
                     <div class="search-results-user-information-container">
                         <span class="search-results-user-information">First name: ${userObject['User']['Firstname']} </span>
                         <span class="search-results-user-information">Last name: ${userObject['User']['Lastname']} </span>

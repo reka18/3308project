@@ -28,6 +28,7 @@
     padding:1px;
 }
 
+
 .search-results-user-details-container
 {
     padding: 5px;
@@ -38,7 +39,22 @@
 {
     margin-top: 5px;
     margin: 0, auto;
+    display: inline-block;
 }
+
+.search-results-follow-icon
+{
+    display: block;
+    height:32px;
+    width:32px;
+    padding:1px;
+    display: inline-block;
+    float: right;
+    margin-right:10px;
+}
+
+search-results-follow-icon:hover
+{}
 
 .search-results-user-information-container
 {

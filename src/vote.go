@@ -25,7 +25,7 @@ func voteGET(w http.ResponseWriter, r *http.Request) {
 	vote, postid := ParseVoteQuery(r)
 
 	votes := CastVote(vote, postid, username, db)
-	log.Println(votes)
+	log.Println(Fail(string(votes)))
 
 	http.Redirect(w, r, fmt.Sprintf("/%s", username), http.StatusSeeOther)
 

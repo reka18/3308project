@@ -30,8 +30,10 @@ func followGET(w http.ResponseWriter, r *http.Request) {
 		if e != nil {
 			log.Println(Warn("Unable to follow ", user))
 		}
+		w.WriteHeader(http.StatusOK)
 	}
 
+	// TODO display followed
 	followList := FetchFollowed(username, db, limit)
 	_, _ = w.Write(followList)
 

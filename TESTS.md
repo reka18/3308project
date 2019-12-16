@@ -1,4 +1,4 @@
-### Project Title: Social Media Site
+### Project Title: ScreeBit
 ### Team Members: Regan Karnes, Rodrigo Garcia, Dominick Graham
 
 <br/><br/>

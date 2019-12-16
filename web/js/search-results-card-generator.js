@@ -16,7 +16,7 @@ function search_results_card_generator(userObject)
                         <span class="search-results-user-information">Last name: ${userObject['User']['Lastname']} </span>
                         <span class="search-results-user-information">Age: ${userObject['User']['Age']}</span>
                         <span class="search-results-user-information">Email:  ${userObject['User']['Email']}</span>
-                        <span class="search-results-user-information">Join Date: ${userObject['User']['Joindate']}</span>
+                        <span class="search-results-user-information">Join Date: ${userObject['User']['FriendlyJoinDate']}</span>
                         <span class="search-results-user-information">Gender: ${userObject['User']['Gender']}</span>
                     </div>
                 </div>

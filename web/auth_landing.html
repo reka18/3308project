@@ -40,21 +40,35 @@
 
 </head>
 <body class="body">
+    <nav class="brown-nav fixed-top navbar navbar-expand-lg navbar-dark">
+
+        <div style="display:block; margin-top: 5px; margin-bottom: 5px; position:absolute; padding-left:20px;" id="avatar">
+            <img src="avatars/?user={{.Username}}" width=90 height=90 style="margin-bottom: 12px;" alt="Unable to Load">
+        </div>
+
+        <div style="display: block; margin-top: 10px; margin-bottom: 10px; position:relative; top:75px;">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#avatarModal">
+                Change Avatar
+            </button>
+        </div>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item"><a class="nav-link" href="/logout">Sign Out</a></li>
+        </ul>
+      </div>
+
+    </nav>
 <div class="limiter">
     <div style="flex-direction: column; display: flex; justify-content: center; align-items: center; margin-top:20px; margin-bottom:20px;">
         <div style="display: inline-block;">
             <span style="font-size: 26px; font-weight: bold; color: white; margin-top: 10px; margin-bottom: 10px;">{{.}}</span>
         </div>
 
-        <div style="display:block; margin-top: 5px; margin-bottom: 5px;" id="avatar">
-            <img src="avatar?user={{.}}" width=180 height=180 style="margin-bottom: 12px;" alt="unable to load">
-        </div>
-
-        <div style="display: block; margin-top: 10px; margin-bottom: 10px;">
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#avatarModal">
-                Change Avatar
-            </button>
-        </div>
     </div>
 
 

@@ -54,6 +54,7 @@
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#avatarModal">
                 Change Avatar
             </button>
+            <button type="button" style="display:inline-block !important;" class="btn btn-warning" onclick="userLogout()">Logout</button>
         </div>
     </div>
 
@@ -82,10 +83,11 @@
             </div><br>
 
             <!-- Button trigger modal -->
-            <div class="container-login100-form-btn" style="margin: 0 auto; width: 600px">
+            <div class="container-login100-form-btn" style="margin: 0 auto; width: 600px; margin-bottom: 10px;">
                 <button type="button" class="login100-form-btn-solo w-75"  style="background-color: forestgreen;" data-toggle="modal" data-target="#exampleModalCenter" onclick= getTime()>
                     NEW POST
                 </button>
+            </div>
 
 
             <!-- Modal -->
@@ -122,8 +124,21 @@
             </a>
         </div>
 
+
     </div>
 
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+    Launch demo modal
+</button>
+
+<!-- search results Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+    </div>
 </div>
 
 </body>

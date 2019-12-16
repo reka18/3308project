@@ -40,6 +40,14 @@ function generate_user_card(postObject)
 		</div>
 	</div>
 	`;
+
+	/*
+	<div class="reactions-container-2" onclick=reactToPost("up-"+${postObject.getId()})>
+		<img class="reaction-icons-2" src="images/thumbs-up-opt-512.png">
+		<div class="reaction-counters-2">${postObject.getUpVotes()}</div>
+	</div>
+	 */
+
 }
 
 

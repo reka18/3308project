@@ -83,7 +83,7 @@ func RefreshCookie(username string) {
 		log.Println(e)
 		return
 	}
-	log.Println(Success("Refreshed cookie."))
+	log.Printf(Success("Refreshed cookie for '%s'."), username)
 
 }
 

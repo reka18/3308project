@@ -86,7 +86,7 @@ async function getPosts()
                     alert(ajaxOptions);
                 }
             }
-        })]);
+        });
 
     return result;
 }
@@ -116,6 +116,12 @@ function userSearch()
             dataType: 'json',
             cache: false
         });
+}
+
+
+function upVotePost(da)
+{
+
 }
 
 

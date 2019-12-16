@@ -34,5 +34,10 @@ function updatePosts(postsData)
     $('#grid').prepend(newCard);
 }
 
+function userLogout()
+{
+    window.location.href = "logout";
+}
+
 
 

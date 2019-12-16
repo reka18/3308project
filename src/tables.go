@@ -50,7 +50,7 @@ var messageTable = "CREATE TABLE messages (" +
 	"fromid INT REFERENCES users(id) NOT NULL," +
 	"toid INT REFERENCES users(id) NOT NULL," +
 	"content VARCHAR(240) NOT NULL," +
-	"date TIMESTAMP NOT NULL," +
+	"date TIMESTAMP NOT NULL" +
 	");"
 
 var votesTable = "CREATE TABLE votes (" +

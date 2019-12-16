@@ -5,14 +5,21 @@ $( window ).on("load", async function()
     {
         let cardViews = document.getElementById('grid').innerHTML;
 
-        for(let x = 0; x < postData.length ; x++)
+        if(postData.length)
         {
-            const postObject = new UserPostData(postData[x]);
-            cardViews += generate_user_card(postObject);
+            for(let x = 0; x < postData.length ; x++)
+            {
+                const postObject = new UserPostData(postData[x]);
+                cardViews += generate_user_card(postObject);
 
+            }
+            document.getElementById('grid').innerHTML = cardViews;
         }
 
-        document.getElementById('grid').innerHTML = cardViews;
+        else
+        {}
+
+
     });
 
 

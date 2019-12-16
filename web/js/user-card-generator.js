@@ -5,10 +5,7 @@ var cards_holder=[];
 function generate_user_card(postObject)
 {
 	cards_holder.push(postObject);
-
-	let windowURL = window.location.href;
-	let splitArray = windowURL.split("/");
-	const username = splitArray[3];
+	const username = getUsername();
 
 	return `
 	<div class="post-layout-box-2 animated zoomInUp delay-1s">

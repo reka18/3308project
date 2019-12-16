@@ -43,20 +43,25 @@
 
 
 <nav class="brown-nav fixed-top navbar navbar-expand-lg navbar-dark">
-
-    <a class="navbar-brand" href="../contents.html">
-        <img src="avatar?user={{.Username}}" width="100" height="100" alt="">&nbsp;&nbsp;{{.Username}}</a>
-
+    <div style="display:inline-block;">
+    <a style="position: absolute; top:10px; padding-left: 26px;" class="navbar-brand" href="../contents.html">
+        <img src="avatar?user={{.Username}}" width="100" height="100" alt="Unable to Load"></a>
+    
+        <ul class="navbar-nav mr-auto">
+            <li style="display:inline-block; position: relative; top: 100px;" class="nav-item"><button style="font-size: 14px; margin-left:20px;" type="button" class="navbar-brand nav-link" data-toggle="modal" data-target="#avatarModal">Change Avatar</button></li>
+            <li style="margin-left: -20px; margin-top:35px;" class="nav-item"><a href="/{{.Username}}" class="navbar-brand nav-link" >{{.Username}}</a></li>
+        </ul>
+    </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><button type="button" class="navbar-brand nav-link" data-toggle="modal" data-target="#avatarModal">Change Avatar</button></li>
-            <li class="nav-item"><button type="button" class="navbar-brand nav-link" data-toggle="modal" data-target="#infoModal">My Info</button></li>
-            <li class="nav-item"><button type="button" style="display:inline-block !important;" class="nav-link" onclick="userLogout()">Logout</button></li>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">    
+        <ul style="width:100%; display:inline-block; float:right; text-align: right;" class="navbar-nav mr-auto">
+            <li style="display: inline-block; margin-top:35px;" class="nav-item"><button type="button" class="navbar-brand nav-link" data-toggle="modal" data-target="#infoModal">My Info</button></li>
+            <li style="display: inline-block; margin-top:35px;" class="nav-item"><a class="navbar-brand nav-link" style="display:inline-block !important;" class="nav-link" href="/logout">Logout</a></li>
         </ul>
+        </div>  
     </div>
 
 </nav>
@@ -138,13 +143,6 @@
             </div>
         </div>
         <div id="grid" class="grid" style="margin-top: 25px;"></div>
-        <div class="text-center w-full p-t-23">
-            <a href="logout" class="txt1" style="position: absolute; bottom: 25px;">
-                Logout
-            </a>
-        </div>
-
-
     </div>
 
 </div>

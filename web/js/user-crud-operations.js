@@ -130,7 +130,10 @@ function userSearch()
 
 function followUser(userName)
 {
+
     const followURL = getUsername() + "/follow";
+
+    console.log(userName);
 
     $.ajax(
         {

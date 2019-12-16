@@ -53,6 +53,7 @@ function showUserSearchResults(searchResults)
 
     jsonSearchData.forEach( user =>
         {
+            console.log(user);
             searchCardViews += search_results_card_generator(user);
         }
     );

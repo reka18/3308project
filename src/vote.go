@@ -24,8 +24,7 @@ func voteGET(w http.ResponseWriter, r *http.Request) {
 	vote, postid := ParseVoteQuery(r)
 
 	votes := CastVote(vote, postid, username, db)
-	code, _ := w.Write(votes)
-	log.Println(Info("Write-back response: ", code))
+	_, _ = w.Write(votes)
 
 }
 

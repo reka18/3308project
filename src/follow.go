@@ -32,8 +32,8 @@ func followGET(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	code, _ := w.Write(FetchFollowed(username, db, limit))
-	log.Println(Info("Write-back response: ", code))
+	followList := FetchFollowed(username, db, limit)
+	_, _ = w.Write(followList)
 
 }
 

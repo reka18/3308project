@@ -26,8 +26,10 @@ func messageGET(w http.ResponseWriter, r *http.Request) {
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
-	code, _ := w.Write(GetMessages(username, db, limit))
-	log.Println(Info("Write-back response: ", code))
+
+	messages := GetMessages(username, db, limit)
+	_, _ = w.Write(messages)
+
 
 }
 

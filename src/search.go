@@ -24,11 +24,9 @@ func searchGET(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	terms := ParseSearchQuery(r)
-
 	users := SearchUser(terms, db)
+	_, _ = w.Write(users)
 
-	code, _ := w.Write(users)
-	log.Println(Info("Write-back response: ", code))
 
 }
 

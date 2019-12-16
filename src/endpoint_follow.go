@@ -24,7 +24,7 @@ func followGET(w http.ResponseWriter, r *http.Request) {
 	db, _ := Database(DBNAME)
 	defer db.Close()
 
-	user := ParseFollowQuery(r)
+	user := ParseUserQuery(r)
 	if user != "" {
 		e := FollowUser(username, user, db)
 		if e != nil {

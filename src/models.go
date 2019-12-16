@@ -20,16 +20,16 @@ type HTMLServer struct {
 
 type User struct {
 	Id        			int
-	Username  			string
+	Age       			int
 	Firstname 			string
 	Lastname  			string
-	Age       			int
 	Email     			string
-	Gender   			string
+	Username  			string
 	Public    			bool
 	Joindate  			time.Time
 	FriendlyJoinDate	string
 	Active    			bool
+	Gender   			string
 }
 
 type FollowedUser struct {

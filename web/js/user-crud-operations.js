@@ -29,38 +29,38 @@ function reactToPost(reaction)
 
 function newPost()
 {
-        const postURL = getUsername()+ "/post";
-        const postData = document.getElementById('postText').value;
-        document.getElementById("postText").innerText="";
+    const postURL = getUsername()+ "/post";
+    const postData = document.getElementById('postText').value;
+    document.getElementById("postText").innerText="";
 
-        if(postData === "")
+    if(postData === "")
+    {
+        alert("Enter some text to post!");
+        return;
+    }
+
+    $.ajax({
+        type:'POST',
+        url: postURL,
+        success: function(responseData, status, responseObject)
         {
-            alert("Enter some text to post!");
-            return;
-        }
-
-        $.ajax({
-                    type:'POST',
-                    url: postURL,
-                    success: function(responseData, status, responseObject)
-                    {
-                            $('.modal').click();
-                            getPosts().then(function (results)
-                            {
-                                updatePosts(results);
-                            });
-
-                    },
-                    data: {"Content-Type": "text/html; charset=utf-8", "content": postData},
-                    dataType: 'html',
-                    cache: false,
-                    error: function (xhr, ajaxOptions, thrownError) {
-                            alert(xhr.status);
-                            alert(thrownError);
-                            alert(ajaxOptions);
-                            $('.modal').click()
-                    }
+            $('.modal').click();
+            getPosts().then(function (results)
+            {
+                updatePosts(results);
             });
+
+        },
+        data: {"Content-Type": "text/html; charset=utf-8", "content": postData},
+        dataType: 'html',
+        cache: false,
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+            alert(ajaxOptions);
+            $('.modal').click()
+        }
+    });
 }
 
 async function getPosts()
@@ -70,7 +70,8 @@ async function getPosts()
     const username = getUsername();
     const postURL = username + "/post";
 
-    const [result] = await $.ajax(
+    let result;
+    result = await $.ajax(
         {
             type: 'GET',
             url: postURL,

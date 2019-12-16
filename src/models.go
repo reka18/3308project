@@ -18,16 +18,17 @@ type HTMLServer struct {
 }
 
 type User struct {
-	Id        int
-	Username  string
-	Firstname string
-	Lastname  string
-	Age       int
-	Email     string
-	Gender    string
-	Public    bool
-	Joindate  string
-	Active    bool
+	Id        			int
+	Username  			string
+	Firstname 			string
+	Lastname  			string
+	Age       			int
+	Email     			string
+	Gender   			string
+	Public    			bool
+	Joindate  			time.Time
+	FriendlyJoinDate	string
+	Active    			bool
 }
 
 type FollowedUser struct {
@@ -59,6 +60,12 @@ type Message struct {
 	Content			string
 	Date			time.Time
 	FriendlyDate	string
+}
+
+type Votes struct {
+	PostId		int
+	UpVotes		int
+	DownVotes	int
 }
 
 type Avatar struct {

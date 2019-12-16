@@ -1,28 +1,35 @@
-function reactToPost()
+function reactToPost(reaction)
 {
+    console.log("reacting to post");
+    console.log(reaction);
+    const reactionURL =  getUsername() + "/vote";
+    console.log(reactionURL);
+
     $.ajax(
         {
-            type:'POST',
-            url: "some/endpoint",
+            type:'GET',
+            url:reactionURL,
             success: function(responseData, status, responseObject)
             {
-                //perform some action on success
+                console.log("Success");
+                console.log(responseData);
+                console.log(status);
+                console.log(responseObject);
             },
-            dataType: 'json',
-            data: {/*data that we will be passing to the end point*/},
-            cache: false
+            data: {"cast": reaction},
+            cache: false,
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(JSON.stringify((xhr)));
+                alert(xhr);
+                alert(thrownError);
+                alert(ajaxOptions);
+            }
         });
 }
 
 function newPost()
 {
-        console.log("new post fired");
-
-        let windowURL = window.location.href;
-        let splitArray = windowURL.split("/");
-        const username = splitArray[3];
-        const postURL = username + "/post";
-
+        const postURL = getUsername()+ "/post";
         const postData = document.getElementById('postText').value;
         document.getElementById("postText").innerText="";
 
@@ -34,7 +41,6 @@ function newPost()
 
         $.ajax({
                     type:'POST',
-                    //TODO grab un from url onload and save for crud operations
                     url: postURL,
                     success: function(responseData, status, responseObject)
                     {
@@ -67,7 +73,6 @@ async function getPosts()
     const [result] = await Promise.all([$.ajax(
         {
             type: 'GET',
-            //TODO grab un from url onload and save for crud operations
             url: postURL,
             success: function (responseData, status, responseObject) {
                 console.log("Post data successfully retrieved");
@@ -114,14 +119,16 @@ function userSearch()
             },
             data:{"terms":searchTerms},
             dataType: 'json',
-            cache: false
+            cache: false,
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(JSON.stringify((xhr)));
+                alert(xhr);
+                alert(thrownError);
+                alert(ajaxOptions);
+            }
+
+
         });
-}
-
-
-function upVotePost(da)
-{
-
 }
 
 
@@ -131,4 +138,11 @@ function getUsername()
     let splitArray = windowURL.split("/");
     return splitArray[3]
 
+}
+
+function getBaseUrl()
+{
+    let getUrl = window.location;
+    let baseUrl = getUrl .protocol + "//" + getUrl.host + "/";
+    return baseUrl;
 }

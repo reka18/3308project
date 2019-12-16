@@ -46,7 +46,7 @@
 
 <nav class="brown-nav fixed-top navbar navbar-expand-lg navbar-dark">
 
-    <a class="navbar-brand"><img src="avatar?user={{.}}" width="100" height="100" alt="">&nbsp;&nbsp;{{.}}</a>
+    <a class="navbar-brand"><img src="avatar?user={{.}}" width="100" height="100" alt=""></a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -84,7 +84,7 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="margin-top: 660px;" onfocusout="$('#infoModal').modal('toggle');">
+        <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="margin-top: 660px;" onfocus="$('#infoModal').modal('hide').data('bs.modal', null);">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body">

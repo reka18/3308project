@@ -56,7 +56,7 @@ func SearchUser(username string, input []string, db *sql.DB) []byte {
 
 	for i := 0; i < limit; i++ {
 		wildcard := "%" + input[i] + "%"
-		r, e := db.Query("SELECT * FROM users WHERE username LIKE $1 OR firstname LIKE $1 OR lastname LIKE $1 OR email LIKE $1", wildcard)
+		r, e := db.Query("SELECT * FROM users WHERE LOWER(username) LIKE LOWER($1) OR LOWER(firstname) LIKE LOWER($1) OR LOWER(lastname) LIKE LOWER($1) OR LOWER(email) LIKE LOWER($1);", wildcard)
 		if e != nil {
 			log.Println(Warn("Error making search query."))
 		}
@@ -112,19 +112,5 @@ func SearchUser(username string, input []string, db *sql.DB) []byte {
 	log.Println(Info("Search result: ", string(json)))
 
 	return json
-
-}
-
-func ParseSearchQuery(r *http.Request) []string {
-
-	values, ok := r.URL.Query()["terms"]
-	if !ok {
-		log.Println(Warn("No search query terms specified."))
-	} else {
-		log.Println(Info("Found search terms: ", values))
-	}
-	value := values[0]
-
-	return strings.Split(value, " ")
 
 }

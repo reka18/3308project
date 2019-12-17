@@ -29,7 +29,6 @@ func ParseLimitQuery(r *http.Request, defaultLimit int) int {
 
 }
 
-
 func ParseVoteQuery(r *http.Request) (string, int) {
 
 	values, ok := r.URL.Query()["cast"]
@@ -73,5 +72,18 @@ func ParseUserQuery(r *http.Request) string {
 		return username
 	}
 	return ""
+
+}
+
+func ParseSearchQuery(r *http.Request) []string {
+
+	values, ok := r.URL.Query()["terms"]
+	if !ok {
+		log.Println(Warn("No search query terms specified."))
+	} else {
+		log.Println(Info("Found search terms: ", values))
+	}
+	value := values[0]
+	return strings.Split(value, " ")
 
 }

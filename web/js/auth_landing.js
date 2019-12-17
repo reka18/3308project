@@ -44,7 +44,7 @@ async function loadUserData()
 
         let data = new UserData(userData);
         document.getElementById('userNameId').innerHTML = data.getUsername();
-        document.getElementById('ageId').innerHTML = data.getId();
+        document.getElementById('ageId').innerHTML = data.getAge();
         document.getElementById('firstNameId').innerHTML = data.getFirstname();
         document.getElementById('lastNameId').innerHTML = data.getLastname();
         document.getElementById('emailId').innerHTML = data.getEmail();

@@ -2,29 +2,51 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/gomodule/redigo/redis"
 )
 
 var (
-	redisConn redis.Conn
+	pool *redis.Pool
 )
+
+
+func initPool(address string) error {
+
+	var err error
+
+	pool = &redis.Pool{
+		MaxIdle:   80,
+		MaxActive: 12000,
+		Dial: func() (redis.Conn, error) {
+			conn, e := redis.Dial("tcp", address)
+			if e != nil {
+				log.Printf("ERROR: fail init redis pool: %s", err.Error())
+				os.Exit(1)
+			}
+			err = e
+			return conn, e
+		},
+	}
+
+	return err
+}
 
 func OpenRedisConnection() {
 
 	address := "localhost:6379"
-	conn, e := redis.Dial("tcp", address)
+	e := initPool(address)
 	if e != nil {
 		log.Fatal(Fail("REDIS  : service connection failed to start."))
 	}
 	log.Printf(Detail("REDIS  : Service connection started : Host=%s"), address)
-	redisConn = conn
 
 }
 
 func CloseRedisConnection() {
 
-	e := redisConn.Close()
+	e := pool.Close()
 	if e != nil {
 		log.Println(Fail("REDIS  : Service connection failed to close:", e))
 	} else {

@@ -35,7 +35,7 @@ function updatePosts(postsData)
 {
     console.log(postsData);
     const postObject = new UserPostData(postsData[0]);
-    let newCard = generate_user_card(postObject)
+    let newCard = generate_user_card(postObject);
     $('#grid').prepend(newCard);
 }
 

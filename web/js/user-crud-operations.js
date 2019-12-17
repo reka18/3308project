@@ -135,7 +135,8 @@ function followUser(userName)
                 {
                     return;
                 }
-                $('#followButton').remove();
+                let cardId = '#' + userName + 'card';
+                $(cardId).remove();
             },
             data:{"user":userName},
             cache: false,

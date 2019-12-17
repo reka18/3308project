@@ -35,6 +35,7 @@
     <!--===============================================================================================-->
     <script src="vendor/underscore-master/underscore.js"></script>
     <script src="js/user-posts-data-class.js?v11"></script>
+    <script src="js/user-data-class.js?v11"></script>
     <script src="js/user-crud-operations.js?v11"></script>
     <script src="js/auth_landing.js?v11"></script>
     <script src="js/user-card-generator.js?v11"></script>
@@ -70,14 +71,20 @@
         <div class="modal fade modal-close" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <div class="modal-body">
+                    <div id="myInfo" class="modal-body">
                         <img src="avatar?user={{.}}" alt="" class="w-100">
                         <button type="button" class="nav-item btn btn-dark w-full" data-toggle="modal" onclick="$('.modal').modal('click');" data-target="#avatarModal" style="margin-top: 10px;">
                             <span style="font-size: 10px; color: #ffffff;">CHANGE AVATAR</span>
                         </button>
-                        <h5 style="font-weight: bold; margin-top: 10px;">Username: <span style="font-weight: normal">{{.}}</span></h5>
-                        <h5 style="font-weight: bold">Fullname: <span style="font-weight: normal">{{.}}</span></h5>
-                        <h5 style="font-weight: bold">Join Date: <span style="font-weight: normal">{{.}}</span></h5>
+                        <h5 id="userNameId" style="font-weight: bold; margin-top: 10px;">Username: <span style="font-weight: normal"></span></h5>
+                        <h5 id="ageId" style="font-weight: bold; margin-top: 10px;">Age: <span style="font-weight: normal"></span></h5>
+                        <h5 id="firstNameId" style="font-weight: bold">Firstname: <span style="font-weight: normal"></span></h5>
+                        <h5 id="lastNameId" style="font-weight: bold">Lastname: <span style="font-weight: normal"></span></h5>
+                        <h5 id="emailId" style="font-weight: bold">Email: <span style="font-weight: normal"></span></h5>
+                        <h5 id="isPublicId" style="font-weight: bold">Public: <span style="font-weight: normal"></span></h5>
+                        <h5 id="friendlyDateId" style="font-weight: bold">Friendly Join Date: <span style="font-weight: normal"></span></h5>
+                        <h5 id="isActiveId" style="font-weight: bold">Active: <span style="font-weight: normal"></span></h5>
+                        <h5 id="genderId" style="font-weight: bold">Gender: <span style="font-weight: normal"></span></h5>
                     </div>
                 </div>
             </div>

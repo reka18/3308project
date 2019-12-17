@@ -1,3 +1,4 @@
+
 $( window ).on("load", async function()
 {
 
@@ -19,6 +20,33 @@ $( window ).on("load", async function()
 
             }
             document.getElementById('grid').innerHTML = cardViews;
+        }
+
+        else
+        {}
+
+
+    });
+
+
+});
+
+$( window ).on("load", async function()
+{
+
+    getThisUser().then(function (userData)
+    {
+
+        if(!userData)
+        {
+            return;
+        }
+
+        if(userData.length)
+        {
+            const myInfoView = new UserData(userData);
+
+            document.getElementById('myInfo').innerHTML = myInfoView;
         }
 
         else

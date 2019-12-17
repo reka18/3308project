@@ -25,7 +25,7 @@ func searchGET(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	terms := ParseSearchQuery(r)
-	users := SearchUser(terms, db)
+	users := SearchUser(username, terms, db)
 	_, _ = w.Write(users)
 
 
@@ -44,12 +44,15 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func SearchUser(input []string, db *sql.DB) []byte {
+func SearchUser(username string, input []string, db *sql.DB) []byte {
 
 	limit := Min(len(input), 5)
 
 	var idSet = make(map[int]bool)
 	var userSet = make(map[int]SearchResult)
+
+	alreadyFollowed := FetchFollowedIds(username, db)
+	alreadyFollowed[GetUserId(username, db)] = true
 
 	for i := 0; i < limit; i++ {
 		wildcard := "%" + input[i] + "%"
@@ -69,6 +72,10 @@ func SearchUser(input []string, db *sql.DB) []byte {
 					&user.Username, &user.Public, &user.Joindate, &user.Active, &ignore, &user.Gender)
 				if e != nil {
 					log.Println(Warn("Error scanning user."))
+					continue
+				}
+				if alreadyFollowed[user.Id] {
+					log.Printf(Info("'%s' already followed. Not displaying in search results."), user.Username)
 					continue
 				}
 

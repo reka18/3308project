@@ -83,8 +83,6 @@ func FetchFollowed(username string, db *sql.DB, limit int) []byte {
 		f.User = GetUserById(followid, db)
 		f.Mutual = IsFollowerIdToName(followid, username, db)
 
-		log.Println(Info(f))
-
 		response = append(response, f)
 	}
 	json, e := json2.Marshal(response)
@@ -94,6 +92,28 @@ func FetchFollowed(username string, db *sql.DB, limit int) []byte {
 	log.Println(Info("Followed users: ", string(json)))
 
 	return json
+
+}
+
+func FetchFollowedIds(username string, db *sql.DB) map[int]bool {
+
+	var followid int
+
+	r, e := db.Query("SELECT followid FROM follow WHERE userid=(SELECT id FROM users WHERE username=$1) ORDER BY date;",
+		username)
+
+	if e != nil {
+		return nil
+	}
+
+	idMap := make(map[int]bool)
+
+	for r.Next() {
+		_ = r.Scan(&followid)
+
+		idMap[followid] = true
+	}
+	return idMap
 
 }
 

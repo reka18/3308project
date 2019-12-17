@@ -20,9 +20,6 @@ function reactToPost(reaction)
             cache: false,
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(JSON.stringify((xhr)));
-                alert(xhr);
-                alert(thrownError);
-                alert(ajaxOptions);
             }
         });
 }
@@ -55,9 +52,6 @@ function newPost()
         dataType: 'html',
         cache: false,
         error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-            alert(ajaxOptions);
             $('.modal').click()
         }
     });
@@ -118,12 +112,8 @@ function userSearch()
             cache: false,
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(JSON.stringify((xhr)));
-                alert(xhr);
-                alert(thrownError);
-                alert(ajaxOptions);
+
             }
-
-
         });
 }
 
@@ -152,9 +142,6 @@ function followUser(userName)
             error: function (xhr, ajaxOptions, thrownError)
             {
                 console.log(JSON.stringify((xhr)));
-                alert(xhr);
-                alert(thrownError);
-                alert(ajaxOptions);
             }
         });
 

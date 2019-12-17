@@ -123,7 +123,6 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 	if e != nil {
 		log.Println(Warn("Error making posts query."))
 	}
-	log.Println(Info("Post content: ", string(js)))
 
 	return js
 }

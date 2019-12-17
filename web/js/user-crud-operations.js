@@ -4,6 +4,11 @@ function reactToPost(reaction)
     console.log(reaction);
     const reactionURL =  getUsername() + "/vote";
     console.log(reactionURL);
+    let upId = '#upvote-' + reaction.split('-')[1];
+    let downId = '#downvote-' + reaction.split('-')[1];
+
+    console.log(upId);
+    console.log(downId);
 
     $.ajax(
         {
@@ -15,6 +20,9 @@ function reactToPost(reaction)
                 console.log(responseData);
                 console.log(status);
                 console.log(responseObject);
+                $(upId).append(responseData['UpVote']);
+                $(downId).append(responseData['DownVote']);
+
             },
             data: {"cast": reaction},
             cache: false,

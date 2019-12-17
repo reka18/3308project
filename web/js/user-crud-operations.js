@@ -1,60 +1,66 @@
-function reactToPost()
+function reactToPost(reaction)
 {
+    console.log("reacting to post");
+    console.log(reaction);
+    const reactionURL =  getUsername() + "/vote";
+    console.log(reactionURL);
+
     $.ajax(
         {
-            type:'POST',
-            url: "some/endpoint",
+            type:'GET',
+            url:reactionURL,
             success: function(responseData, status, responseObject)
             {
-                //perform some action on success
+                console.log("Success");
+                console.log(responseData);
+                console.log(status);
+                console.log(responseObject);
             },
-            dataType: 'json',
-            data: {/*data that we will be passing to the end point*/},
-            cache: false
+            data: {"cast": reaction},
+            cache: false,
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(JSON.stringify((xhr)));
+                alert(xhr);
+                alert(thrownError);
+                alert(ajaxOptions);
+            }
         });
 }
 
 function newPost()
 {
-        console.log("new post fired");
+    const postURL = getUsername()+ "/post";
+    const postData = document.getElementById('postText').value;
+    document.getElementById("postText").innerText="";
 
-        let windowURL = window.location.href;
-        let splitArray = windowURL.split("/");
-        const username = splitArray[3];
-        const postURL = username + "/post";
+    if(postData === "")
+    {
+        alert("Enter some text to post!");
+        return;
+    }
 
-        const postData = document.getElementById('postText').value;
-        document.getElementById("postText").innerText="";
-
-        if(postData === "")
+    $.ajax({
+        type:'POST',
+        url: postURL,
+        success: function(responseData, status, responseObject)
         {
-            alert("Enter some text to post!");
-            return;
-        }
-
-        $.ajax({
-                    type:'POST',
-                    //TODO grab un from url onload and save for crud operations
-                    url: postURL,
-                    success: function(responseData, status, responseObject)
-                    {
-                            $('.modal').click();
-                            getPosts().then(function (results)
-                            {
-                                updatePosts(results);
-                            });
-
-                    },
-                    data: {"Content-Type": "text/html; charset=utf-8", "content": postData},
-                    dataType: 'html',
-                    cache: false,
-                    error: function (xhr, ajaxOptions, thrownError) {
-                            alert(xhr.status);
-                            alert(thrownError);
-                            alert(ajaxOptions);
-                            $('.modal').click()
-                    }
+            $('.modal').click();
+            getPosts().then(function (results)
+            {
+                updatePosts(results);
             });
+
+        },
+        data: {"Content-Type": "text/html; charset=utf-8", "content": postData},
+        dataType: 'html',
+        cache: false,
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+            alert(ajaxOptions);
+            $('.modal').click()
+        }
+    });
 }
 
 async function getPosts()
@@ -64,10 +70,10 @@ async function getPosts()
     const username = getUsername();
     const postURL = username + "/post";
 
-    const [result] = await Promise.all([$.ajax(
+    let result;
+    result = await $.ajax(
         {
             type: 'GET',
-            //TODO grab un from url onload and save for crud operations
             url: postURL,
             success: function (responseData, status, responseObject) {
                 console.log("Post data successfully retrieved");
@@ -78,15 +84,7 @@ async function getPosts()
             dataType: 'json',
             data: {"limit": "500"},
             cache: false,
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                if (!thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                    alert(ajaxOptions);
-                }
-            }
-        })]);
+        });
 
     return result;
 }
@@ -110,12 +108,56 @@ function userSearch()
             url: searchURL,
             success: function(responseData, status, responseObject)
             {
-                console.log("Search: " + JSON.stringify(responseData));
+                if(!responseData)
+                {
+                    return;
+                }
+                showUserSearchResults(responseData);
             },
             data:{"terms":searchTerms},
-            dataType: 'json',
-            cache: false
+            cache: false,
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(JSON.stringify((xhr)));
+                alert(xhr);
+                alert(thrownError);
+                alert(ajaxOptions);
+            }
+
+
         });
+}
+
+
+function followUser(userName)
+{
+
+    const followURL = getUsername() + "/follow";
+
+    console.log(userName);
+
+    $.ajax(
+        {
+            type:'GET',
+            url: followURL,
+            success: function(responseData, status, responseObject)
+            {
+                if(!responseData)
+                {
+                    return;
+                }
+                $('#followButton').remove()
+            },
+            data:{"user":userName},
+            cache: false,
+            error: function (xhr, ajaxOptions, thrownError)
+            {
+                console.log(JSON.stringify((xhr)));
+                alert(xhr);
+                alert(thrownError);
+                alert(ajaxOptions);
+            }
+        });
+
 }
 
 
@@ -125,4 +167,11 @@ function getUsername()
     let splitArray = windowURL.split("/");
     return splitArray[3]
 
+}
+
+function getBaseUrl()
+{
+    let getUrl = window.location;
+    let baseUrl = getUrl .protocol + "//" + getUrl.host + "/";
+    return baseUrl;
 }

@@ -63,7 +63,7 @@ func ParseAvatarQuery(r *http.Request) string {
 	return ""
 }
 
-func ParseFollowQuery(r *http.Request) string {
+func ParseUserQuery(r *http.Request) string {
 
 	values, ok := r.URL.Query()["user"]
 	if !ok {

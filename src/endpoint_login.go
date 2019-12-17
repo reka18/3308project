@@ -36,10 +36,10 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 		_ = t.Execute(w, "Incorrect email/password combination")
 	} else {
 		AddCookie(w, username)
-
 		userPage := fmt.Sprintf("/%s", username)
 		http.Redirect(w, r, userPage, http.StatusSeeOther)
 	}
+
 }
 
 func UserLoginHandler(w http.ResponseWriter, r *http.Request) {

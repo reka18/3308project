@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	json2 "encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -24,11 +25,9 @@ func searchGET(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	terms := ParseSearchQuery(r)
-
 	users := SearchUser(terms, db)
+	_, _ = w.Write(users)
 
-	code, _ := w.Write(users)
-	log.Println(Info("Write-back response: ", code))
 
 }
 
@@ -70,6 +69,7 @@ func SearchUser(input []string, db *sql.DB) []byte {
 					&user.Username, &user.Public, &user.Joindate, &user.Active, &ignore, &user.Gender)
 				if e != nil {
 					log.Println(Warn("Error scanning user."))
+					continue
 				}
 
 				if idSet[user.Id] {
@@ -82,13 +82,23 @@ func SearchUser(input []string, db *sql.DB) []byte {
 					result.Count = 1
 					userSet[user.Id] = result
 				}
+				timestamp := strings.Split(user.Joindate.String(), " ")
+				date := timestamp[0]
+				clock := strings.Split(timestamp[1], ".")[0][:5]
+				user.FriendlyJoinDate = fmt.Sprintf("%s @ %s", date, clock)
 			}
 		} else {
 			log.Println(Warn("Query result is null."))
 		}
 	}
 
-	json, e := json2.Marshal(userSet)
+	var userResponse []SearchResult
+
+	for _, v := range userSet {
+		userResponse = append(userResponse, v)
+	}
+
+	json, e := json2.Marshal(userResponse)
 	if e != nil {
 		log.Println(Warn("Error making search query."))
 	}

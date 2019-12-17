@@ -24,16 +24,18 @@ func followGET(w http.ResponseWriter, r *http.Request) {
 	db, _ := Database(DBNAME)
 	defer db.Close()
 
-	user := ParseFollowQuery(r)
+	user := ParseUserQuery(r)
 	if user != "" {
 		e := FollowUser(username, user, db)
 		if e != nil {
 			log.Println(Warn("Unable to follow ", user))
 		}
+		w.WriteHeader(http.StatusOK)
 	}
 
-	code, _ := w.Write(FetchFollowed(username, db, limit))
-	log.Println(Info("Write-back response: ", code))
+	// TODO display followed
+	followList := FetchFollowed(username, db, limit)
+	_, _ = w.Write(followList)
 
 }
 
@@ -55,7 +57,7 @@ func FollowUser(username string, targetname string, db *sql.DB) error {
 	_, e := db.Exec("INSERT INTO follow (userid, followid, date) VALUES ((SELECT id FROM users WHERE username=$1), (SELECT id FROM users WHERE username=$2), $3);",
 		username, targetname, time.Now())
 	if e != nil {
-		log.Println(Warn("Unable to execute follow query."))
+		log.Println(Warn("Already followed."))
 	}
 	return e
 

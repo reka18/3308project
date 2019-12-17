@@ -14,7 +14,6 @@ func avatarGET(w http.ResponseWriter, r *http.Request) {
 
 	username, ok := CompareTokens(w, r)
 	if !ok {
-		http.Redirect(w, r, "login", http.StatusSeeOther)
 		return
 	}
 
@@ -25,6 +24,7 @@ func avatarGET(w http.ResponseWriter, r *http.Request) {
 
 	bytes := GetAvatar(ParseAvatarQuery(r), db)
 
+	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "image/png")
 	_, e := w.Write(bytes)
 	if e != nil {
@@ -39,7 +39,6 @@ func avatarPOST(w http.ResponseWriter, r *http.Request) {
 
 	username, ok := CompareTokens(w, r)
 	if !ok {
-		http.Redirect(w, r, "login", http.StatusSeeOther)
 		return
 	}
 

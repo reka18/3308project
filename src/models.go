@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"sync"
 	"time"
@@ -18,16 +19,17 @@ type HTMLServer struct {
 }
 
 type User struct {
-	Id        int
-	Username  string
-	Firstname string
-	Lastname  string
-	Age       int
-	Email     string
-	Gender    string
-	Public    bool
-	Joindate  string
-	Active    bool
+	Id        			int
+	Age       			int
+	Firstname 			string
+	Lastname  			string
+	Email     			string
+	Username  			string
+	Public    			bool
+	Joindate  			time.Time
+	FriendlyJoinDate	string
+	Active    			bool
+	Gender   			string
 }
 
 type FollowedUser struct {
@@ -61,8 +63,21 @@ type Message struct {
 	FriendlyDate	string
 }
 
+type Votes struct {
+	PostId		int
+	UpVotes		int
+	DownVotes	int
+}
+
 type Avatar struct {
 	Id		int
 	UserId	int
 	Avatar	[]byte
+}
+
+// ERRORS
+type EmptyStringError struct {}
+
+func (e *EmptyStringError) Error() string {
+	return fmt.Sprint("empty string error")
 }

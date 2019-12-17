@@ -145,7 +145,7 @@ function followUser(userName)
                 {
                     return;
                 }
-
+                $('#followButton').remove()
             },
             data:{"user":userName},
             cache: false,
@@ -156,8 +156,6 @@ function followUser(userName)
                 alert(thrownError);
                 alert(ajaxOptions);
             }
-
-
         });
 
 }

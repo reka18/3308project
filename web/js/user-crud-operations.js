@@ -4,8 +4,8 @@ function reactToPost(reaction)
     console.log(reaction);
     const reactionURL =  getUsername() + "/vote";
     console.log(reactionURL);
-    let upId = '#upvote-' + reaction.split('-')[1];
-    let downId = '#downvote-' + reaction.split('-')[1];
+    const upId = 'upvote-' + reaction.split('-')[1];
+    const downId = 'downvote-' + reaction.split('-')[1];
 
     console.log(upId);
     console.log(downId);
@@ -16,13 +16,13 @@ function reactToPost(reaction)
             url:reactionURL,
             success: function(responseData, status, responseObject)
             {
-                console.log("Success");
-                console.log(responseData);
-                console.log(status);
-                console.log(responseObject);
-                $(upId).append(responseData['UpVote']);
-                $(downId).append(responseData['DownVote']);
+                if(responseData)
+                {
+                    const jsonData = JSON.parse(responseData);
+                    document.getElementById(upId).innerHTML = jsonData['UpVotes'];
+                    document.getElementById(downId).innerHTML = jsonData['DownVotes'];
 
+                }
             },
             data: {"cast": reaction},
             cache: false,

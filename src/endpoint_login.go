@@ -10,7 +10,7 @@ import (
 
 func userLoginGET(w http.ResponseWriter, r *http.Request) {
 
-	CookieDebugger(r, "LOGIN")
+	CookieDebugger(r, "LOGIN PAGE (GET)")
 
 	t := template.Must(template.ParseFiles("web/login.html"))
 	_ = t.Execute(w, "")
@@ -18,6 +18,8 @@ func userLoginGET(w http.ResponseWriter, r *http.Request) {
 }
 
 func userLoginPOST(w http.ResponseWriter, r *http.Request) {
+
+	CookieDebugger(r, "LOGIN PAGE (POST)")
 
 	_ = r.ParseForm()
 
@@ -36,10 +38,10 @@ func userLoginPOST(w http.ResponseWriter, r *http.Request) {
 		_ = t.Execute(w, "Incorrect email/password combination")
 	} else {
 		AddCookie(w, username)
-
 		userPage := fmt.Sprintf("/%s", username)
 		http.Redirect(w, r, userPage, http.StatusSeeOther)
 	}
+
 }
 
 func UserLoginHandler(w http.ResponseWriter, r *http.Request) {

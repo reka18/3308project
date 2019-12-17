@@ -36,7 +36,7 @@ func AddCookie(w http.ResponseWriter, username string) {
 	secret := GenerateKey(string(securecookie.GenerateRandomKey(64)))
 
 	cookie := http.Cookie {
-		Name:    	"socialmediasite",
+		Name:    	"screebit",
 		Value:   	fmt.Sprintf("%s:%s", username, secret),
 		Expires: 	time.Now().Local().Add(time.Hour * 6),
 	}
@@ -44,32 +44,24 @@ func AddCookie(w http.ResponseWriter, username string) {
 
 	_, e := redisConn.Do("SET", username, fmt.Sprintf(secret))
 	if e != nil {
-		log.Printf(Warn("Failed to set cookie for %s."), username)
+		log.Printf(Fail("Redis failed to set %s cookie."), username)
 		log.Println(e)
 	}
-	_, e = redisConn.Do("EXPIRE", username, http.StatusMultipleChoices)
+	_, e = redisConn.Do("EXPIRE", username, 300)
 	if e != nil {
-		log.Printf(Warn("Failed to set cookie expiration for %s."), username)
+		log.Printf(Warn("Redis failed to set '%s' cookie expiration."), username)
 		log.Println(e)
 	}
 
 }
 
-func DeleteCookie(w http.ResponseWriter, username string) {
-
-	var cookie http.Cookie
-	cookie.Name = "socialmediasite"
-	cookie.Value = ""
-	cookie.MaxAge = -1
-	cookie.Expires = time.Now().Add(-100 * time.Hour)
-
-	http.SetCookie(w, &cookie)
+func DeleteCookie(username string) {
 
 	_, e := redisConn.Do("DEL", username)
 	if e != nil {
-		log.Printf(Warn("Failed to delete cookie on redis server for %s."), username)
+		log.Printf(Warn("Redis failed to delete %s cookie."), username)
 	}
-	log.Printf(Info("Deleted cookies for '%s'."), username)
+	log.Printf(Info("Redis deleted '%s' cookies."), username)
 
 }
 
@@ -79,17 +71,17 @@ func RefreshCookie(username string) {
 	 */
 	_, e := redisConn.Do("EXPIRE", username, 300)
 	if e != nil {
-		log.Printf(Warn("Failed to refresh cookie expiration for %s."), username)
+		log.Printf(Warn("Redis failed to refresh %s cookie for."), username)
 		log.Println(e)
 		return
 	}
-	log.Printf(Success("Refreshed cookie for '%s'."), username)
+	log.Printf(Success("Redis refreshed '%s' cookie.."), username)
 
 }
 
 func CompareTokens(w http.ResponseWriter, r *http.Request) (string, bool) {
 
-	cookie, _ := r.Cookie("socialmediasite")
+	cookie, _ := r.Cookie("screebit")
 
 	if cookie == nil || cookie.Value == "" {
 		log.Println(Warn("Unauthorized access attempt."))
@@ -103,21 +95,27 @@ func CompareTokens(w http.ResponseWriter, r *http.Request) (string, bool) {
 	cookieSecret := values[1]
 
 	/* result is an interface so we can't caste it */
-	result, _ := redisConn.Do("GET", username)
-	redisSecret := fmt.Sprintf("%s", result)
-
-	if redisSecret != cookieSecret {
-		log.Printf(Warn("Unauthorized access attempt with stale cookie for '%s'."), username)
-		DeleteCookie(w, username)
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	result, e := redisConn.Do("GET", username)
+	if e != nil || fmt.Sprintf("%s", result) != cookieSecret {
+		log.Printf(Fail("Redis failed to find `%s` cookie.", username))
+		forceLogout(username, w, r)
 		return "", false
 	}
 	log.Printf(Success("Cookie authentication successful for '%s'."), username)
 	return username, true
+
 }
 
 func CookieDebugger(r *http.Request, pagename string) {
 
 	log.Printf(Info("'%s' page cookies: '%v'"), pagename, r.Cookies())
+
+}
+
+func forceLogout(username string, w http.ResponseWriter, r *http.Request) {
+
+	log.Printf(Warn("Unauthorized access attempt with stale cookie for '%s'."), username)
+	DeleteCookie(username)
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
 
 }

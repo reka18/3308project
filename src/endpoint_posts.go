@@ -26,8 +26,10 @@ func postsGET(w http.ResponseWriter, r *http.Request) {
 
 	db, _ := Database(DBNAME)
 	defer db.Close()
-	code, _ := w.Write(GetPosts(username, db, limit))
-	log.Println(Info("Write-back response: ", code))
+
+	posts := GetPosts(username, db, limit)
+	_, _ = w.Write(posts)
+
 
 }
 
@@ -121,7 +123,6 @@ func GetPosts(username string, db *sql.DB, pagelimit int) []byte {
 	if e != nil {
 		log.Println(Warn("Error making posts query."))
 	}
-	log.Println(Info("Post content: ", string(js)))
 
 	return js
 }

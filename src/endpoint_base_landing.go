@@ -6,7 +6,7 @@ import (
 
 func BaseUrlHandler(w http.ResponseWriter, r *http.Request) {
 
-	CookieDebugger(r, "BASE")
+	CookieDebugger(r, "BASE PAGE REDIRECT")
 
-	http.Redirect(w, r, "/login", 303)
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }

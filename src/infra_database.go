@@ -17,8 +17,8 @@ func createDatabase(db *sql.DB) {
 	query := fmt.Sprintf("CREATE DATABASE %s;", DBNAME)
 	_, e := db.Exec(query)
 	if e != nil {
-		log.Println(Fatal("Database not created."))
-		log.Fatal(Fatal(e))
+		log.Println(Fail("Database not created."))
+		log.Fatal(Fail(e))
 	} else {
 		log.Println(Success("Database created."))
 	}
@@ -30,7 +30,7 @@ func dropDatabase(db *sql.DB) error {
 	_, e := db.Exec(query)
 	if e != nil {
 		log.Println(Warn("Database not dropped."))
-		log.Fatal(Fatal(e))
+		log.Fatal(Fail(e))
 	} else {
 		log.Println(Success("Database dropped."))
 	}
@@ -44,31 +44,31 @@ func generateTables(db *sql.DB) {
 	 */
 	e := createTable(db, genderEnum, "'gender' enum")
 	if e != nil {
-		log.Println(Fatal("Error"), e)
+		log.Println(Fail("Error"), e)
 	}
 	e = createTable(db, usersTable, "'users' table")
 	if e != nil {
-		log.Println(Fatal("Error"), e)
+		log.Println(Fail("Error"), e)
 	}
 	e = createTable(db, postTable, "'posts' table")
 	if e != nil {
-		log.Println(Fatal("Error"), e)
+		log.Println(Fail("Error"), e)
 	}
 	e = createTable(db, avatarTable, "'avatar' table")
 	if e != nil {
-		log.Println(Fatal("Error"), e)
+		log.Println(Fail("Error"), e)
 	}
 	e = createTable(db, followTable, "'follow' table")
 	if e != nil {
-		log.Println(Fatal("Error"), e)
+		log.Println(Fail("Error"), e)
 	}
 	e = createTable(db, messageTable, "'message' table")
 	if e != nil {
-		log.Println(Fatal("Error"), e)
+		log.Println(Fail("Error"), e)
 	}
 	e = createTable(db, votesTable, "'votes' table")
 	if e != nil {
-		log.Println(Fatal("Error"), e)
+		log.Println(Fail("Error"), e)
 	}
 
 }
@@ -78,7 +78,7 @@ func DatabaseArgHandler() {
 	if len(os.Args) > 1 {
 		db, e := Database(PGNAME)
 		if e != nil {
-			log.Fatal(Fatal(e))
+			log.Fatal(Fail(e))
 		}
 		defer db.Close()
 
@@ -88,7 +88,7 @@ func DatabaseArgHandler() {
 			log.Println(Info("Attempting to build naked database."))
 			e = dropDatabase(db)
 			if e != nil {
-				log.Println(Fatal(e))
+				log.Println(Fail(e))
 			}
 			createDatabase(db)
 			log.Println(Success("Naked database created."))
@@ -101,9 +101,9 @@ func DatabaseArgHandler() {
 			createDatabase(db)
 			db, e = Database(DBNAME)
 			if e != nil {
-				log.Println(Fatal("Unable to reset. Aborting."))
-				log.Println(Fatal("Please recreate database."))
-				log.Fatal(Fatal(e))
+				log.Println(Fail("Unable to reset. Aborting."))
+				log.Println(Fail("Please recreate database."))
+				log.Fatal(Fail(e))
 			}
 			generateTables(db)
 		} else if arg == "--init" {
@@ -111,19 +111,19 @@ func DatabaseArgHandler() {
 			createDatabase(db)
 			db, e = Database(DBNAME)
 			if e != nil {
-				log.Println(Fatal("Tables not generated. Aborting."))
-				log.Fatal(Fatal(e))
+				log.Println(Fail("Tables not generated. Aborting."))
+				log.Fatal(Fail(e))
 			}
 			generateTables(db)
 		} else if arg == "--drop" {
 			log.Println(Info("Attempting to drop database..."))
 			e = dropDatabase(db)
 			if e != nil {
-				log.Fatal(Fatal("Unable to drop database."))
-				log.Fatal(Fatal(e))
+				log.Fatal(Fail("Unable to drop database."))
+				log.Fatal(Fail(e))
 			}
 		} else {
-			log.Fatal(Fatal("Unknown database command... exiting."))
+			log.Fatal(Fail("Unknown database command... exiting."))
 		}
 		os.Exit(0)
 	}
@@ -140,9 +140,7 @@ func Database(dbname string) (*sql.DB, error) {
 	dbInfo := fmt.Sprintf("dbname='%v' sslmode=disable", dbname)
 	db, e := sql.Open("postgres", dbInfo)
 	if e != nil {
-		log.Println(Warn("Database not connected."))
-	} else {
-		log.Println(Detail("Database connected."))
+		log.Println(Fail("Database not connected."))
 	}
 	return db, e
 

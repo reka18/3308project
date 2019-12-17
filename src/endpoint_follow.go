@@ -24,16 +24,18 @@ func followGET(w http.ResponseWriter, r *http.Request) {
 	db, _ := Database(DBNAME)
 	defer db.Close()
 
-	user := ParseFollowQuery(r)
+	user := ParseUserQuery(r)
 	if user != "" {
 		e := FollowUser(username, user, db)
 		if e != nil {
 			log.Println(Warn("Unable to follow ", user))
 		}
+		w.WriteHeader(http.StatusOK)
 	}
 
-	code, _ := w.Write(FetchFollowed(username, db, limit))
-	log.Println(Info("Write-back response: ", code))
+	// TODO display followed
+	followList := FetchFollowed(username, db, limit)
+	_, _ = w.Write(followList)
 
 }
 
@@ -55,7 +57,7 @@ func FollowUser(username string, targetname string, db *sql.DB) error {
 	_, e := db.Exec("INSERT INTO follow (userid, followid, date) VALUES ((SELECT id FROM users WHERE username=$1), (SELECT id FROM users WHERE username=$2), $3);",
 		username, targetname, time.Now())
 	if e != nil {
-		log.Println(Warn("Unable to execute follow query."))
+		log.Println(Warn("Already followed."))
 	}
 	return e
 
@@ -81,8 +83,6 @@ func FetchFollowed(username string, db *sql.DB, limit int) []byte {
 		f.User = GetUserById(followid, db)
 		f.Mutual = IsFollowerIdToName(followid, username, db)
 
-		log.Println(Info(f))
-
 		response = append(response, f)
 	}
 	json, e := json2.Marshal(response)
@@ -92,6 +92,28 @@ func FetchFollowed(username string, db *sql.DB, limit int) []byte {
 	log.Println(Info("Followed users: ", string(json)))
 
 	return json
+
+}
+
+func FetchFollowedIds(username string, db *sql.DB) map[int]bool {
+
+	var followid int
+
+	r, e := db.Query("SELECT followid FROM follow WHERE userid=(SELECT id FROM users WHERE username=$1) ORDER BY date;",
+		username)
+
+	if e != nil {
+		return nil
+	}
+
+	idMap := make(map[int]bool)
+
+	for r.Next() {
+		_ = r.Scan(&followid)
+
+		idMap[followid] = true
+	}
+	return idMap
 
 }
 

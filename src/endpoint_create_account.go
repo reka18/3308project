@@ -11,17 +11,18 @@ import (
 
 func createUserAccountGET(w http.ResponseWriter, r *http.Request) {
 
-	CookieDebugger(r, "CREATE ACCOUNT")
+	CookieDebugger(r, "CREATE ACCOUNT (GET)")
 
+	w.WriteHeader(http.StatusOK)
 	t := template.Must(template.ParseFiles("web/create_account.html"))
 	_ = t.Execute(w, "")
 
 }
 
 func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
-	/*
-	THIS CREATES A NEW USER IN THE DATABASE
-	 */
+
+	CookieDebugger(r, "CREATE ACCOUNT (POST)")
+
 	_ = r.ParseForm()
 
 	var (
@@ -38,7 +39,7 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 	if password != confirmPassword {
 		log.Println(Warn("Passwords do not match."))
 		t := template.Must(template.ParseFiles("web/create_account.html"))
-		_ = t.Execute(w, "Passwords do not match.")
+		_ = t.Execute(w, "Passwords do not match")
 	} else {
 		db, _ := Database(DBNAME)
 		defer db.Close()
@@ -48,7 +49,16 @@ func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
 			log.Printf(Warn("User creation failed."))
 			log.Println(Warn(e))
 			t := template.Must(template.ParseFiles("web/create_account.html"))
-			_ = t.Execute(w, "Please fill out all fields")
+
+			err := e.Error()
+
+			if err == "pq: duplicate key value violates unique constraint \"users_username_key\"" {
+				_ = t.Execute(w, "Username already exists")
+			} else if err == "pq: duplicate key value violates unique constraint \"users_email_key\"" {
+				_ = t.Execute(w, "Email already exists")
+			} else {
+				_ = t.Execute(w, "Please fill out all fields")
+			}
 		} else {
 			t := template.Must(template.ParseFiles("web/account_created.html"))
 			_ = t.Execute(w, "")

@@ -1,60 +1,68 @@
-function reactToPost()
+function reactToPost(reaction)
 {
+    console.log("reacting to post");
+    console.log(reaction);
+    const reactionURL =  getUsername() + "/vote";
+    console.log(reactionURL);
+    const upId = 'upvote-' + reaction.split('-')[1];
+    const downId = 'downvote-' + reaction.split('-')[1];
+
+    console.log(upId);
+    console.log(downId);
+
     $.ajax(
         {
-            type:'POST',
-            url: "some/endpoint",
+            type:'GET',
+            url:reactionURL,
             success: function(responseData, status, responseObject)
             {
-                //perform some action on success
+                if(responseData)
+                {
+                    const jsonData = JSON.parse(responseData);
+                    document.getElementById(upId).innerHTML = jsonData['UpVotes'];
+                    document.getElementById(downId).innerHTML = jsonData['DownVotes'];
+
+                }
             },
-            dataType: 'json',
-            data: {/*data that we will be passing to the end point*/},
-            cache: false
+            data: {"cast": reaction},
+            cache: false,
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(JSON.stringify((xhr)));
+            }
         });
 }
 
 function newPost()
 {
-        console.log("new post fired");
+    const postURL = getUsername()+ "/post";
+    const postData = document.getElementById('postText').value;
+    document.getElementById("postText").innerText="";
 
-        let windowURL = window.location.href;
-        let splitArray = windowURL.split("/");
-        const username = splitArray[3];
-        const postURL = username + "/post";
+    if(postData === "")
+    {
+        alert("Enter some text to post!");
+        return;
+    }
 
-        const postData = document.getElementById('postText').value;
-        document.getElementById("postText").innerText="";
-
-        if(postData === "")
+    $.ajax({
+        type:'POST',
+        url: postURL,
+        success: function(responseData, status, responseObject)
         {
-            alert("Enter some text to post!");
-            return;
-        }
-
-        $.ajax({
-                    type:'POST',
-                    //TODO grab un from url onload and save for crud operations
-                    url: postURL,
-                    success: function(responseData, status, responseObject)
-                    {
-                            $('.modal').click();
-                            getPosts().then(function (results)
-                            {
-                                updatePosts(results);
-                            });
-
-                    },
-                    data: {"Content-Type": "text/html; charset=utf-8", "content": postData},
-                    dataType: 'html',
-                    cache: false,
-                    error: function (xhr, ajaxOptions, thrownError) {
-                            alert(xhr.status);
-                            alert(thrownError);
-                            alert(ajaxOptions);
-                            $('.modal').click()
-                    }
+            $('.modal').click();
+            getPosts().then(function (results)
+            {
+                updatePosts(results);
             });
+
+        },
+        data: {"Content-Type": "text/html; charset=utf-8", "content": postData},
+        dataType: 'html',
+        cache: false,
+        error: function (xhr, ajaxOptions, thrownError) {
+            $('.modal').click()
+        }
+    });
 }
 
 async function getPosts()
@@ -64,10 +72,10 @@ async function getPosts()
     const username = getUsername();
     const postURL = username + "/post";
 
-    const [result] = await Promise.all([$.ajax(
+    let result;
+    result = await $.ajax(
         {
             type: 'GET',
-            //TODO grab un from url onload and save for crud operations
             url: postURL,
             success: function (responseData, status, responseObject) {
                 console.log("Post data successfully retrieved");
@@ -78,20 +86,35 @@ async function getPosts()
             dataType: 'json',
             data: {"limit": "500"},
             cache: false,
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                if (!thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                    alert(ajaxOptions);
-                }
-            }
-        })]);
+        });
 
     return result;
 }
 
+async function getThisUser()
+{
+    console.log("get post fired");
 
+    const postURL = "/user";
+
+    let result;
+    result = await $.ajax(
+        {
+            type: 'GET',
+            url: postURL,
+            success: function (responseData, status, responseObject) {
+                console.log("User data successfully retrieved");
+                console.log("User data length: " + responseData.length);
+                console.log("User Data : " + JSON.stringify(responseData));
+                return JSON.stringify(responseData);
+            },
+            dataType: 'json',
+            data: {"user": getUsername()},
+            cache: false,
+        });
+
+    return result;
+}
 
 
 function userSearch()
@@ -110,12 +133,50 @@ function userSearch()
             url: searchURL,
             success: function(responseData, status, responseObject)
             {
-                console.log("Search: " + JSON.stringify(responseData));
+                if(!responseData)
+                {
+                    return;
+                }
+                showUserSearchResults(responseData);
             },
             data:{"terms":searchTerms},
-            dataType: 'json',
-            cache: false
+            cache: false,
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(JSON.stringify((xhr)));
+
+            }
         });
+}
+
+
+function followUser(userName)
+{
+
+    const followURL = getUsername() + "/follow";
+
+    console.log(userName);
+
+    $.ajax(
+        {
+            type:'GET',
+            url: followURL,
+            success: function(responseData, status, responseObject)
+            {
+                if(!responseData)
+                {
+                    return;
+                }
+                let cardId = '#' + userName + 'card';
+                $(cardId).remove();
+            },
+            data:{"user":userName},
+            cache: false,
+            error: function (xhr, ajaxOptions, thrownError)
+            {
+                console.log(JSON.stringify((xhr)));
+            }
+        });
+
 }
 
 
@@ -124,5 +185,13 @@ function getUsername()
     let windowURL = window.location.href;
     let splitArray = windowURL.split("/");
     return splitArray[3]
+}
 
+
+
+function getBaseUrl()
+{
+    let getUrl = window.location;
+    let baseUrl = getUrl .protocol + "//" + getUrl.host + "/";
+    return baseUrl;
 }

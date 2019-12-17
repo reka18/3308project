@@ -42,6 +42,9 @@ func AddCookie(w http.ResponseWriter, username string) {
 	}
 	http.SetCookie(w, &cookie)
 
+	redisConn := pool.Get()
+	defer redisConn.Close()
+
 	_, e := redisConn.Do("SET", username, fmt.Sprintf(secret))
 	if e != nil {
 		log.Printf(Fail("Redis failed to set %s cookie."), username)
@@ -57,6 +60,9 @@ func AddCookie(w http.ResponseWriter, username string) {
 
 func DeleteCookie(username string) {
 
+	redisConn := pool.Get()
+	defer redisConn.Close()
+
 	_, e := redisConn.Do("DEL", username)
 	if e != nil {
 		log.Printf(Warn("Redis failed to delete %s cookie."), username)
@@ -66,9 +72,10 @@ func DeleteCookie(username string) {
 }
 
 func RefreshCookie(username string) {
-	/*
-	THIS REFRESHES THE EXPIRATION OF THE COOKIE ON REDIS
-	 */
+
+	redisConn := pool.Get()
+	defer redisConn.Close()
+
 	_, e := redisConn.Do("EXPIRE", username, 300)
 	if e != nil {
 		log.Printf(Warn("Redis failed to refresh %s cookie for."), username)
@@ -93,6 +100,9 @@ func CompareTokens(w http.ResponseWriter, r *http.Request) (string, bool) {
 
 	username := values[0]
 	cookieSecret := values[1]
+
+	redisConn := pool.Get()
+	defer redisConn.Close()
 
 	/* result is an interface so we can't caste it */
 	result, e := redisConn.Do("GET", username)

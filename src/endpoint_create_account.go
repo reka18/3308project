@@ -11,7 +11,7 @@ import (
 
 func createUserAccountGET(w http.ResponseWriter, r *http.Request) {
 
-	CookieDebugger(r, "CREATE ACCOUNT")
+	CookieDebugger(r, "CREATE ACCOUNT (GET)")
 
 	w.WriteHeader(http.StatusOK)
 	t := template.Must(template.ParseFiles("web/create_account.html"))
@@ -20,9 +20,9 @@ func createUserAccountGET(w http.ResponseWriter, r *http.Request) {
 }
 
 func createUserAccountPOST(w http.ResponseWriter, r *http.Request) {
-	/*
-	THIS CREATES A NEW USER IN THE DATABASE
-	 */
+
+	CookieDebugger(r, "CREATE ACCOUNT (POST)")
+
 	_ = r.ParseForm()
 
 	var (

@@ -31,7 +31,7 @@ $( window ).on("load", async function()
 
 });
 
-$( window ).on("load", async function()
+async function loadUserData()
 {
 
     getThisUser().then(function (userData)
@@ -42,21 +42,22 @@ $( window ).on("load", async function()
             return;
         }
 
-        if(userData.length)
-        {
-            const myInfoView = new UserData(userData);
-
-            document.getElementById('myInfo').innerHTML = myInfoView;
-        }
-
-        else
-        {}
+        let data = new UserData(userData);
+        document.getElementById('userNameId').innerHTML = data.getUsername();
+        document.getElementById('ageId').innerHTML = data.getId();
+        document.getElementById('firstNameId').innerHTML = data.getFirstname();
+        document.getElementById('lastNameId').innerHTML = data.getLastname();
+        document.getElementById('emailId').innerHTML = data.getEmail();
+        document.getElementById('isPublicId').innerHTML = data.getIsPublic();
+        document.getElementById('friendlyDateId').innerHTML = data.getFriendlyJoinDate();
+        document.getElementById('isActiveId').innerHTML = data.getIsActive();
+        document.getElementById('genderId').innerHTML = data.getGender();
 
 
     });
 
 
-});
+}
 
 
 function updatePosts(postsData)

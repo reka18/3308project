@@ -95,8 +95,7 @@ async function getThisUser()
 {
     console.log("get post fired");
 
-    const username = getUsername();
-    const postURL = username + "/post";
+    const postURL = "/user";
 
     let result;
     result = await $.ajax(
@@ -104,13 +103,13 @@ async function getThisUser()
             type: 'GET',
             url: postURL,
             success: function (responseData, status, responseObject) {
-                console.log("Post data successfully retrieved");
-                console.log("Post data length: " + responseData.length);
-                console.log("Post Data : " + responseData);
-                return responseData.reverse()
+                console.log("User data successfully retrieved");
+                console.log("User data length: " + responseData.length);
+                console.log("User Data : " + JSON.stringify(responseData));
+                return JSON.stringify(responseData);
             },
             dataType: 'json',
-            data: {"limit": "500"},
+            data: {"user": getUsername()},
             cache: false,
         });
 

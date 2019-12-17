@@ -55,7 +55,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><button type="button" class="navbar-brand nav-link" data-toggle="modal" data-target="#infoModal">My Info</button></li>
+            <li class="nav-item"><button type="button" class="navbar-brand nav-link" data-toggle="modal" data-target="#infoModal" onclick="loadUserData()">My Info</button></li>
             <li class="nav-item"><button type="button" style="display:inline-block !important;" class="nav-link" onclick="userLogout()">Logout</button></li>
         </ul>
     </div>
@@ -76,15 +76,30 @@
                         <button type="button" class="nav-item btn btn-dark w-full" data-toggle="modal" onclick="$('.modal').modal('click');" data-target="#avatarModal" style="margin-top: 10px;">
                             <span style="font-size: 10px; color: #ffffff;">CHANGE AVATAR</span>
                         </button>
-                        <h5 id="userNameId" style="font-weight: bold; margin-top: 10px;">Username: <span style="font-weight: normal"></span></h5>
-                        <h5 id="ageId" style="font-weight: bold; margin-top: 10px;">Age: <span style="font-weight: normal"></span></h5>
-                        <h5 id="firstNameId" style="font-weight: bold">Firstname: <span style="font-weight: normal"></span></h5>
-                        <h5 id="lastNameId" style="font-weight: bold">Lastname: <span style="font-weight: normal"></span></h5>
-                        <h5 id="emailId" style="font-weight: bold">Email: <span style="font-weight: normal"></span></h5>
-                        <h5 id="isPublicId" style="font-weight: bold">Public: <span style="font-weight: normal"></span></h5>
-                        <h5 id="friendlyDateId" style="font-weight: bold">Friendly Join Date: <span style="font-weight: normal"></span></h5>
-                        <h5 id="isActiveId" style="font-weight: bold">Active: <span style="font-weight: normal"></span></h5>
-                        <h5 id="genderId" style="font-weight: bold">Gender: <span style="font-weight: normal"></span></h5>
+                        <span id="userNameId" style="font-weight: bold; margin-top: 10px;"></span>
+                        <div style="display: flex">
+                            <div style="display: inline-block">
+                                <h5>Age:</h5>
+                                <h5>Firstname:</h5>
+                                <h5>Lastname:</h5>
+                                <h5>Email:</h5>
+                                <h5>Public:</h5>
+                                <h5>Join Date:</h5>
+                                <h5>Active:</h5>
+                                <h5>Gender:</h5>
+                            </div>
+
+                            <div style="display: inline-block">
+                                <span id="ageId" style="font-weight: bold; margin-top: 10px;"></span>
+                                <span id="firstNameId" style="font-weight: bold"></span>
+                                <span id="lastNameId" style="font-weight: bold"></span>
+                                <span id="emailId" style="font-weight: bold"></span>
+                                <span id="isPublicId" style="font-weight: bold"></span>
+                                <span id="friendlyDateId" style="font-weight: bold"></span>
+                                <span id="isActiveId" style="font-weight: bold"></span>
+                                <span id="genderId" style="font-weight: bold"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

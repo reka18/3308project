@@ -43,10 +43,10 @@ func main() {
 		WriteTimeout:	5 * time.Second,
 	}
 
-	OpenRedisConnection()
+	StartRedisPool()
 	server := Start(serverConfig)
 	defer server.Stop()
-	defer CloseRedisConnection()
+	defer StopRedisPool()
 
 	channel := make(chan os.Signal, 1)
 	signal.Notify(channel, os.Interrupt)

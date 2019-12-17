@@ -4,6 +4,11 @@ function reactToPost(reaction)
     console.log(reaction);
     const reactionURL =  getUsername() + "/vote";
     console.log(reactionURL);
+    const upId = 'upvote-' + reaction.split('-')[1];
+    const downId = 'downvote-' + reaction.split('-')[1];
+
+    console.log(upId);
+    console.log(downId);
 
     $.ajax(
         {
@@ -11,18 +16,18 @@ function reactToPost(reaction)
             url:reactionURL,
             success: function(responseData, status, responseObject)
             {
-                console.log("Success");
-                console.log(responseData);
-                console.log(status);
-                console.log(responseObject);
+                if(responseData)
+                {
+                    const jsonData = JSON.parse(responseData);
+                    document.getElementById(upId).innerHTML = jsonData['UpVotes'];
+                    document.getElementById(downId).innerHTML = jsonData['DownVotes'];
+
+                }
             },
             data: {"cast": reaction},
             cache: false,
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(JSON.stringify((xhr)));
-                alert(xhr);
-                alert(thrownError);
-                alert(ajaxOptions);
             }
         });
 }
@@ -55,9 +60,6 @@ function newPost()
         dataType: 'html',
         cache: false,
         error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-            alert(ajaxOptions);
             $('.modal').click()
         }
     });
@@ -89,7 +91,30 @@ async function getPosts()
     return result;
 }
 
+async function getThisUser()
+{
+    console.log("get post fired");
 
+    const postURL = "/user";
+
+    let result;
+    result = await $.ajax(
+        {
+            type: 'GET',
+            url: postURL,
+            success: function (responseData, status, responseObject) {
+                console.log("User data successfully retrieved");
+                console.log("User data length: " + responseData.length);
+                console.log("User Data : " + JSON.stringify(responseData));
+                return JSON.stringify(responseData);
+            },
+            dataType: 'json',
+            data: {"user": getUsername()},
+            cache: false,
+        });
+
+    return result;
+}
 
 
 function userSearch()
@@ -118,12 +143,8 @@ function userSearch()
             cache: false,
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(JSON.stringify((xhr)));
-                alert(xhr);
-                alert(thrownError);
-                alert(ajaxOptions);
+
             }
-
-
         });
 }
 
@@ -145,16 +166,14 @@ function followUser(userName)
                 {
                     return;
                 }
-                $('#followButton').remove()
+                let cardId = '#' + userName + 'card';
+                $(cardId).remove();
             },
             data:{"user":userName},
             cache: false,
             error: function (xhr, ajaxOptions, thrownError)
             {
                 console.log(JSON.stringify((xhr)));
-                alert(xhr);
-                alert(thrownError);
-                alert(ajaxOptions);
             }
         });
 
@@ -166,8 +185,9 @@ function getUsername()
     let windowURL = window.location.href;
     let splitArray = windowURL.split("/");
     return splitArray[3]
-
 }
+
+
 
 function getBaseUrl()
 {

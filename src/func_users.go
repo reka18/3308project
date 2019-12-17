@@ -64,3 +64,14 @@ func GetUserByNameJson(username string, db *sql.DB) []byte {
 	return js
 
 }
+
+func GetUserId(username string, db *sql.DB) int {
+
+	var id int
+	e := db.QueryRow("SELECT id FROM users WHERE username=$1;", username).Scan(&id)
+	if e != nil {
+		log.Println(Warn("Error making user query."))
+	}
+	return id
+
+}

@@ -1,3 +1,4 @@
+
 $( window ).on("load", async function()
 {
 
@@ -29,6 +30,34 @@ $( window ).on("load", async function()
 
 
 });
+
+async function loadUserData()
+{
+
+    getThisUser().then(function (userData)
+    {
+
+        if(!userData)
+        {
+            return;
+        }
+
+        let data = new UserData(userData);
+        document.getElementById('userNameId').innerHTML = data.getUsername();
+        document.getElementById('ageId').innerHTML = data.getAge();
+        document.getElementById('firstNameId').innerHTML = data.getFirstname();
+        document.getElementById('lastNameId').innerHTML = data.getLastname();
+        document.getElementById('emailId').innerHTML = data.getEmail();
+        document.getElementById('isPublicId').innerHTML = data.getIsPublic();
+        document.getElementById('friendlyDateId').innerHTML = data.getFriendlyJoinDate();
+        document.getElementById('isActiveId').innerHTML = data.getIsActive();
+        document.getElementById('genderId').innerHTML = data.getGender();
+
+
+    });
+
+
+}
 
 
 function updatePosts(postsData)

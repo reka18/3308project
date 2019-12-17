@@ -140,9 +140,7 @@ func Database(dbname string) (*sql.DB, error) {
 	dbInfo := fmt.Sprintf("dbname='%v' sslmode=disable", dbname)
 	db, e := sql.Open("postgres", dbInfo)
 	if e != nil {
-		log.Println(Warn("Database not connected."))
-	} else {
-		log.Println(Detail("Database connected."))
+		log.Println(Fail("Database not connected."))
 	}
 	return db, e
 

@@ -37,4 +37,5 @@ UserPostData = (function UserPostData() //class function aka constructor
 			return  UserPostData
 			
 		})();
+
 //====================================================>// JavaScript Class End

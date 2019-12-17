@@ -91,7 +91,30 @@ async function getPosts()
     return result;
 }
 
+async function getThisUser()
+{
+    console.log("get post fired");
 
+    const postURL = "/user";
+
+    let result;
+    result = await $.ajax(
+        {
+            type: 'GET',
+            url: postURL,
+            success: function (responseData, status, responseObject) {
+                console.log("User data successfully retrieved");
+                console.log("User data length: " + responseData.length);
+                console.log("User Data : " + JSON.stringify(responseData));
+                return JSON.stringify(responseData);
+            },
+            dataType: 'json',
+            data: {"user": getUsername()},
+            cache: false,
+        });
+
+    return result;
+}
 
 
 function userSearch()
@@ -162,8 +185,9 @@ function getUsername()
     let windowURL = window.location.href;
     let splitArray = windowURL.split("/");
     return splitArray[3]
-
 }
+
+
 
 function getBaseUrl()
 {

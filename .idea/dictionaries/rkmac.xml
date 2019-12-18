@@ -8,7 +8,11 @@
       <w>downvotes</w>
       <w>firstname</w>
       <w>followid</w>
+      <w>friendlydate</w>
+      <w>friendlyjoindate</w>
       <w>hashpw</w>
+      <w>isactive</w>
+      <w>ispublic</w>
       <w>joindate</w>
       <w>lastname</w>
       <w>linearicons</w>

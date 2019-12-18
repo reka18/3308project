@@ -81,6 +81,7 @@ function otherUserSettings()
 
     document.getElementById('modalDims').style.width = "350px";
     document.getElementById('changeAvatarButton').style.visibility = "hidden";
+    document.getElementById('changeAvatarButton').disabled = true;
 
 }
 
@@ -90,6 +91,7 @@ function myUserSettings()
     document.getElementById('modalDims').style.width = "500px";
     document.getElementById('myInfoAvatar').className = 'w-100';
     document.getElementById('changeAvatarButton').style.visibility = "visible";
+    document.getElementById('changeAvatarButton').disabled = false;
 
 }
 

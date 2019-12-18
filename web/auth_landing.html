@@ -104,7 +104,7 @@
                                 <h5 class="myinfo"><span id="ageId" style=""></span></h5>
                             </div>
                         </div>
-                        <button id="unfollowUser" type="button" class="nav-item btn-sm btn-danger w-full" onclick="unFollowUser(document.getElementById('userNameId').innerHTML)">
+                        <button id="unfollowUser" type="button" class="nav-item btn-sm btn-danger w-full" onclick="unFollowUser(document.getElementById('userNameId').innerHTML); $('#infoModal').modal('hide').data('bs.modal', null);">
                             <span style="font-size: 10px; color: #ffffff;">UNFOLLOW</span>
                         </button>
                     </div>

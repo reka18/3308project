@@ -22,6 +22,17 @@ $( window ).on("load", async function()
         else
         {}
     });
+
+
+
+    const node = document.getElementById('userSearchBar');
+
+
+    node.addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            userSearch()
+        }
+    });
 });
 
 function refreshPosts()
@@ -116,6 +127,8 @@ function userLogout()
 {
     window.location.href = "logout";
 }
+
+
 
 function showUserSearchResults(searchResults)
 {

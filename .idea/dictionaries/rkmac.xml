@@ -5,21 +5,35 @@
       <w>bytea</w>
       <w>countdowntime</w>
       <w>daterangepicker</w>
+      <w>downvote</w>
       <w>downvotes</w>
       <w>firstname</w>
       <w>followid</w>
+      <w>friendlydate</w>
+      <w>friendlyjoindate</w>
       <w>hashpw</w>
+      <w>isactive</w>
+      <w>ispublic</w>
       <w>joindate</w>
       <w>lastname</w>
+      <w>linearicons</w>
+      <w>myinfo</w>
+      <w>navbar</w>
       <w>pagelimit</w>
       <w>pagename</w>
       <w>postid</w>
+      <w>screeb</w>
+      <w>screebers</w>
       <w>socialimediasite</w>
       <w>socialmediasite</w>
       <w>targetid</w>
       <w>targetname</w>
+      <w>toggler</w>
       <w>toname</w>
       <w>uname</w>
+      <w>unfollow</w>
+      <w>unfollowed</w>
+      <w>upvote</w>
       <w>upvotes</w>
       <w>userid</w>
       <w>useridstring</w>

@@ -14,13 +14,13 @@ function search_results_card_generator(userObject)
 	<div class="card text-white bg-dark mb-3 card-plus"> <!--column flex-->
 		<div class="search-results-card-layout-container"> <!-- row flex -->
 			<div class="search-results-image-containers">
-				<img class="search-results-user-image" src="avatar?user=${userName}"/>
+				<img class="search-results-user-image" src="avatar?user=${userName}" alt=""/>
 			</div>
 			<div class="search-results-user-details-container">
 				<div>
 					<h5 class="card-title card-title-plus">${userName}</h5>
 					<button style="margin-left: 350px;">
-						<img src="images/follow-opt-w-512.png" id="${userName}card" class="search-results-follow-icon followMe" onclick="followUser('${userName}');" alt=""/>
+						<img src="images/follow-opt-w-512.png" id="${userName}card" class="search-results-follow-icon followMe rotate-" onclick="followUser('${userName}');" alt=""/>
 					</button>
 			
 				</div>

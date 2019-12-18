@@ -2,16 +2,16 @@
 .post-layout-box
 {
     margin: 0 auto;
-    background-color:#BBB;
-    height:213px;
-    width:785px; /*(viewport - 10) - 15*/
-    padding:2px;
+    background-color: #BBB;
+    height: 213px;
+    width: 785px; /*(viewport - 10) - 15*/
+    padding: 2px;
     border-left: 1px black solid;
     border-top: 1px black solid;
     border-right: 1px black solid;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
-    display:block;
+    display: block;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;         /* Opera/IE 8+ */
@@ -22,10 +22,10 @@
 .user-profile-icon-container
 {
     background-color:#BBB;
-    height:204px;
-    width:66px;
-    float:left;
-    display:inline-block;
+    height: 204px;
+    width: 66px;
+    float: left;
+    display: inline-block;
     margin: 0 auto;
     padding: 1px;
 
@@ -34,9 +34,9 @@
 
 .user-profile-icon
 {
-    height:64px;
-    width:64px;
-    padding:1px;
+    height: 64px;
+    width: 64px;
+    padding: 1px;
 }
 
 
@@ -46,9 +46,9 @@
     background-color: rgba(255,255,255,1);
     background-color: #BBB;
     height: 205px; /*220px-15px */
-    width:705px;
-    margin-left:0px;
-    display:inline-block;
+    width: 705px;
+    margin-left: 0;
+    display: inline-block;
 
 
 }
@@ -58,17 +58,17 @@
 .user-name-container
 {
     background-color: #BBB;
-    display:block;
-    padding:0px;
+    display: block;
+    padding: 0;
     height: 20px;
 }
 
 .user-name
 {
     background-color: #BBB;
-    font-weight:bold;
+    font-weight: bold;
     font-size: 20px;
-    float:left;
+    float: left;
     margin: 0 auto;
 
 }
@@ -79,7 +79,7 @@
     font-size: 12px;
     float:right;
     margin: 0 auto;
-    margin-top:16px;
+    margin-top: 16px;
 
 }
 

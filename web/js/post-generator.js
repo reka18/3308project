@@ -9,7 +9,7 @@ function generate_post_card(postObject)
 	return `
 	<div class="post-layout-box-2 animated zoomInUp delay-1s">
 		<div class="user-profile-icon-container-2">
-			<img class="user-profile-icon-2 w-75 h-25" src="avatar?user=${postObject.getUserName()}" style="margin:10%;" alt=""/>
+			<img class="user-profile-icon-2 w-75 h-25" src="avatar?user=${postObject.getUserName()}" style="margin:10%;" alt="" data-toggle="modal" data-target="#infoModal" onclick="loadUserData('${postObject.getUserName()}'); otherUserSettings()"/>
 		</div>
 		<div class="spectra-file-attribute-layout-box-2">
 			<div class="user-name-container-2" style="margin-top:5px">

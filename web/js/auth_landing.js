@@ -26,10 +26,9 @@ $( window ).on("load", async function()
 
 function refreshPosts()
 {
-
     getPosts().then(function (postData)
     {
-        let cardViews = document.getElementById('grid').innerHTML;
+        let cardViews = document.getElementById('grid').innerHTML = '';
         if(!postData)
         {
             return;
@@ -50,10 +49,10 @@ function refreshPosts()
 
 }
 
-async function loadUserData()
+async function loadUserData(userName)
 {
 
-    getUser().then(function (userData)
+    getUser(userName).then(function (userData)
     {
 
         if(!userData)
@@ -71,10 +70,26 @@ async function loadUserData()
         document.getElementById('friendlyDateId').innerHTML = data.getFriendlyJoinDate();
         document.getElementById('isActiveId').innerHTML = data.getIsActive();
         document.getElementById('genderId').innerHTML = data.getGender();
-
-
+        document.getElementById('myInfoAvatar').src = 'avatar?user=' + data.getUsername();
     });
 
+
+}
+
+function otherUserSettings()
+{
+
+    document.getElementById('modalDims').style.width = "350px";
+    document.getElementById('changeAvatarButton').style.visibility = "hidden";
+
+}
+
+function myUserSettings()
+{
+
+    document.getElementById('modalDims').style.width = "500px";
+    document.getElementById('myInfoAvatar').className = 'w-100';
+    document.getElementById('changeAvatarButton').style.visibility = "visible";
 
 }
 

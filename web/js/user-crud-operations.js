@@ -91,7 +91,7 @@ async function getPosts()
     return result;
 }
 
-async function getUser()
+async function getUser(userName)
 {
     console.log("get post fired");
 
@@ -109,7 +109,7 @@ async function getUser()
                 return JSON.stringify(responseData);
             },
             dataType: 'json',
-            data: {"user": getUsername()},
+            data: {"user": userName},
             cache: false,
         });
 

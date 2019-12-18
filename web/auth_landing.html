@@ -55,7 +55,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><button type="button" class="navbar-brand nav-link" data-toggle="modal" data-target="#infoModal" onclick="loadUserData()">My Info</button></li>
+            <li class="nav-item"><button type="button" class="navbar-brand nav-link" data-toggle="modal" data-target="#infoModal" onclick="loadUserData('{{.}}'); myUserSettings();">My Info</button></li>
             <li class="nav-item"><button type="button" style="display:inline-block !important;" class="nav-link" onclick="userLogout()">Logout</button></li>
         </ul>
     </div>
@@ -67,13 +67,13 @@
     <div class="container-fluid" style="margin-top: 200px;">
         <h1 class="login100-form-title p-b-43">ScreeBit</h1>
 
-        <!-- Modal -->
+        <!-- Modal My Info -->
         <div class="modal fade modal-close" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
+                <div id="modalDims" class="modal-content">
                     <div id="myInfo" class="modal-body">
-                        <img src="avatar?user={{.}}" alt="" class="w-100">
-                        <button type="button" class="nav-item btn btn-dark w-full" data-toggle="modal" onclick="$('.modal').modal('click');" data-target="#avatarModal" style="margin-top: 10px;">
+                        <img id="myInfoAvatar" src="" alt="" class="w-100"> <!-- image src is inject by user object -->
+                        <button id="changeAvatarButton" type="button" class="nav-item btn btn-dark w-full" data-toggle="modal" onclick="$('.modal').modal('click');" data-target="#avatarModal" style="margin-top: 10px;">
                             <span style="font-size: 10px; color: #ffffff;">CHANGE AVATAR</span>
                         </button>
                         <span id="userNameId" style="font-size: 50px; font-weight: bold; margin-top: 10px;"></span>
@@ -91,14 +91,14 @@
                             </div>
 
                             <div style="display: flex; flex-direction: column; margin-left: 10px;">
-                                <h5 class="myinfo"><span id="firstNameId" style="font-weight: bold; margin-top: 10px;"></span></h5>
-                                <h5 class="myinfo"><span id="lastNameId" style="font-weight: bold"></span></h5>
-                                <h5 class="myinfo"><span id="emailId" style="font-weight: bold"></span></h5>
-                                <h5 class="myinfo"><span id="isPublicId" style="font-weight: bold"></span></h5>
-                                <h5 class="myinfo"><span id="friendlyDateId" style="font-weight: bold"></span></h5>
-                                <h5 class="myinfo"><span id="isActiveId" style="font-weight: bold"></span></h5>
-                                <h5 class="myinfo"><span id="genderId" style="font-weight: bold"></span></h5>
-                                <h5 class="myinfo"><span id="ageId" style="font-weight: bold;"></span></h5>
+                                <h5 class="myinfo"><span id="firstNameId" style="margin-top: 10px;"></span></h5>
+                                <h5 class="myinfo"><span id="lastNameId" style=""></span></h5>
+                                <h5 class="myinfo"><span id="emailId" style=""></span></h5>
+                                <h5 class="myinfo"><span id="isPublicId" style=""></span></h5>
+                                <h5 class="myinfo"><span id="friendlyDateId" style=""></span></h5>
+                                <h5 class="myinfo"><span id="isActiveId" style=""></span></h5>
+                                <h5 class="myinfo"><span id="genderId" style=""></span></h5>
+                                <h5 class="myinfo"><span id="ageId" style=""></span></h5>
                             </div>
                         </div>
                     </div>

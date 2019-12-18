@@ -1667,7 +1667,7 @@
 		"sC": 0,
 		"tS": 0
 		},
-	"/web/js/user-posts-data-class.js": {
+	"/web/js/model-post.js": {
 		"bF": 0,
 		"ft": 64,
 		"ma": 0,

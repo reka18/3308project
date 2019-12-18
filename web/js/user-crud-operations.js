@@ -91,7 +91,7 @@ async function getPosts()
     return result;
 }
 
-async function getThisUser()
+async function getUser()
 {
     console.log("get post fired");
 
@@ -168,6 +168,7 @@ function followUser(userName)
                 }
                 let cardId = '#' + userName + 'card';
                 $(cardId).remove();
+                refreshPosts();
             },
             data:{"user":userName},
             cache: false,

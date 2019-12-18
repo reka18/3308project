@@ -25,6 +25,8 @@
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/grid-styling.css">
+    <link rel="stylesheet" type="text/css" href="css/auth-landing.css">
+
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/timeline.css"/>
     <!--===============================================================================================-->
@@ -127,9 +129,9 @@
 
 
         <!-- Search form -->
-        <div style="flex-direction: row; display: flex; justify-content: center; align-items: center; margin-top:10px; margin-bottom:10px;">
-            <input class="form-control" id="userSearchBar" style="width: 500px; margin-top: 10px; margin-bottom: 10px; border-right: none; border-top-right-radius: 0px; border-bottom-right-radius: 0px;" type="text" placeholder="Search" aria-label="Search">
-            <button style=" background-clip: padding-box; border: 1px solid rgba(0,0,0,.15); border-radius: .25rem; transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s; border-top-left-radius:0px; border-bottom-left-radius: 0px; height: 38px;" type="button" class="btn-sm btn-secondary" onclick=userSearch()>Search Screebers</button>
+        <div id="searchUserContainer">
+            <input class="form-control" id="searchUserBar"  type="text" placeholder="Search" aria-label="Search">
+            <button  type="button" class="btn-sm btn-secondary" id="searchUserButton" onclick=userSearch()>Search Screebers</button>
         </div><br>
 
         <!-- Button trigger modal -->

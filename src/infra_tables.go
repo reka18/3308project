@@ -39,7 +39,7 @@ var avatarTable = "CREATE TABLE avatars (" +
 	");"
 
 var followTable = "CREATE TABLE follow (" +
-	"id SERIAL PRIMARY KEY," +
+	"PRIMARY KEY (userid, followid)," + // element id's are never referenced so we can do without ids
 	"userid INT REFERENCES users(id) NOT NULL," +
 	"followid INT REFERENCES users(id) NOT NULL," +
 	"date TIMESTAMP NOT NULL" +

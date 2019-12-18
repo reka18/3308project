@@ -87,3 +87,13 @@ func ParseSearchQuery(r *http.Request) []string {
 	return strings.Split(value, " ")
 
 }
+
+func ParseFollowFlag(r *http.Request) bool {
+
+	_, ok := r.URL.Query()["unfollow"]
+	if !ok {
+		return false
+	}
+	log.Println(Info("Unfollow flag detected."))
+	return true
+}

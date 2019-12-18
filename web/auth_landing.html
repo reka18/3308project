@@ -1,7 +1,8 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html lang="en" class="html">
 <head>
-    <title>ScreeBit</title>
+    <title id="title">ScreeBit :: {{.}}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -34,12 +35,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--===============================================================================================-->
     <script src="vendor/underscore-master/underscore.js"></script>
-    <script src="js/user-posts-data-class.js?v11"></script>
-    <script src="js/user-data-class.js?v11"></script>
-    <script src="js/user-crud-operations.js?v11"></script>
+    <script src="js/model-post.js?v11"></script>
+    <script src="js/model-user.js?v11"></script>
+    <script src="js/crud-operations.js?v11"></script>
     <script src="js/auth_landing.js?v11"></script>
-    <script src="js/user-card-generator.js?v11"></script>
-    <script src="js/search-results-card-generator.js?v11"></script>
+    <script src="js/post-generator.js?v11"></script>
+    <script src="js/search-generator.js?v11"></script>
 
 </head>
 <body class="body">
@@ -55,7 +56,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><button type="button" class="navbar-brand nav-link" data-toggle="modal" data-target="#infoModal" onclick="loadUserData()">My Info</button></li>
+            <li class="nav-item"><button type="button" class="navbar-brand nav-link" data-toggle="modal" data-target="#infoModal" onclick="loadUserData('{{.}}'); loadMySettings();">My Info</button></li>
             <li class="nav-item"><button type="button" style="display:inline-block !important;" class="nav-link" onclick="userLogout()">Logout</button></li>
         </ul>
     </div>
@@ -65,19 +66,19 @@
 
 <div class="limiter" style="overflow: hidden">
     <div class="container-fluid" style="margin-top: 200px;">
-        <h1 class="login100-form-title p-b-43">ScreeBit</h1>
+        <h1 class="login100-form-title p-b-43">ScreeBit Social Media</h1>
 
-        <!-- Modal -->
+        <!-- Modal My Info -->
         <div class="modal fade modal-close" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
+                <div id="modalDims" class="modal-content">
                     <div id="myInfo" class="modal-body">
-                        <img src="avatar?user={{.}}" alt="" class="w-100">
-                        <button type="button" class="nav-item btn btn-dark w-full" data-toggle="modal" onclick="$('.modal').modal('click');" data-target="#avatarModal" style="margin-top: 10px;">
+                        <img id="myInfoAvatar" src="" alt="" class="w-100"> <!-- image src is inject by user object -->
+                        <button id="changeAvatarButton" type="button" class="nav-item btn-sm btn-secondary w-full" data-toggle="modal" onclick="$('.modal').modal('click');" data-target="#avatarModal" style="margin-top: 10px;">
                             <span style="font-size: 10px; color: #ffffff;">CHANGE AVATAR</span>
                         </button>
                         <span id="userNameId" style="font-size: 50px; font-weight: bold; margin-top: 10px;"></span>
-                        <div style="display: flex; margin-top: 10px;">
+                        <div style="display: flex; margin-top: 10px; margin-bottom: 20px;">
 
                             <div style="display: flex; flex-direction: column;" >
                                 <h5 class="myinfo">Firstname:</h5>
@@ -91,23 +92,27 @@
                             </div>
 
                             <div style="display: flex; flex-direction: column; margin-left: 10px;">
-                                <h5 class="myinfo"><span id="firstNameId" style="font-weight: bold; margin-top: 10px;"></span></h5>
-                                <h5 class="myinfo"><span id="lastNameId" style="font-weight: bold"></span></h5>
-                                <h5 class="myinfo"><span id="emailId" style="font-weight: bold"></span></h5>
-                                <h5 class="myinfo"><span id="isPublicId" style="font-weight: bold"></span></h5>
-                                <h5 class="myinfo"><span id="friendlyDateId" style="font-weight: bold"></span></h5>
-                                <h5 class="myinfo"><span id="isActiveId" style="font-weight: bold"></span></h5>
-                                <h5 class="myinfo"><span id="genderId" style="font-weight: bold"></span></h5>
-                                <h5 class="myinfo"><span id="ageId" style="font-weight: bold;"></span></h5>
+                                <h5 class="myinfo"><span id="firstNameId" style="margin-top: 10px;"></span></h5>
+                                <h5 class="myinfo"><span id="lastNameId" style=""></span></h5>
+                                <h5 class="myinfo"><span id="emailId" style=""></span></h5>
+                                <h5 class="myinfo"><span id="isPublicId" style=""></span></h5>
+                                <h5 class="myinfo"><span id="friendlyDateId" style=""></span></h5>
+                                <h5 class="myinfo"><span id="isActiveId" style=""></span></h5>
+                                <h5 class="myinfo"><span id="genderId" style=""></span></h5>
+                                <h5 class="myinfo"><span id="ageId" style=""></span></h5>
                             </div>
                         </div>
+                        <button id="unfollowUser" type="button" class="nav-item btn-sm btn-danger w-full" onclick="unFollowUser(document.getElementById('userNameId').innerHTML)">
+                            <span style="font-size: 10px; color: #ffffff;">UNFOLLOW</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="margin-top: 660px;" onfocus="$('#infoModal').modal('hide').data('bs.modal', null);">
+        <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
+             style="margin-top: 50px;" onfocus="$('#infoModal').modal('hide').data('bs.modal', null);">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -123,13 +128,14 @@
 
         <!-- Search form -->
         <div style="flex-direction: column; display: flex; justify-content: center; align-items: center; margin-top:10px; margin-bottom:10px;">
-            <input class="form-control" id="userSearchBar" style="width: 500px; margin-top: 10px; margin-bottom: 10px;" type="text" placeholder="Search" aria-label="Search"><button type="button" class="btn btn-secondary" onclick=userSearch()>User Search</button>
+            <input class="form-control" id="userSearchBar" style="width: 500px; margin-top: 10px; margin-bottom: 10px;" type="text" placeholder="Search" aria-label="Search">
+            <button type="button" class="btn-sm btn-secondary" onclick=userSearch()>Search Screebers</button>
         </div><br>
 
         <!-- Button trigger modal -->
         <div class="container-login100-form-btn" style="margin: 0 auto; width: 600px; margin-bottom: 10px;">
             <button type="button" class="login100-form-btn-solo w-75"  style="background-color: forestgreen;" data-toggle="modal" data-target="#exampleModalCenter" onclick= getTime()>
-                NEW POST
+                NEW SCREEB
             </button>
         </div>
 
@@ -155,7 +161,7 @@
                         <textarea id="postText" style="resize:none; width: 100%" rows="5" maxlength="240" name="post-content" placeholder="Start your post here..."></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onclick="newPost(); $('#postText').val('');">Post Message</button>
+                        <button type="button" class="btn btn-primary" onclick="newPost(); $('#postText').val('');">Screeb It!</button>
                     </div>
                 </div>
             </div>
@@ -171,8 +177,6 @@
 
     </div>
 </div>
-
-</body>
 
 <!--===============================================================================================-->
 <script src="vendor/animsition/js/animsition.min.js"></script>
@@ -190,17 +194,6 @@
 <script src="js/main.js"></script>
 <!--===============================================================================================-->
 <script src="https://rawgit.com/moment/moment/2.24.0/min/moment.min.js"></script>
-
-
-
-
-
-
-
-
-
-
-
 
 
 </body>

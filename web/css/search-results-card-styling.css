@@ -37,14 +37,13 @@
 
 .card-title-plus
 {
-    margin-top: 5px;
     margin: 0 auto;
+    margin-top: 5px;
     display: inline-block;
 }
 
 .search-results-follow-icon
 {
-    display: block;
     height:32px;
     width:32px;
     padding:1px;
@@ -53,8 +52,15 @@
     margin-right:10px;
 }
 
-search-results-follow-icon:hover
-{}
+.search-results-follow-icon:hover
+{
+    height:32px;
+    width:32px;
+    background-color:transparent;
+    display:inline-block;
+    -webkit-animation:rotate-scale-up 0.65s linear both;
+    animation:rotate-scale-up 0.65s linear both;
+}
 
 .search-results-user-information-container
 {

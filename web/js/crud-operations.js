@@ -14,7 +14,7 @@ function reactToPost(reaction)
         {
             type:'GET',
             url:reactionURL,
-            success: function(responseData, status, responseObject)
+            success: function(responseData)
             {
                 if(responseData)
                 {
@@ -26,7 +26,7 @@ function reactToPost(reaction)
             },
             data: {"cast": reaction},
             cache: false,
-            error: function (xhr, ajaxOptions, thrownError) {
+            error: function (xhr) {
                 console.log(JSON.stringify((xhr)));
             }
         });
@@ -47,7 +47,7 @@ function newPost()
     $.ajax({
         type:'POST',
         url: postURL,
-        success: function(responseData, status, responseObject)
+        success: function()
         {
             $('.modal').click();
             getPosts().then(function (results)
@@ -59,7 +59,7 @@ function newPost()
         data: {"Content-Type": "text/html; charset=utf-8", "content": postData},
         dataType: 'html',
         cache: false,
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function () {
             $('.modal').click()
         }
     });
@@ -77,7 +77,7 @@ async function getPosts()
         {
             type: 'GET',
             url: postURL,
-            success: function (responseData, status, responseObject) {
+            success: function (responseData) {
                 console.log("Post data successfully retrieved");
                 console.log("Post data length: " + responseData.length);
                 console.log("Post Data : " + responseData);
@@ -91,7 +91,7 @@ async function getPosts()
     return result;
 }
 
-async function getThisUser()
+async function getUser(userName)
 {
     console.log("get post fired");
 
@@ -102,14 +102,14 @@ async function getThisUser()
         {
             type: 'GET',
             url: postURL,
-            success: function (responseData, status, responseObject) {
+            success: function (responseData) {
                 console.log("User data successfully retrieved");
                 console.log("User data length: " + responseData.length);
                 console.log("User Data : " + JSON.stringify(responseData));
                 return JSON.stringify(responseData);
             },
             dataType: 'json',
-            data: {"user": getUsername()},
+            data: {"user": userName},
             cache: false,
         });
 
@@ -131,7 +131,7 @@ function userSearch()
         {
             type:'GET',
             url: searchURL,
-            success: function(responseData, status, responseObject)
+            success: function(responseData)
             {
                 if(!responseData)
                 {
@@ -141,9 +141,9 @@ function userSearch()
             },
             data:{"terms":searchTerms},
             cache: false,
-            error: function (xhr, ajaxOptions, thrownError) {
+            error: function (xhr)
+            {
                 console.log(JSON.stringify((xhr)));
-
             }
         });
 }
@@ -160,7 +160,7 @@ function followUser(userName)
         {
             type:'GET',
             url: followURL,
-            success: function(responseData, status, responseObject)
+            success: function(responseData)
             {
                 if(!responseData)
                 {
@@ -168,10 +168,42 @@ function followUser(userName)
                 }
                 let cardId = '#' + userName + 'card';
                 $(cardId).remove();
+                refreshPosts();
             },
             data:{"user":userName},
             cache: false,
-            error: function (xhr, ajaxOptions, thrownError)
+            error: function (xhr)
+            {
+                console.log(JSON.stringify((xhr)));
+            }
+        });
+
+}
+
+function unFollowUser(userName)
+{
+
+    const followURL = getUsername() + "/follow";
+
+    console.log(userName);
+
+    $.ajax(
+        {
+            type:'GET',
+            url: followURL,
+            success: function(responseData)
+            {
+                if(!responseData)
+                {
+                    return;
+                }
+                let cardId = '#' + userName + 'card';
+                $(cardId).remove();
+                refreshPosts();
+            },
+            data:{"user":userName, "unfollow": ""},
+            cache: false,
+            error: function (xhr)
             {
                 console.log(JSON.stringify((xhr)));
             }
@@ -185,13 +217,4 @@ function getUsername()
     let windowURL = window.location.href;
     let splitArray = windowURL.split("/");
     return splitArray[3]
-}
-
-
-
-function getBaseUrl()
-{
-    let getUrl = window.location;
-    let baseUrl = getUrl .protocol + "//" + getUrl.host + "/";
-    return baseUrl;
 }

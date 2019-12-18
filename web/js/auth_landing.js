@@ -76,15 +76,19 @@ async function loadUserData(userName)
 
 }
 
-function loadSpecialSettings()
+function loadSpecialSettings(userName)
 {
-
-    document.getElementById('unfollowUser').disabled = false;
-    document.getElementById('unfollowUser').style.visibility = "visible";
-    document.getElementById('modalDims').style.width = "350px";
-    document.getElementById('changeAvatarButton').style.visibility = "hidden";
-    document.getElementById('changeAvatarButton').disabled = true;
-
+    let myUser = document.getElementById('title').innerHTML.split(' :: ')[1];
+    if (userName !== myUser)
+    {
+        document.getElementById('unfollowUser').disabled = false;
+        document.getElementById('unfollowUser').style.visibility = "visible";
+        document.getElementById('modalDims').style.width = "350px";
+        document.getElementById('changeAvatarButton').style.visibility = "hidden";
+        document.getElementById('changeAvatarButton').disabled = true;
+    } else {
+        loadMySettings();
+    }
 }
 
 function loadMySettings()

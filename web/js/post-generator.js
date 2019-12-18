@@ -2,7 +2,7 @@
 var cards_holder=[];
 
 
-function generate_user_card(postObject)
+function generate_post_card(postObject)
 {
 	cards_holder.push(postObject);
 

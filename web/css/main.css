@@ -7,12 +7,12 @@
 
 @font-face {
   font-family: OpenSans-Regular;
-  src: url('../fonts/OpenSans/OpenSans-Regular.ttf'); 
+  src: url('../fonts/OpenSans/OpenSans-Regular.ttf');
 }
 
 @font-face {
   font-family: OpenSans-Bold;
-  src: url('../fonts/OpenSans/OpenSans-Bold.ttf'); 
+  src: url('../fonts/OpenSans/OpenSans-Bold.ttf');
 }
 
 
@@ -22,61 +22,61 @@
 [ RESTYLE TAG ]*/
 
 * {
-	margin: 0px; 
-	padding: 0px; 
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body, html {
-	height: 100%;
-	font-family: OpenSans-Regular, sans-serif;
+  height: 100%;
+  font-family: OpenSans-Regular, sans-serif;
 }
 
 /*---------------------------------------------*/
 a {
-	font-family: OpenSans-Regular;
-	font-size: 14px;
-	line-height: 1.7;
-	color: #666666;
-	margin: 0px;
-	transition: all 0.4s;
-	-webkit-transition: all 0.4s;
+  font-family: OpenSans-Regular, serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #666666;
+  margin: 0;
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
 }
 
 a:focus {
-	outline: none !important;
+  outline: none !important;
 }
 
 a:hover {
-	text-decoration: none;
+  text-decoration: none;
   color: #fff;
 }
 
 /*---------------------------------------------*/
 h1,h2,h3,h4,h5,h6 {
-	margin: 0px;
+  margin: 0;
 }
 
 p {
-	font-family: OpenSans-Regular;
-	font-size: 14px;
-	line-height: 1.7;
-	color: #666666;
-	margin: 0px;
+  font-family: OpenSans-Regular, serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #666666;
+  margin: 0;
 }
 
 ul, li {
-	margin: 0px;
-	list-style-type: none;
+  margin: 0;
+  list-style-type: none;
 }
 
 
 /*---------------------------------------------*/
 input {
-	outline: none;
-	border: none;
+  outline: none;
+  border: none;
 }
 
 textarea {
@@ -116,17 +116,17 @@ label {
 
 /*---------------------------------------------*/
 button {
-	outline: none !important;
-	border: none;
-	background: transparent;
+  outline: none !important;
+  border: none;
+  background: transparent;
 }
 
 button:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 iframe {
-	border: none !important;
+  border: none !important;
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -135,7 +135,7 @@ iframe {
 /*==================================================================
 [ Text ]*/
 .txt1 {
-  font-family: OpenSans-Regular;
+  font-family: OpenSans-Regular, serif;
   font-size: 13px;
   line-height: 1.4;
   color: #cccccc;
@@ -151,7 +151,7 @@ iframe {
 }
 
 .container-login100 {
-  width: 100%;  
+  width: 100%;
   min-height: 100vh;
   display: -webkit-box;
   display: -webkit-flex;
@@ -287,10 +287,10 @@ input.input100 {
 
 select.input100 {
   margin-left: 22px;
-  height:100% !important; 
-  width:80%;
-  border:0px;
-  outline:0px; 
+  height: 100% !important;
+  width: 80%;
+  border: 0;
+  outline: 0;
 }
 
 
@@ -538,7 +538,7 @@ select.input100 {
   }
 
   .wrap-input100.rs2 {
-    border-top-right-radius: 0px;
+    border-top-right-radius: 0;
   }
 
   .wrap-input100.solo {

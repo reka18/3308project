@@ -5,6 +5,7 @@
       <w>bytea</w>
       <w>countdowntime</w>
       <w>daterangepicker</w>
+      <w>downvote</w>
       <w>downvotes</w>
       <w>firstname</w>
       <w>followid</w>
@@ -30,6 +31,7 @@
       <w>toggler</w>
       <w>toname</w>
       <w>uname</w>
+      <w>upvote</w>
       <w>upvotes</w>
       <w>userid</w>
       <w>useridstring</w>

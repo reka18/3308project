@@ -14,7 +14,7 @@ function search_results_card_generator(userObject)
 	<div class="card text-white bg-dark mb-3 card-plus"> <!--column flex-->
 		<div class="search-results-card-layout-container"> <!-- row flex -->
 			<div class="search-results-image-containers">
-				<img class="search-results-user-image" src="avatar?user=${userName}"/>
+				<img class="search-results-user-image" src="avatar?user=${userName}" alt=""/>
 			</div>
 			<div class="search-results-user-details-container">
 				<div>

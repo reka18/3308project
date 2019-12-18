@@ -1,5 +1,5 @@
 
-var cards_holder=[];
+let cards_holder=[];
 
 
 function generate_post_card(postObject)

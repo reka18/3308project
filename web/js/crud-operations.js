@@ -124,7 +124,7 @@ function userSearch()
     let getUrl = window.location;
     let baseUrl = getUrl .protocol + "//" + getUrl.host + "/";
     const searchURL = baseUrl + "search";
-    let searchTerms = document.getElementById('userSearchBar').value;
+    let searchTerms = document.getElementById('searchUserBar').value;
 
     if(!searchTerms) {
         return}

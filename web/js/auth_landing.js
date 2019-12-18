@@ -25,7 +25,7 @@ $( window ).on("load", async function()
 
 
 
-    const node = document.getElementById('userSearchBar');
+    const node = document.getElementById('searchUserBar');
 
 
     node.addEventListener("keyup", function(event) {

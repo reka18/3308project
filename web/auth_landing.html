@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html lang="en" class="html">
 <head>
     <title>ScreeBit</title>
@@ -65,7 +66,7 @@
 
 <div class="limiter" style="overflow: hidden">
     <div class="container-fluid" style="margin-top: 200px;">
-        <h1 class="login100-form-title p-b-43">ScreeBit</h1>
+        <h1 class="login100-form-title p-b-43">ScreeBit Social Media</h1>
 
         <!-- Modal My Info -->
         <div class="modal fade modal-close" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -123,13 +124,14 @@
 
         <!-- Search form -->
         <div style="flex-direction: column; display: flex; justify-content: center; align-items: center; margin-top:10px; margin-bottom:10px;">
-            <input class="form-control" id="userSearchBar" style="width: 500px; margin-top: 10px; margin-bottom: 10px;" type="text" placeholder="Search" aria-label="Search"><button type="button" class="btn btn-secondary" onclick=userSearch()>SEARCH USER</button>
+            <input class="form-control" id="userSearchBar" style="width: 500px; margin-top: 10px; margin-bottom: 10px;" type="text" placeholder="Search" aria-label="Search">
+            <button type="button" class="btn-sm btn-secondary" onclick=userSearch()>Search Screebers</button>
         </div><br>
 
         <!-- Button trigger modal -->
         <div class="container-login100-form-btn" style="margin: 0 auto; width: 600px; margin-bottom: 10px;">
             <button type="button" class="login100-form-btn-solo w-75"  style="background-color: forestgreen;" data-toggle="modal" data-target="#exampleModalCenter" onclick= getTime()>
-                NEW POST
+                NEW SCREEB
             </button>
         </div>
 
@@ -155,7 +157,7 @@
                         <textarea id="postText" style="resize:none; width: 100%" rows="5" maxlength="240" name="post-content" placeholder="Start your post here..."></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onclick="newPost(); $('#postText').val('');">Post Message</button>
+                        <button type="button" class="btn btn-primary" onclick="newPost(); $('#postText').val('');">Screeb It!</button>
                     </div>
                 </div>
             </div>
@@ -171,8 +173,6 @@
 
     </div>
 </div>
-
-</body>
 
 <!--===============================================================================================-->
 <script src="vendor/animsition/js/animsition.min.js"></script>
@@ -190,17 +190,6 @@
 <script src="js/main.js"></script>
 <!--===============================================================================================-->
 <script src="https://rawgit.com/moment/moment/2.24.0/min/moment.min.js"></script>
-
-
-
-
-
-
-
-
-
-
-
 
 
 </body>

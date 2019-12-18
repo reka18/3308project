@@ -141,9 +141,9 @@ function userSearch()
             },
             data:{"terms":searchTerms},
             cache: false,
-            error: function (xhr) {
+            error: function (xhr)
+            {
                 console.log(JSON.stringify((xhr)));
-
             }
         });
 }
@@ -171,6 +171,37 @@ function followUser(userName)
                 refreshPosts();
             },
             data:{"user":userName},
+            cache: false,
+            error: function (xhr)
+            {
+                console.log(JSON.stringify((xhr)));
+            }
+        });
+
+}
+
+function unFollowUser(userName)
+{
+
+    const followURL = getUsername() + "/follow";
+
+    console.log(userName);
+
+    $.ajax(
+        {
+            type:'GET',
+            url: followURL,
+            success: function(responseData)
+            {
+                if(!responseData)
+                {
+                    return;
+                }
+                let cardId = '#' + userName + 'card';
+                $(cardId).remove();
+                refreshPosts();
+            },
+            data:{"user":userName, "unfollow": ""},
             cache: false,
             error: function (xhr)
             {

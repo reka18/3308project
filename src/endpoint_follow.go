@@ -25,11 +25,21 @@ func followGET(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	user := ParseUserQuery(r)
-	if user != "" {
-		e := FollowUser(username, user, db)
-		if e != nil {
-			log.Println(Warn("Unable to follow ", user))
+
+	if "" != user {
+		if ParseFollowFlag(r) {
+			e := UnfollowUser(username, user, db)
+			if e != nil {
+				log.Println(Warn("Unable to unfollow ", user))
+			}
+
+		} else {
+			e := FollowUser(username, user, db)
+			if e != nil {
+				log.Println(Warn("Unable to follow ", user))
+			}
 		}
+
 		w.WriteHeader(http.StatusOK)
 	}
 
@@ -57,8 +67,22 @@ func FollowUser(username string, targetname string, db *sql.DB) error {
 	_, e := db.Exec("INSERT INTO follow (userid, followid, date) VALUES ((SELECT id FROM users WHERE username=$1), (SELECT id FROM users WHERE username=$2), $3);",
 		username, targetname, time.Now())
 	if e != nil {
-		log.Println(Warn("Already followed."))
+		log.Println(Warn(username, " already follows ", targetname))
 	}
+	log.Println(Info(username, " followed ", targetname))
+	return e
+
+}
+
+func UnfollowUser(username string, targetname string, db *sql.DB) error {
+
+	_, e := db.Exec("DELETE FROM follow WHERE userid=(SELECT id FROM users WHERE username=$1) AND followid=(SELECT id FROM users WHERE username=$2);",
+		username, targetname)
+	if e != nil {
+		log.Println(Warn(username, " unable to unfollow ", targetname))
+		log.Println(Warn(e))
+	}
+	log.Println(Info(username, " unfollowed ", targetname))
 	return e
 
 }

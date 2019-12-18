@@ -56,7 +56,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><button type="button" class="navbar-brand nav-link" data-toggle="modal" data-target="#infoModal" onclick="loadUserData('{{.}}'); myUserSettings();">My Info</button></li>
+            <li class="nav-item"><button type="button" class="navbar-brand nav-link" data-toggle="modal" data-target="#infoModal" onclick="loadUserData('{{.}}'); loadMySettings();">My Info</button></li>
             <li class="nav-item"><button type="button" style="display:inline-block !important;" class="nav-link" onclick="userLogout()">Logout</button></li>
         </ul>
     </div>
@@ -74,11 +74,11 @@
                 <div id="modalDims" class="modal-content">
                     <div id="myInfo" class="modal-body">
                         <img id="myInfoAvatar" src="" alt="" class="w-100"> <!-- image src is inject by user object -->
-                        <button id="changeAvatarButton" type="button" class="nav-item btn btn-dark w-full" data-toggle="modal" onclick="$('.modal').modal('click');" data-target="#avatarModal" style="margin-top: 10px;">
+                        <button id="changeAvatarButton" type="button" class="nav-item btn-sm btn-info w-full" data-toggle="modal" onclick="$('.modal').modal('click');" data-target="#avatarModal" style="margin-top: 10px;">
                             <span style="font-size: 10px; color: #ffffff;">CHANGE AVATAR</span>
                         </button>
                         <span id="userNameId" style="font-size: 50px; font-weight: bold; margin-top: 10px;"></span>
-                        <div style="display: flex; margin-top: 10px;">
+                        <div style="display: flex; margin-top: 10px; margin-bottom: 20px;">
 
                             <div style="display: flex; flex-direction: column;" >
                                 <h5 class="myinfo">Firstname:</h5>
@@ -102,13 +102,17 @@
                                 <h5 class="myinfo"><span id="ageId" style=""></span></h5>
                             </div>
                         </div>
+                        <button id="unfollowUser" type="button" class="nav-item btn-sm btn-danger w-full" onclick="unFollowUser(document.getElementById('userNameId').innerHTML)">
+                            <span style="font-size: 10px; color: #ffffff;">UNFOLLOW</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="margin-top: 660px;" onfocus="$('#infoModal').modal('hide').data('bs.modal', null);">
+        <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
+             style="margin-top: 50px;" onfocus="$('#infoModal').modal('hide').data('bs.modal', null);">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body">

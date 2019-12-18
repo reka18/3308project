@@ -11,7 +11,7 @@ function generate_post_card(postObject)
 		<div class="user-profile-icon-container-2">
 			<button>
 				<img class="user-profile-icon-2 w-75 h-25" src="avatar?user=${postObject.getUserName()}" style="margin:10%;" alt="" 
-				data-toggle="modal" data-target="#infoModal" onclick="loadUserData('${postObject.getUserName()}'); otherUserSettings()"/>
+				data-toggle="modal" data-target="#infoModal" onclick="loadUserData('${postObject.getUserName()}'); loadSpecialSettings('${postObject.getUserName()}')"/>
 			</button>
 		</div>
 		<div class="spectra-file-attribute-layout-box-2">

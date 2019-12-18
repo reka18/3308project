@@ -76,7 +76,7 @@ async function loadUserData(userName)
 
 }
 
-function loadSpecialSettings(userName)
+function loadSpecialSettings()
 {
 
     document.getElementById('unfollowUser').disabled = false;

@@ -20,7 +20,7 @@ function search_results_card_generator(userObject)
 				<div>
 					<h5 class="card-title card-title-plus">${userName}</h5>
 					<button style="margin-left: 350px;">
-						<img src="images/follow-opt-w-512.png" id="${userName}card" class="search-results-follow-icon followMe" onclick="followUser('${userName}');" alt=""/>
+						<img src="images/follow-opt-w-512.png" id="${userName}card" class="search-results-follow-icon followMe rotate-" onclick="followUser('${userName}');" alt=""/>
 					</button>
 			
 				</div>

@@ -56,7 +56,7 @@
 {
     height:32px;
     width:32px;
-    background-color:#ffffff;
+    background-color:transparent;
     display:inline-block;
     -webkit-animation:rotate-scale-up 0.65s linear both;
     animation:rotate-scale-up 0.65s linear both;
